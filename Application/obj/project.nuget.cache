@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "s0Wvu5K6j7I=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ronal\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.13\\microsoft.netcore.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\ronal\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.13\\microsoft.windowsdesktop.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\ronal\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.13\\microsoft.aspnetcore.app.ref.8.0.13.nupkg.sha512"
+  ],
+  "logs": []
+}
