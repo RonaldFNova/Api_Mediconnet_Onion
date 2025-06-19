@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Api_Mediconnet.Domain.Entities;
 
 namespace Api_Mediconnet.Infrastructure.Data;
@@ -16,11 +15,10 @@ public class AppDbContext : DbContext
         
     }
 
-    public virtual DbSet<Tregistro> Tregistros { get; set; }
+    public virtual DbSet<TUsuarios> TUsuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         }
-
 }
