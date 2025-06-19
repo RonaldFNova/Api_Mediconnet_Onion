@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Api_Mediconnet.Infrastructure.Data;
 using DotNetEnv;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 string secretConnectDbPath = "/etc/secrets/CONNECTION_STRING";
@@ -34,8 +35,9 @@ builder.Services.AddControllers();
 Env.Load();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb)
-    ));
+    options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
+    b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))
+    );
 
 var app = builder.Build();
 

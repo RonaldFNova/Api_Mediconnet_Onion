@@ -1,4 +1,5 @@
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Infrastructure.deps.json
+C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Infrastructure.runtimeconfig.json
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Infrastructure.dll
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Infrastructure.pdb
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Domain.dll
@@ -13,4 +14,5 @@ C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\obj\Debug
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.dll
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\refint\Api_Mediconnet.Infrastructure.dll
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.pdb
+C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.genruntimeconfig.cache
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\ref\Api_Mediconnet.Infrastructure.dll
