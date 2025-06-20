@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Mediconnet.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250619194941_InitialCreate")]
+    [Migration("20250619213642_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,6 +20,26 @@ namespace Api_Mediconnet.Infrastructure.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoVerificacion", b =>
+                {
+                    b.Property<int>("NEstadoVerificacion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NEstadoVerificacion");
+
+                    b.Property<string>("CNombre")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(true)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("CNombre");
+
+                    b.HasKey("NEstadoVerificacion")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("TEstadoVerificacion", (string)null);
+                });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
                 {

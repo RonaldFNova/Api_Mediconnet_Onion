@@ -17,7 +17,7 @@ public class TRolConfiguration : IEntityTypeConfiguration<TRol>
 
         builder.Property(e => e.CNombre)
             .HasColumnName("CNombre")
-            .HasMaxLength(20)
-            .IsUnicode();
+            .HasMaxLength(20);
+        builder.HasIndex(e => e.CNombre, "CNombre").IsUnique();
     }
 }

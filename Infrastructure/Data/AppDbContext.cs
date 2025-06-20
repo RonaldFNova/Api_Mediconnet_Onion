@@ -14,10 +14,11 @@ public class AppDbContext : DbContext
     {
         
     }
-
     public virtual DbSet<TUsuarios> TUsuarios { get; set; }
     public virtual DbSet<TRol> TRol { get; set; }
-
+    public virtual DbSet<TEstadoVerificacion> TEstadoVerificacion { get; set; }
+    public virtual DbSet<TEstadoUsuario> TEstadoUsuario { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);

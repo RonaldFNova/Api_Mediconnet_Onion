@@ -3,8 +3,15 @@ namespace Api_Mediconnet.Domain.Entities;
 public class TUsuarios
 {
     public int NUsuarioID { get; set; }
+    public int NEstadoVerificacionFK { get; set; }
+    public virtual TEstadoVerificacion EstadoVerificacion { get; set; } = null!;
+    public int NEstadoUsuarioFK { get; set; }
+
+    public int NRolFK { get; set; }
     public string CNombre { get; set; } = null!;
     public string CApellido { get; set; } = null!;
     public string CEmail { get; set; } = null!;
     public string CPassword { get; set; } = null!;
+    public DateTime DFechaRegistro { get; set; }
+
 }

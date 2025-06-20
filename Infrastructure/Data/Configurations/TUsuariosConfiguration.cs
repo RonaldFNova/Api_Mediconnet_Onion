@@ -14,6 +14,22 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasColumnName("nUsuarioID")
             .HasColumnType("int(32)");
 
+        builder.Property(e => e.NEstadoUsuarioFK)
+            .HasColumnName("NEstadoUsuarioFK")
+            .HasColumnType("int(12)");
+        builder.HasIndex(e => e.NEstadoUsuarioFK, "NEstadoUsuarioFK").IsUnique();
+
+        builder.HasOne(u => u.EstadoVerificacion)
+            .WithMany(e => e.Usuarios)
+            .HasForeignKey(u => u.NEstadoVerificacionFK)
+            .HasConstraintName("FK_Usuarios_EstadoVerificacion")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Property(e => e.NRolFK)
+            .HasColumnName("NRolFK")
+            .HasColumnType("int(12)");
+        builder.HasIndex(e => e.NRolFK, "NRolFK").IsUnique();
+
         builder.Property(e => e.CEmail)
             .HasColumnName("CEmail")
             .HasMaxLength(255);
@@ -31,6 +47,9 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasColumnName("CPassword")
             .HasMaxLength(255);
 
+        builder.Property(e => e.DFechaRegistro)
+            .HasColumnName("DFechaRegistro")
+            .HasColumnType("DateTime");
     }
 }
 
