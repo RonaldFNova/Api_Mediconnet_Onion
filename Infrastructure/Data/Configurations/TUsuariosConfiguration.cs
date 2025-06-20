@@ -14,10 +14,9 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasColumnName("nUsuarioID")
             .HasColumnType("int(32)");
 
-        builder.Property(e => e.NEstadoUsuarioFK)
-            .HasColumnName("NEstadoUsuarioFK")
+        builder.Property(e => e.NEstadoVerificacionFK)
+            .HasColumnName("NEstadoVerificacionFK")
             .HasColumnType("int(12)");
-        builder.HasIndex(e => e.NEstadoUsuarioFK, "NEstadoUsuarioFK").IsUnique();
 
         builder.HasOne(u => u.EstadoVerificacion)
             .WithMany(e => e.Usuarios)
@@ -25,10 +24,25 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasConstraintName("FK_Usuarios_EstadoVerificacion")
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.Property(e => e.NEstadoUsuarioFK)
+            .HasColumnName("NEstadoUsuarioFK")
+            .HasColumnType("int(12)");
+
+        builder.HasOne(u => u.EstadoUsuario)
+            .WithMany(e => e.Usuarios)
+            .HasForeignKey(u => u.NEstadoUsuarioFK)
+            .HasConstraintName("FK_Usuarios_EstadoUsuarios")
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.Property(e => e.NRolFK)
             .HasColumnName("NRolFK")
             .HasColumnType("int(12)");
-        builder.HasIndex(e => e.NRolFK, "NRolFK").IsUnique();
+
+        builder.HasOne(u => u.Rol)
+            .WithMany(e => e.Usuarios)
+            .HasForeignKey(u => u.NRolFK)
+            .HasConstraintName("FK_Usuarios_Rol")
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.Property(e => e.CEmail)
             .HasColumnName("CEmail")

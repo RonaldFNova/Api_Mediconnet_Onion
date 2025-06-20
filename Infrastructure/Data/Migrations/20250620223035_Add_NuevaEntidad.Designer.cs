@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Mediconnet.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250620011741_Add_NuevaEntidad")]
+    [Migration("20250620223035_Add_NuevaEntidad")]
     partial class Add_NuevaEntidad
     {
         /// <inheritdoc />
@@ -130,7 +130,8 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasColumnName("NEstadoUsuarioFK");
 
                     b.Property<int>("NEstadoVerificacionFK")
-                        .HasColumnType("int(12)");
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NEstadoVerificacionFK");
 
                     b.Property<int>("NRolFK")
                         .HasColumnType("int(12)")
@@ -139,15 +140,13 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.HasKey("NUsuarioID")
                         .HasName("PRIMARY");
 
+                    b.HasIndex("NEstadoUsuarioFK");
+
                     b.HasIndex("NEstadoVerificacionFK");
 
+                    b.HasIndex("NRolFK");
+
                     b.HasIndex(new[] { "CEmail" }, "CEmail")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "NEstadoUsuarioFK" }, "NEstadoUsuarioFK")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "NRolFK" }, "NRolFK")
                         .IsUnique();
 
                     b.ToTable("tUsuarios", (string)null);
@@ -155,6 +154,13 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
                 {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TEstadoUsuario", "EstadoUsuario")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("NEstadoUsuarioFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Usuarios_EstadoUsuarios");
+
                     b.HasOne("Api_Mediconnet.Domain.Entities.TEstadoVerificacion", "EstadoVerificacion")
                         .WithMany("Usuarios")
                         .HasForeignKey("NEstadoVerificacionFK")
@@ -162,10 +168,31 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Usuarios_EstadoVerificacion");
 
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TRol", "Rol")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("NRolFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Usuarios_Rol");
+
+                    b.Navigation("EstadoUsuario");
+
                     b.Navigation("EstadoVerificacion");
+
+                    b.Navigation("Rol");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoUsuario", b =>
+                {
+                    b.Navigation("Usuarios");
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoVerificacion", b =>
+                {
+                    b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
                 {
                     b.Navigation("Usuarios");
                 });
