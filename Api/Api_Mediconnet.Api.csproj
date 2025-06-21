@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Api_Mediconnet.Infrastructure.csproj" />
+    <ProjectReference Include="..\Application\Api_Mediconnet.Application.csproj" />
+    <ProjectReference Include="..\Domain\Api_Mediconnet.Domain.csproj" /> 
   </ItemGroup>
 
 </Project>

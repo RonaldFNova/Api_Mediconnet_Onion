@@ -3,16 +3,19 @@ using System;
 using Api_Mediconnet.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Api_Mediconnet.Infrastructure.Migrations
+namespace Api_Mediconnet.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250621211837_SeedInitialData")]
+    partial class SeedInitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,11 +42,23 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("TEstadoUsuario", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            NEstadoUsuarioID = 1,
+                            CNombre = "Activo"
+                        },
+                        new
+                        {
+                            NEstadoUsuarioID = 2,
+                            CNombre = "Inactivo"
+                        });
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoVerificacion", b =>
                 {
-                    b.Property<int>("NEstadoVerificacion")
+                    b.Property<int>("NEstadoVerificacionID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int(12)")
                         .HasColumnName("NEstadoVerificacion");
@@ -54,7 +69,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("CNombre");
 
-                    b.HasKey("NEstadoVerificacion")
+                    b.HasKey("NEstadoVerificacionID")
                         .HasName("PRIMARY");
 
                     b.HasIndex(new[] { "CNombre" }, "CNombre")
@@ -62,6 +77,18 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasDatabaseName("CNombre1");
 
                     b.ToTable("TEstadoVerificacion", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            NEstadoVerificacionID = 1,
+                            CNombre = "Verificado"
+                        },
+                        new
+                        {
+                            NEstadoVerificacionID = 2,
+                            CNombre = "No Verificado"
+                        });
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
@@ -85,6 +112,23 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasDatabaseName("CNombre2");
 
                     b.ToTable("TRol", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            NRolID = 1,
+                            CNombre = "Administrador"
+                        },
+                        new
+                        {
+                            NRolID = 2,
+                            CNombre = "Paciente"
+                        },
+                        new
+                        {
+                            NRolID = 3,
+                            CNombre = "Medico"
+                        });
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>

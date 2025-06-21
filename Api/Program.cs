@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Api_Mediconnet.Infrastructure.Data;
 using DotNetEnv;
-
+using Api_Mediconnet.Application.Services;
+using Api_Mediconnet.Infrastructure.Repositories;
+using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Application.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +35,11 @@ if (string.IsNullOrWhiteSpace(_secretConnectDb))
 
 builder.Services.AddControllers();
 
+builder.Services.AddScoped<ITUsuariosService, TUsuariosService>();
+builder.Services.AddScoped<ITUsuariosRepository, TUsuarioRepository>();
+
+
+
 Env.Load();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -52,6 +60,8 @@ using (var scope = app.Services.CreateScope())
 
 
 app.MapControllers();
+
+app.MapGet("/", () => "Hello World!");
 
 app.Run();
 

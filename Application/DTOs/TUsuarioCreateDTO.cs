@@ -1,6 +1,6 @@
 namespace Api_Mediconnet.Application.DTOs;
 
-public class TUsuarioDTO
+public class TUsuarioCreateDTO
 {
     public int NUsuarioID { get; set; }
     public string CNombre { get; set; } = string.Empty;

@@ -4,9 +4,9 @@ namespace Api_Mediconnet.Application.interfaces;
 
 public interface ITUsuariosService
 {
-    Task<IEnumerable<TUsuarioDTO>> GetUsuariosAsync();
-    Task<TUsuarioDTO?> GetUsuariosIdAsync(int id);
-    Task CrearAsync(TUsuarioDTO usuarioDto);
-    Task ActualizarAsync(int id, TUsuarioDTO usuariosDto);
+    Task<IEnumerable<TUsuarioResponseDTO>> GetUsuariosAsync();
+    Task<TUsuarioResponseDTO?> GetUsuariosIdAsync(int id);
+    Task CrearAsync(TUsuarioCreateDTO usuarioDto);
+    Task ActualizarAsync(int id, TUsuarioCreateDTO usuariosDto);
     Task EliminarAsync(int id);
 }

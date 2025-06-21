@@ -2206,6 +2206,19 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "Api_Mediconnet.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Api_Mediconnet.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Api_Mediconnet.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Api_Mediconnet.Application.dll": {}
+        }
+      },
       "Api_Mediconnet.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -6923,6 +6936,11 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "Api_Mediconnet.Application/1.0.0": {
+      "type": "project",
+      "path": "../Application/Api_Mediconnet.Application.csproj",
+      "msbuildProject": "../Application/Api_Mediconnet.Application.csproj"
+    },
     "Api_Mediconnet.Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Api_Mediconnet.Domain.csproj",
@@ -6936,6 +6954,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Api_Mediconnet.Application >= 1.0.0",
+      "Api_Mediconnet.Domain >= 1.0.0",
       "Api_Mediconnet.Infrastructure >= 1.0.0",
       "DotNetEnv >= 3.1.1",
       "Microsoft.EntityFrameworkCore >= 8.0.6",
@@ -6968,6 +6988,12 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj": {
+              "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj"
+            },
+            "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
+              "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
+            },
             "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj": {
               "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj"
             }

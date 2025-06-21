@@ -3,6 +3,8 @@ using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Domain.Entities;
 using Api_Mediconnet.Domain.interfaces;
 
+
+
 namespace Api_Mediconnet.Application.Services;
 
 public class TUsuariosService : ITUsuariosService
@@ -13,10 +15,10 @@ public class TUsuariosService : ITUsuariosService
         _tUsuariosRepository = tUsuariosRepository;
     }
 
-    public async Task<IEnumerable<TUsuarioDTO>> GetUsuariosAsync()
+    public async Task<IEnumerable<TUsuarioResponseDTO>> GetUsuariosAsync()
     {
         var Usuarios = await _tUsuariosRepository.GetUsuariosAsync();
-        return Usuarios.Select(u => new TUsuarioDTO
+        return Usuarios.Select(u => new TUsuarioResponseDTO
         {
             NUsuarioID = u.NUsuarioID,
             CNombre = u.CNombre,
@@ -28,12 +30,12 @@ public class TUsuariosService : ITUsuariosService
         });
     }
 
-    public async Task<TUsuarioDTO?> GetUsuariosIdAsync(int id)
+    public async Task<TUsuarioResponseDTO?> GetUsuariosIdAsync(int id)
     {
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
         if (usuario == null) return null;
 
-        return new TUsuarioDTO
+        return new TUsuarioResponseDTO
         {
             NUsuarioID = usuario.NUsuarioID,
             CNombre = usuario.CNombre,
@@ -45,7 +47,7 @@ public class TUsuariosService : ITUsuariosService
         };
     }
 
-    public async Task CrearAsync(TUsuarioDTO dTO)
+    public async Task CrearAsync(TUsuarioCreateDTO dTO)
     {
         var usuario = new TUsuarios
         {
@@ -54,14 +56,14 @@ public class TUsuariosService : ITUsuariosService
             CEmail = dTO.CEmail,
             CPassword = dTO.CPassword,
             NRolFK = dTO.NRolFK,
-            NEstadoUsuarioFK = dTO.NEstadoUsuarioFK,
-            NEstadoVerificacionFK = dTO.NEstadoVerificacionFK
+            NEstadoUsuarioFK = 1,
+            NEstadoVerificacionFK = 2
         };
         await _tUsuariosRepository.AddAsync(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
     }
 
-    public async Task ActualizarAsync(int id, TUsuarioDTO dTO)
+    public async Task ActualizarAsync(int id, TUsuarioCreateDTO dTO)
     {
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
 
@@ -82,7 +84,7 @@ public class TUsuariosService : ITUsuariosService
     public async Task EliminarAsync(int id)
     {
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
-        
+
         if (usuario == null) return;
 
         _tUsuariosRepository.Delete(usuario);

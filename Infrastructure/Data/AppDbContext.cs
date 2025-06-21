@@ -21,6 +21,25 @@ public class AppDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<TEstadoVerificacion>().HasData(
+            new TEstadoVerificacion { NEstadoVerificacionID = 1, CNombre = "Verificado" },
+            new TEstadoVerificacion { NEstadoVerificacionID = 2, CNombre = "No Verificado" }
+        );
+
+        modelBuilder.Entity<TRol>().HasData(
+            new TRol { NRolID = 1, CNombre = "Administrador" },
+            new TRol { NRolID = 2, CNombre = "Paciente" },
+            new TRol { NRolID = 3, CNombre = "Medico" })
+            ;
+
+        modelBuilder.Entity<TEstadoUsuario>().HasData(
+            new TEstadoUsuario { NEstadoUsuarioID = 1, CNombre = "Activo" },
+            new TEstadoUsuario { NEstadoUsuarioID = 2, CNombre = "Inactivo" }
+        );
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }

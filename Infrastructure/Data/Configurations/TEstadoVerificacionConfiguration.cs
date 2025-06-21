@@ -9,8 +9,8 @@ public class TEstadoVerificacionConfiguration : IEntityTypeConfiguration<TEstado
     public void Configure(EntityTypeBuilder<TEstadoVerificacion> builder)
     {
         builder.ToTable("TEstadoVerificacion");
-        builder.HasKey(e => e.NEstadoVerificacion).HasName("PRIMARY");
-        builder.Property(e => e.NEstadoVerificacion)
+        builder.HasKey(e => e.NEstadoVerificacionID).HasName("PRIMARY");
+        builder.Property(e => e.NEstadoVerificacionID)
             .HasColumnName("NEstadoVerificacion")
             .HasColumnType("int(12)");
 
