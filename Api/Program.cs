@@ -38,6 +38,8 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ITUsuariosService, TUsuariosService>();
 builder.Services.AddScoped<ITUsuariosRepository, TUsuarioRepository>();
 
+builder.Services.AddScoped<ITEstadoUsuarioService, TEstadoUsuarioService>();
+builder.Services.AddScoped<ITEstadoUsuarioRepository, TEstadoUsuarioRepository>();
 
 
 Env.Load();
