@@ -20,7 +20,6 @@ public class EstadoUsuarioController : ControllerBase
     public async Task<IActionResult> GetEstadoUsuariosAsync()
     {
         var estadoUsuario = await _tEstadoUsuarioService.GetEstadoUsuarioDTOsAsync();
-
         return Ok(estadoUsuario);
     }
 
@@ -28,7 +27,6 @@ public class EstadoUsuarioController : ControllerBase
     public async Task<IActionResult> GetEstadoUsuariosIdAsync(int id)
     {
         var estadoUsuario = await _tEstadoUsuarioService.GetEstadoUsuarioIdDTOsAsync(id);
-
         return Ok(estadoUsuario);
     }
 
@@ -36,7 +34,6 @@ public class EstadoUsuarioController : ControllerBase
     public async Task<IActionResult> PostEstadoUsuario([FromBody] TEstadoUsuarioDTO estadoUsuarioDTO)
     {
         await _tEstadoUsuarioService.CrearAsync(estadoUsuarioDTO);
-
         return Ok();
     }
 
@@ -44,7 +41,6 @@ public class EstadoUsuarioController : ControllerBase
     public async Task<IActionResult> PutEstadoUsuario([FromBody] TEstadoUsuarioDTO estadoUsuarioDTO)
     {
         await _tEstadoUsuarioService.ActualizarAsync(estadoUsuarioDTO.NEstadoUsuarioID, estadoUsuarioDTO);
-
         return NoContent();
     }
 
@@ -52,7 +48,6 @@ public class EstadoUsuarioController : ControllerBase
     public async Task<IActionResult> DeleteEstadoUsuario( int id)
     {
         await _tEstadoUsuarioService.EliminarAsync(id);
-
         return NoContent();
     }
 }

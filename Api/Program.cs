@@ -41,6 +41,8 @@ builder.Services.AddScoped<ITUsuariosRepository, TUsuarioRepository>();
 builder.Services.AddScoped<ITEstadoUsuarioService, TEstadoUsuarioService>();
 builder.Services.AddScoped<ITEstadoUsuarioRepository, TEstadoUsuarioRepository>();
 
+builder.Services.AddScoped<ITRolService, TRolService>();
+builder.Services.AddScoped<ITRolRepository, TRolRepository>();
 
 Env.Load();
 
