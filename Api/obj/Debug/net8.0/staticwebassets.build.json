@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "GHDtS8W+eUbmqkjZRFI652dkniWzGDqDr0urdDNlF9A=",
+  "Hash": "hrnMN42Wtj2NQjM7Qktb7cHFxVH3tELx3OdGUEnuYtc=",
   "Source": "Api_Mediconnet.Api",
   "BasePath": "_content/Api_Mediconnet.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }

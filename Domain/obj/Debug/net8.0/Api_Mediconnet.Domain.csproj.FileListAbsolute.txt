@@ -10,3 +10,15 @@ C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\refint\Api_Mediconnet.Domain.dll
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.pdb
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\ref\Api_Mediconnet.Domain.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\bin\Debug\net8.0\Api_Mediconnet.Domain.deps.json
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\bin\Debug\net8.0\Api_Mediconnet.Domain.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\bin\Debug\net8.0\Api_Mediconnet.Domain.pdb
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.AssemblyInfoInputs.cache
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.AssemblyInfo.cs
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.csproj.CoreCompileInputs.cache
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.sourcelink.json
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\refint\Api_Mediconnet.Domain.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\Api_Mediconnet.Domain.pdb
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Domain\obj\Debug\net8.0\ref\Api_Mediconnet.Domain.dll

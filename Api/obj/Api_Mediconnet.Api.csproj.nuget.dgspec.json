@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj": {}
+    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj": {
+    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj",
+        "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj",
         "projectName": "Api_Mediconnet.Api",
-        "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj",
+        "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj",
         "packagesPath": "C:\\Users\\ronal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\api\\obj\\",
+        "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ronal\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,14 +26,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj": {
-                "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj"
+              "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj": {
+                "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj"
               },
-              "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
-                "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
+              "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
+                "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
               },
-              "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj"
+              "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj"
               }
             }
           }
@@ -47,8 +47,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -84,24 +83,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -110,18 +91,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.411/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj": {
+    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj",
+        "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj",
         "projectName": "Api_Mediconnet.Application",
-        "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj",
+        "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj",
         "packagesPath": "C:\\Users\\ronal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Application\\obj\\",
+        "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ronal\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -136,8 +117,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
-                "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
+              "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
+                "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
               }
             }
           }
@@ -151,8 +132,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -168,37 +148,23 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.411/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
+    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj",
         "projectName": "Api_Mediconnet.Domain",
-        "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj",
+        "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj",
         "packagesPath": "C:\\Users\\ronal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\obj\\",
+        "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ronal\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -224,8 +190,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -241,37 +206,23 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.411/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj": {
+    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj",
         "projectName": "Api_Mediconnet.Infrastructure",
-        "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\ronal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ronal\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -286,8 +237,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
-                "projectPath": "C:\\Users\\ronal\\OneDrive\\Escritorio\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
+              "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
+                "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
               }
             }
           }
@@ -301,8 +252,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -338,26 +288,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.13, 8.0.13]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.411/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

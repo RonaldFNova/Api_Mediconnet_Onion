@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Api_Mediconnet.Infrastructure.Data.Migrations
+namespace Api_Mediconnet.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedInitialData : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,6 +59,21 @@ namespace Api_Mediconnet.Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PRIMARY", x => x.NRolID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TTipoIdentificacion",
+                columns: table => new
+                {
+                    NTipoIdentificacion = table.Column<int>(type: "int(12)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CNombre = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NTipoIdentificacion);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -152,6 +167,12 @@ namespace Api_Mediconnet.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "CNombre3",
+                table: "TTipoIdentificacion",
+                column: "CNombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "CEmail",
                 table: "tUsuarios",
                 column: "CEmail",
@@ -176,6 +197,9 @@ namespace Api_Mediconnet.Infrastructure.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TTipoIdentificacion");
+
             migrationBuilder.DropTable(
                 name: "tUsuarios");
 

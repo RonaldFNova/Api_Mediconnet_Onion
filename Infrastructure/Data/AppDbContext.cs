@@ -18,6 +18,7 @@ public class AppDbContext : DbContext
     public virtual DbSet<TRol> TRol { get; set; }
     public virtual DbSet<TEstadoVerificacion> TEstadoVerificacion { get; set; }
     public virtual DbSet<TEstadoUsuario> TEstadoUsuario { get; set; }
+    public virtual DbSet<TTipoIdentificacion> TipoIdentificacion { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
