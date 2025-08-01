@@ -44,6 +44,9 @@ builder.Services.AddScoped<ITEstadoUsuarioRepository, TEstadoUsuarioRepository>(
 builder.Services.AddScoped<ITRolService, TRolService>();
 builder.Services.AddScoped<ITRolRepository, TRolRepository>();
 
+builder.Services.AddScoped<ITEstadoVerificacionService, TEstadoVerificacionService>();
+builder.Services.AddScoped<ITEstadoVerificacionRepository, TEstadoVerificacionRepository>();
+
 Env.Load();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
