@@ -237,6 +237,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj": {
+                "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Application\\Api_Mediconnet.Application.csproj"
+              },
               "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
                 "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
               }
@@ -258,6 +261,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.6, )"

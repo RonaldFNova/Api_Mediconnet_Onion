@@ -9,10 +9,13 @@ namespace Api_Mediconnet.Application.Services;
 
 public class TUsuariosService : ITUsuariosService
 {
+    private readonly IServicioHashPassword _servicioHashPassword;
+
     private readonly ITUsuariosRepository _tUsuariosRepository;
-    public TUsuariosService(ITUsuariosRepository tUsuariosRepository)
+    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IServicioHashPassword servicioHashPassword)
     {
         _tUsuariosRepository = tUsuariosRepository;
+        _servicioHashPassword = servicioHashPassword;
     }
 
     public async Task<IEnumerable<TUsuarioResponseDTO>> GetUsuariosAsync()
@@ -54,10 +57,11 @@ public class TUsuariosService : ITUsuariosService
             CNombre = dTO.CNombre,
             CApellido = dTO.CApellido,
             CEmail = dTO.CEmail,
-            CPassword = dTO.CPassword,
+            CPassword = _servicioHashPassword.Hash(dTO.CPassword),
             NRolFK = dTO.NRolFK,
             NEstadoUsuarioFK = 1,
-            NEstadoVerificacionFK = 2
+            NEstadoVerificacionFK = 2,
+            DFechaRegistro = DateTime.UtcNow
         };
         await _tUsuariosRepository.AddAsync(usuario);
         await _tUsuariosRepository.SaveChangesAsync();

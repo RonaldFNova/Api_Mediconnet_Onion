@@ -213,3 +213,15 @@ C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\refint
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Mediconnet.Api.pdb
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Mediconnet.Api.genruntimeconfig.cache
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\ref\Api_Mediconnet.Api.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.Extensions.WebEncoders.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

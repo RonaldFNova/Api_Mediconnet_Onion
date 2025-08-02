@@ -1,7 +1,5 @@
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.interfaces;
-using Api_Mediconnet.Application.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api_Mediconnet.Api.Controllers;
@@ -11,6 +9,7 @@ namespace Api_Mediconnet.Api.Controllers;
 public class UsuariosController : ControllerBase
 {
     private readonly ITUsuariosService _usuariosService;
+
     public UsuariosController(ITUsuariosService usuariosService)
     {
         _usuariosService = usuariosService;

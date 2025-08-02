@@ -50,6 +50,8 @@ builder.Services.AddScoped<ITEstadoVerificacionRepository, TEstadoVerificacionRe
 builder.Services.AddScoped<ITipoIdentificacionService, TTipoIdentificacionService>();
 builder.Services.AddScoped<ITTipoIdentificacionRepository, TTipoIdentificacionRepository>();
 
+builder.Services.AddScoped<IServicioHashPassword, ServicioHashPassword>();
+
 Env.Load();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
