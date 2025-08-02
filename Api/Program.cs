@@ -47,6 +47,9 @@ builder.Services.AddScoped<ITRolRepository, TRolRepository>();
 builder.Services.AddScoped<ITEstadoVerificacionService, TEstadoVerificacionService>();
 builder.Services.AddScoped<ITEstadoVerificacionRepository, TEstadoVerificacionRepository>();
 
+builder.Services.AddScoped<ITipoIdentificacionService, TTipoIdentificacionService>();
+builder.Services.AddScoped<ITTipoIdentificacionRepository, TTipoIdentificacionRepository>();
+
 Env.Load();
 
 builder.Services.AddDbContext<AppDbContext>(options =>

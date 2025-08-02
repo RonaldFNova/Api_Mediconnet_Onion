@@ -6,11 +6,11 @@ using Api_Mediconnet.Domain.Entities;
 
 namespace Api_Mediconnet.Application.Services;
 
-public class TipoIdentificacionService : ITipoIdentificacionService
+public class TTipoIdentificacionService : ITipoIdentificacionService
 {
     private readonly ITTipoIdentificacionRepository _tTipoIdentificacionRepository;
 
-    public TipoIdentificacionService(ITTipoIdentificacionRepository tTipoIdentificacionRepository)
+    public TTipoIdentificacionService(ITTipoIdentificacionRepository tTipoIdentificacionRepository)
     {
         _tTipoIdentificacionRepository = tTipoIdentificacionRepository;
     }
