@@ -1,8 +1,9 @@
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 using Api_Mediconnet.Application.interfaces;
 
-public class ServicioHashPassword : IServicioHashPassword
+namespace Api_Mediconnet.Infrastructure.Services;
+
+public class HashPasswordService : IHashPasswordService
 {
     private readonly PasswordHasher<string> hasher = new();
 
@@ -14,7 +15,7 @@ public class ServicioHashPassword : IServicioHashPassword
     public bool Verificar(string Password, string PasswordHash)
     {
         var resultado = hasher.VerifyHashedPassword(null, PasswordHash, Password);
-        
+
         return resultado == PasswordVerificationResult.Success;
 
     }

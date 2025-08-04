@@ -9,10 +9,10 @@ namespace Api_Mediconnet.Application.Services;
 
 public class TUsuariosService : ITUsuariosService
 {
-    private readonly IServicioHashPassword _servicioHashPassword;
+    private readonly IHashPasswordService _servicioHashPassword;
 
     private readonly ITUsuariosRepository _tUsuariosRepository;
-    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IServicioHashPassword servicioHashPassword)
+    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IHashPasswordService servicioHashPassword)
     {
         _tUsuariosRepository = tUsuariosRepository;
         _servicioHashPassword = servicioHashPassword;

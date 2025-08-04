@@ -5,6 +5,7 @@ using Api_Mediconnet.Application.Services;
 using Api_Mediconnet.Infrastructure.Repositories;
 using Api_Mediconnet.Domain.interfaces;
 using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +51,9 @@ builder.Services.AddScoped<ITEstadoVerificacionRepository, TEstadoVerificacionRe
 builder.Services.AddScoped<ITipoIdentificacionService, TTipoIdentificacionService>();
 builder.Services.AddScoped<ITTipoIdentificacionRepository, TTipoIdentificacionRepository>();
 
-builder.Services.AddScoped<IServicioHashPassword, ServicioHashPassword>();
+builder.Services.AddScoped<IHashPasswordService, HashPasswordService>();
+
+builder.Services.AddScoped<IJwtTokenIdService, JwtTokenIdService>();
 
 Env.Load();
 
