@@ -1,6 +1,7 @@
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api_Mediconnet.Api.Controllers;
 
@@ -15,6 +16,8 @@ public class UsuariosController : ControllerBase
         _usuariosService = usuariosService;
     }
 
+
+    [Authorize(Roles = "Administrador")]
     [HttpGet]
     public async Task<IActionResult> GetUsuarios()
     {
@@ -33,8 +36,9 @@ public class UsuariosController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PostUsuario([FromBody] TUsuarioCreateDTO usuarioCreateDTO)
     {
-        await _usuariosService.CrearAsync(usuarioCreateDTO);
-        return NoContent();
+        string token = await _usuariosService.CrearAsync(usuarioCreateDTO);
+
+        return Ok(new { token });
     }
 
     [HttpPut]

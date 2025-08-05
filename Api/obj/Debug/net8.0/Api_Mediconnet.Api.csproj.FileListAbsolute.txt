@@ -233,3 +233,4 @@ C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Micros
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\appsettings.json

@@ -26,6 +26,12 @@ public class TUsuarioRepository : ITUsuariosRepository
     {
         await _context.TUsuarios.AddAsync(usuarios);
     }
+    public async Task<string?> GetRolNombreByUsuarioIdAsync(int id)
+    {
+        return await _context.TUsuarios.Where(u => u.NUsuarioID == id)
+            .Select(u => u.Rol.CNombre)
+            .FirstOrDefaultAsync();
+    }
     public void Update(TUsuarios usuarios)
     {
         _context.TUsuarios.Update(usuarios);

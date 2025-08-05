@@ -10,12 +10,13 @@ namespace Api_Mediconnet.Application.Services;
 public class TUsuariosService : ITUsuariosService
 {
     private readonly IHashPasswordService _servicioHashPassword;
-
     private readonly ITUsuariosRepository _tUsuariosRepository;
-    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IHashPasswordService servicioHashPassword)
+     private readonly IJwtTokenIdService _jwtTokenIdService;
+    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IHashPasswordService servicioHashPassword, IJwtTokenIdService jwtTokenIdService)
     {
         _tUsuariosRepository = tUsuariosRepository;
         _servicioHashPassword = servicioHashPassword;
+        _jwtTokenIdService = jwtTokenIdService;
     }
 
     public async Task<IEnumerable<TUsuarioResponseDTO>> GetUsuariosAsync()
@@ -50,7 +51,7 @@ public class TUsuariosService : ITUsuariosService
         };
     }
 
-    public async Task CrearAsync(TUsuarioCreateDTO dTO)
+    public async Task<string> CrearAsync(TUsuarioCreateDTO dTO)
     {
         var usuario = new TUsuarios
         {
@@ -65,6 +66,11 @@ public class TUsuariosService : ITUsuariosService
         };
         await _tUsuariosRepository.AddAsync(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
+
+        var rol = await  _tUsuariosRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
+        var token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol));
+
+        return Convert.ToString(token);
     }
 
     public async Task ActualizarAsync(int id, TUsuarioCreateDTO dTO)

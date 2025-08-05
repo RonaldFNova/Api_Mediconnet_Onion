@@ -6,8 +6,12 @@ using Api_Mediconnet.Infrastructure.Repositories;
 using Api_Mediconnet.Domain.interfaces;
 using Api_Mediconnet.Application.interfaces;
 using Api_Mediconnet.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 string secretConnectDbPath = "/etc/secrets/CONNECTION_STRING";
 string _secretConnectDb = "";
@@ -34,6 +38,31 @@ if (string.IsNullOrWhiteSpace(_secretConnectDb))
 }
 
 
+Env.Load();
+
+builder.Configuration.AddEnvironmentVariables();
+
+var jwtKey = builder.Configuration["Jwt:KeyTokenId"];
+var keyBytes = Encoding.UTF8.GetBytes(jwtKey!);
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false, // solo en local.
+            ValidateAudience = false, // solo en local.
+            ValidateIssuerSigningKey = true,
+            //ValidIssuer = builder.Configuration["Jwt__Issuer"], 
+            //ValidAudience = builder.Configuration["Jwt__Audience"], 
+            IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<ITUsuariosService, TUsuariosService>();
@@ -55,7 +84,6 @@ builder.Services.AddScoped<IHashPasswordService, HashPasswordService>();
 
 builder.Services.AddScoped<IJwtTokenIdService, JwtTokenIdService>();
 
-Env.Load();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
@@ -64,15 +92,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 // Crear la base de datos (solo para desarrollo)
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated(); 
+    db.Database.EnsureCreated();
     Console.WriteLine("Base de datos verificada o creada correctamente.");
 }
-
 
 app.MapControllers();
 

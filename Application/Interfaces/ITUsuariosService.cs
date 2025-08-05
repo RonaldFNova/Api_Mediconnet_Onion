@@ -8,7 +8,7 @@ public interface ITUsuariosService
 
     Task<TUsuarioResponseDTO?> GetUsuariosIdAsync(int id);
 
-    Task CrearAsync(TUsuarioCreateDTO usuarioDto);
+    Task<string> CrearAsync(TUsuarioCreateDTO usuarioDto);
 
     Task ActualizarAsync(int id, TUsuarioCreateDTO usuariosDto);
     

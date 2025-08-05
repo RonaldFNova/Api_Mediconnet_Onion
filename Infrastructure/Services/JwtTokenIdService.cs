@@ -25,14 +25,20 @@ public class JwtTokenIdService : IJwtTokenIdService
             new Claim(ClaimTypes.Role, rol)
         };
 
+        var keyy = _config["Jwt:KeyTokenId"];
+        if (string.IsNullOrWhiteSpace(keyy))
+        {
+            throw new Exception("❌ No se encontró Jwt:KeyTokenId en la configuración.");
+        }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["jwt:KeyTokenId"]!));
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:KeyTokenId"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
 
-            issuer: _config["jwt:Emisor"],
-            audience: _config["jwt:Receptor"],
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
             claims: claims,
             expires: DateTime.UtcNow.AddHours(1),
             signingCredentials: creds
