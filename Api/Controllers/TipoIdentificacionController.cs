@@ -44,7 +44,7 @@ public class TipoIdentificacionController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutTipoIdentificacionAsync([FromBody] TTipoIdentificacionDTO tipoIdentificacionDTO)
     {
-        await _tipoIdentificacionService.ActualizarAsync(tipoIdentificacionDTO.NTipoIdentificacionID, tipoIdentificacionDTO);
+        await _tipoIdentificacionService.ActualizarAsync(tipoIdentificacionDTO.TipoIdentificacionID, tipoIdentificacionDTO);
         return NoContent();
     }
 

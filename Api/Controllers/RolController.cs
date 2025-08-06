@@ -43,7 +43,7 @@ public class RolController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutRolAsync([FromBody] TRolDTO rolDTO)
     {
-        await _rolService.ActualizarAsync(rolDTO.NRolID, rolDTO);
+        await _rolService.ActualizarAsync(rolDTO.RolID, rolDTO);
         return NoContent();
     }
 

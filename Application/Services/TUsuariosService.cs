@@ -24,13 +24,13 @@ public class TUsuariosService : ITUsuariosService
         var Usuarios = await _tUsuariosRepository.GetUsuariosAsync();
         return Usuarios.Select(u => new TUsuarioResponseDTO
         {
-            NUsuarioID = u.NUsuarioID,
-            CNombre = u.CNombre,
-            CApellido = u.CApellido,
-            CEmail = u.CEmail,
-            NRolFK = u.NRolFK,
-            NEstadoUsuarioFK = u.NEstadoUsuarioFK,
-            NEstadoVerificacionFK = u.NEstadoVerificacionFK
+            UsuarioID = u.NUsuarioID,
+            Nombre = u.CNombre,
+            Apellido = u.CApellido,
+            Email = u.CEmail,
+            RolFK = u.NRolFK,
+            EstadoUsuarioFK = u.NEstadoUsuarioFK,
+            EstadoVerificacionFK = u.NEstadoVerificacionFK
         });
     }
 
@@ -41,13 +41,13 @@ public class TUsuariosService : ITUsuariosService
 
         return new TUsuarioResponseDTO
         {
-            NUsuarioID = usuario.NUsuarioID,
-            CNombre = usuario.CNombre,
-            CApellido = usuario.CApellido,
-            CEmail = usuario.CEmail,
-            NRolFK = usuario.NRolFK,
-            NEstadoUsuarioFK = usuario.NEstadoUsuarioFK,
-            NEstadoVerificacionFK = usuario.NEstadoVerificacionFK
+            UsuarioID = usuario.NUsuarioID,
+            Nombre = usuario.CNombre,
+            Apellido = usuario.CApellido,
+            Email = usuario.CEmail,
+            RolFK = usuario.NRolFK,
+            EstadoUsuarioFK = usuario.NEstadoUsuarioFK,
+            EstadoVerificacionFK = usuario.NEstadoVerificacionFK
         };
     }
 
@@ -55,11 +55,11 @@ public class TUsuariosService : ITUsuariosService
     {
         var usuario = new TUsuarios
         {
-            CNombre = dTO.CNombre,
-            CApellido = dTO.CApellido,
-            CEmail = dTO.CEmail,
-            CPassword = _servicioHashPassword.Hash(dTO.CPassword),
-            NRolFK = dTO.NRolFK,
+            CNombre = dTO.Nombre,
+            CApellido = dTO.Apellido,
+            CEmail = dTO.Email,
+            CPassword = _servicioHashPassword.Hash(dTO.Password),
+            NRolFK = dTO.RolFK,
             NEstadoUsuarioFK = 1,
             NEstadoVerificacionFK = 2,
             DFechaRegistro = DateTime.UtcNow
@@ -79,13 +79,13 @@ public class TUsuariosService : ITUsuariosService
 
         if (usuario == null) return;
 
-        usuario.CNombre = dTO.CNombre;
-        usuario.CApellido = dTO.CApellido;
-        usuario.CEmail = dTO.CEmail;
-        usuario.CPassword = dTO.CPassword;
-        usuario.NRolFK = dTO.NRolFK;
-        usuario.NEstadoUsuarioFK = dTO.NEstadoUsuarioFK;
-        usuario.NEstadoVerificacionFK = dTO.NEstadoVerificacionFK;
+        usuario.CNombre = dTO.Nombre;
+        usuario.CApellido = dTO.Apellido;
+        usuario.CEmail = dTO.Email;
+        usuario.CPassword = dTO.Password;
+        usuario.NRolFK = dTO.RolFK;
+        usuario.NEstadoUsuarioFK = dTO.EstadoUsuarioFK;
+        usuario.NEstadoVerificacionFK = dTO.EstadoVerificacionFK;
 
         _tUsuariosRepository.Update(usuario);
         await _tUsuariosRepository.SaveChangesAsync();

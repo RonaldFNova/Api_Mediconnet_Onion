@@ -43,20 +43,29 @@ Env.Load();
 
 builder.Configuration.AddEnvironmentVariables();
 
-var jwtKey = builder.Configuration["Jwt:KeyTokenId"];
-var keyBytes = Encoding.UTF8.GetBytes(jwtKey!);
+string jwtKey = builder.Configuration["Jwt:KeyTokenId"]!;
+string validIssuer = builder.Configuration["Jwt:Issuer"]!;
+string validateAudience = builder.Configuration["Jwt:Audience"]!;
 
+
+if (string.IsNullOrWhiteSpace(jwtKey) || string.IsNullOrWhiteSpace(validIssuer) || string.IsNullOrWhiteSpace(validateAudience))
+{
+    throw new InvalidOperationException("Variables de entorno no encontradas");
+}
+
+
+var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false, // solo en local.
-            ValidateAudience = false, // solo en local.
+            ValidateIssuer = true, 
+            ValidateAudience = true, 
             ValidateIssuerSigningKey = true,
-            //ValidIssuer = builder.Configuration["Jwt__Issuer"], 
-            //ValidAudience = builder.Configuration["Jwt__Audience"], 
+            ValidIssuer = validIssuer, 
+            ValidAudience = validateAudience, 
             IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
             ClockSkew = TimeSpan.Zero
         };

@@ -43,7 +43,7 @@ public class LoginsController : ControllerBase
     [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> PutLoginsAsync([FromBody] TloginsDTO tloginsDTO)
     {
-        await _tLoginsService.ActualizarAsync(tloginsDTO.NLoginID, tloginsDTO);
+        await _tLoginsService.ActualizarAsync(tloginsDTO.LoginID, tloginsDTO);
         return NoContent();
     }
 

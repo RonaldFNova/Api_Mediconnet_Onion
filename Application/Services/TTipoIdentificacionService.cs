@@ -20,8 +20,8 @@ public class TTipoIdentificacionService : ITipoIdentificacionService
 
         return TipoIdentificacion.Select(u => new TTipoIdentificacionDTO
         {
-            NTipoIdentificacionID = u.NTipoIdentificacionID,
-            CNombre = u.CNombre
+            TipoIdentificacionID = u.NTipoIdentificacionID,
+            Nombre = u.CNombre
         });
     }
     public async Task<TTipoIdentificacionDTO?> GetTipoIdentificacionIdDTOsAsync(int id)
@@ -32,15 +32,15 @@ public class TTipoIdentificacionService : ITipoIdentificacionService
 
         return new TTipoIdentificacionDTO
         {
-            NTipoIdentificacionID = TipoIdentificacion.NTipoIdentificacionID,
-            CNombre = TipoIdentificacion.CNombre
+            TipoIdentificacionID = TipoIdentificacion.NTipoIdentificacionID,
+            Nombre = TipoIdentificacion.CNombre
         };
     }
     public async Task CrearAsync(TTipoIdentificacionDTO DTO)
     {
         var TipoIdentificacion = new TTipoIdentificacion
         {
-            CNombre = DTO.CNombre
+            CNombre = DTO.Nombre
         };
 
         await _tTipoIdentificacionRepository.AddAsync(TipoIdentificacion);
@@ -52,7 +52,7 @@ public class TTipoIdentificacionService : ITipoIdentificacionService
 
         if (TipoIdentificacion == null) return;
 
-        TipoIdentificacion.CNombre = DTO.CNombre;
+        TipoIdentificacion.CNombre = DTO.Nombre;
 
         _tTipoIdentificacionRepository.Update(TipoIdentificacion);
         await _tTipoIdentificacionRepository.SaveChangeAsync();

@@ -19,8 +19,8 @@ public class TEstadoUsuarioService : ITEstadoUsuarioService
         var estadoUsuario = await _tEstadoUsuarioRepository.GetEstadoUsuarioAsync();
         return estadoUsuario.Select(u => new TEstadoUsuarioDTO
         {
-            NEstadoUsuarioID = u.NEstadoUsuarioID,
-            CEstado = u.CNombre
+            EstadoUsuarioID = u.NEstadoUsuarioID,
+            Estado = u.CNombre
         });
     }
     public async Task<TEstadoUsuarioDTO?> GetEstadoUsuarioIdDTOsAsync(int id)
@@ -31,15 +31,15 @@ public class TEstadoUsuarioService : ITEstadoUsuarioService
 
         return new TEstadoUsuarioDTO
         {
-            NEstadoUsuarioID = estadoUsuario.NEstadoUsuarioID,
-            CEstado = estadoUsuario.CNombre
+            EstadoUsuarioID = estadoUsuario.NEstadoUsuarioID,
+            Estado = estadoUsuario.CNombre
         };
     }
     public async Task CrearAsync(TEstadoUsuarioDTO DTOs)
     {
         var estadoUsuario = new TEstadoUsuario
         {
-            CNombre = DTOs.CEstado
+            CNombre = DTOs.Estado
         };
 
         await _tEstadoUsuarioRepository.AddAsync(estadoUsuario);
@@ -52,7 +52,7 @@ public class TEstadoUsuarioService : ITEstadoUsuarioService
 
         if (estadoUsuario == null) return;
 
-        estadoUsuario.CNombre = DTOs.CEstado;
+        estadoUsuario.CNombre = DTOs.Estado;
 
         _tEstadoUsuarioRepository.Update(estadoUsuario);
         await _tEstadoUsuarioRepository.SaveChangeAsync();

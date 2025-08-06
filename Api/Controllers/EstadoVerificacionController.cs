@@ -44,7 +44,7 @@ public class EstadoVerificacionController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutEstadoVerificacionIdAsync([FromBody] TEstadoVerificacionDTO estadoVerificacionDTO)
     {
-        await _tEstadoVerificacionService.ActualizarAsync(estadoVerificacionDTO.NEstadoVerificacionID, estadoVerificacionDTO);
+        await _tEstadoVerificacionService.ActualizarAsync(estadoVerificacionDTO.EstadoVerificacionID, estadoVerificacionDTO);
         return NoContent();
     }
 

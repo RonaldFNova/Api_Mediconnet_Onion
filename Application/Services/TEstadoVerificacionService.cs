@@ -20,8 +20,8 @@ public class TEstadoVerificacionService : ITEstadoVerificacionService
 
         return estadoVerificacion.Select(u => new TEstadoVerificacionDTO
         {
-            NEstadoVerificacionID = u.NEstadoVerificacionID,
-            CNombre = u.CNombre
+            EstadoVerificacionID = u.NEstadoVerificacionID,
+            Nombre = u.CNombre
         });
     }
     public async Task<TEstadoVerificacionDTO?> GetEstadoVerificacionIdDTOsAsync(int id)
@@ -32,15 +32,15 @@ public class TEstadoVerificacionService : ITEstadoVerificacionService
 
         return new TEstadoVerificacionDTO
         {
-            NEstadoVerificacionID = estadoVerificacion.NEstadoVerificacionID,
-            CNombre = estadoVerificacion.CNombre
+            EstadoVerificacionID = estadoVerificacion.NEstadoVerificacionID,
+            Nombre = estadoVerificacion.CNombre
         };
     }
     public async Task CrearAsync(TEstadoVerificacionDTO DTOs)
     {
         var estadoVerificacion = new TEstadoVerificacion
         {
-            CNombre = DTOs.CNombre
+            CNombre = DTOs.Nombre
         };
 
         await _tEstadoVerificacionRepository.AddAsync(estadoVerificacion);
@@ -52,7 +52,7 @@ public class TEstadoVerificacionService : ITEstadoVerificacionService
 
         if (estadoVerificacion == null) return;
 
-        estadoVerificacion.CNombre = DTOs.CNombre;
+        estadoVerificacion.CNombre = DTOs.Nombre;
 
         _tEstadoVerificacionRepository.Update(estadoVerificacion);
 

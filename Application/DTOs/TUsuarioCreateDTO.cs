@@ -2,19 +2,19 @@ namespace Api_Mediconnet.Application.DTOs;
 
 public class TUsuarioCreateDTO
 {
-    public int NUsuarioID { get; set; }
+    public int UsuarioID { get; set; }
 
-    public string CNombre { get; set; } = string.Empty;
+    public string Nombre { get; set; } = string.Empty;
 
-    public string CApellido { get; set; } = string.Empty;
+    public string Apellido { get; set; } = string.Empty;
 
-    public string CEmail { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
-    public string CPassword { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 
-    public int NRolFK { get; set; }
+    public int RolFK { get; set; }
 
-    public int NEstadoUsuarioFK { get; set; }
+    public int EstadoUsuarioFK { get; set; }
     
-    public int NEstadoVerificacionFK { get; set; }
+    public int EstadoVerificacionFK { get; set; }
 }

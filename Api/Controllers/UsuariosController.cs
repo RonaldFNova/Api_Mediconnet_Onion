@@ -45,7 +45,7 @@ public class UsuariosController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutUsuario([FromBody] TUsuarioCreateDTO usuarioCreateDTO)
     {
-        await _usuariosService.ActualizarAsync(usuarioCreateDTO.NUsuarioID, usuarioCreateDTO);
+        await _usuariosService.ActualizarAsync(usuarioCreateDTO.UsuarioID, usuarioCreateDTO);
         return NoContent();
     }
 

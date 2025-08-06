@@ -22,8 +22,8 @@ public class TLoginsService : ITLoginsService
         var Logins = await _tLoginsRepository.GetLoginsAsync();
         return Logins.Select(e => new TloginsDTO
         {
-            NLoginID = e.NLoginID,
-            DFechaLogin = e.DFechaLogin
+            LoginID = e.NLoginID,
+            FechaLogin = e.DFechaLogin
         });
     }
 
@@ -35,18 +35,18 @@ public class TLoginsService : ITLoginsService
 
         return new TloginsDTO
         {
-            NLoginID = logins.NLoginID,
-            DFechaLogin = logins.DFechaLogin
+            LoginID = logins.NLoginID,
+            FechaLogin = logins.DFechaLogin
         };
     }
 
     public async Task<string> CrearAsync(LoginsRequestDTO loginsRequest)
     {
 
-        var user = await _tLoginsRepository.GetByEmailAsync(loginsRequest.CEmail);
+        var user = await _tLoginsRepository.GetByEmailAsync(loginsRequest.Email);
         if (user == null) throw new Exception("Usuario no encontrado");
 
-        var result = _hashPasswordService.Verificar(loginsRequest.CPassword, user.CPassword);
+        var result = _hashPasswordService.Verificar(loginsRequest.Password, user.CPassword);
         if (!result) throw new Exception("La contrseña es incorrecta");
 
         var NewLogins = new TLogins
@@ -69,7 +69,7 @@ public class TLoginsService : ITLoginsService
 
         if (logins == null) return;
 
-        logins.DFechaLogin = DTOs.DFechaLogin;
+        logins.DFechaLogin = DTOs.FechaLogin;
 
         _tLoginsRepository.Update(logins);
         await _tLoginsRepository.SaveChangeAsync();

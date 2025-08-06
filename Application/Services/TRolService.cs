@@ -19,8 +19,8 @@ public class TRolService : ITRolService
         var rol = await _tRolRepository.GetRolAsync();
         return rol.Select(e => new TRolDTO
         {
-            NRolID = e.NRolID,
-            CRol = e.CNombre
+            RolID = e.NRolID,
+            Rol = e.CNombre
         });
     }
     public async Task<TRolDTO?> GetRolIdAsync(int id)
@@ -31,16 +31,16 @@ public class TRolService : ITRolService
 
         return new TRolDTO
         {
-            NRolID = rol.NRolID,
-            CRol = rol.CNombre
+            RolID = rol.NRolID,
+            Rol = rol.CNombre
         };
     }
     public async Task CrearAsync(TRolDTO dTO)
     {
         var Rol = new TRol
         {
-            NRolID = dTO.NRolID,
-            CNombre = dTO.CRol
+            NRolID = dTO.RolID,
+            CNombre = dTO.Rol
         };
 
         await _tRolRepository.AddAsync(Rol);
@@ -52,7 +52,7 @@ public class TRolService : ITRolService
 
         if (Rol == null) return;
 
-        Rol.CNombre = dTO.CRol;
+        Rol.CNombre = dTO.Rol;
 
         _tRolRepository.Update(Rol);
         await _tRolRepository.SaveChangeAsync();

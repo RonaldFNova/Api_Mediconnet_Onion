@@ -2,7 +2,7 @@ namespace Api_Mediconnet.Application.DTOs;
 
 public class TloginsDTO
 {
-    public int NLoginID { get; set; }
-    public DateTime DFechaLogin { get; set; }
-    public int NUsuarioFK { get; set; }
+    public int LoginID { get; set; }
+    public DateTime FechaLogin { get; set; } 
+    public int UsuarioFK { get; set; }
 }

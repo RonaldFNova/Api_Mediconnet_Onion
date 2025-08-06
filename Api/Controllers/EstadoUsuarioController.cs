@@ -44,7 +44,7 @@ public class EstadoUsuarioController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutEstadoUsuario([FromBody] TEstadoUsuarioDTO estadoUsuarioDTO)
     {
-        await _tEstadoUsuarioService.ActualizarAsync(estadoUsuarioDTO.NEstadoUsuarioID, estadoUsuarioDTO);
+        await _tEstadoUsuarioService.ActualizarAsync(estadoUsuarioDTO.EstadoUsuarioID, estadoUsuarioDTO);
         return NoContent();
     }
 

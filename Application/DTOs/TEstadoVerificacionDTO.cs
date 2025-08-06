@@ -3,6 +3,6 @@ namespace Api_Mediconnet.Application.DTOs;
 
 public class TEstadoVerificacionDTO
 {
-    public int NEstadoVerificacionID { get; set; }
-    public string CNombre { get; set; } = string.Empty;
+    public int EstadoVerificacionID { get; set; }
+    public string Nombre { get; set; } = string.Empty;
 }
