@@ -1,8 +1,7 @@
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.interfaces;
-using Api_Mediconnet.Application.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api_Mediconnet.Api.Controllers;
 
@@ -16,6 +15,7 @@ public class RolController : ControllerBase
         _rolService = rolService;
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpGet]
     public async Task<IActionResult> GetRolAsync()
     {
@@ -23,6 +23,7 @@ public class RolController : ControllerBase
         return Ok(rol);
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetRolIdAsync(int id)
     {
@@ -30,6 +31,7 @@ public class RolController : ControllerBase
         return Ok(rol);
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPost]
     public async Task<IActionResult> PostRolAsync([FromBody] TRolDTO rolDTO)
     {
@@ -37,6 +39,7 @@ public class RolController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPut]
     public async Task<IActionResult> PutRolAsync([FromBody] TRolDTO rolDTO)
     {
@@ -44,6 +47,7 @@ public class RolController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteRolAsync(int id)
     {

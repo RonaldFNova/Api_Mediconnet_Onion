@@ -207,7 +207,6 @@ C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\static
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Api_Mediconnet.Api.props
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\scopedcss\bundle\Api_Mediconnet.Api.styles.css
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Medi.F5BFE279.Up2Date
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Mediconnet.Api.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\refint\Api_Mediconnet.Api.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Mediconnet.Api.pdb
@@ -234,3 +233,4 @@ C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Micros
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\appsettings.json
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Medi.F5BFE279.Up2Date

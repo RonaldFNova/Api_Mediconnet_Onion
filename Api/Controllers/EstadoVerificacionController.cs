@@ -1,7 +1,7 @@
-
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api_Mediconnet.Api.Controllers;
 
@@ -16,6 +16,7 @@ public class EstadoVerificacionController : ControllerBase
         _tEstadoVerificacionService = tEstadoVerificacionService;
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpGet]
     public async Task<IActionResult> GetEstadoVerificacionAsync()
     {
@@ -23,6 +24,7 @@ public class EstadoVerificacionController : ControllerBase
         return Ok(estadoVerificacion);
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetEstadoVerificacionIdAsync(int id)
     {
@@ -30,6 +32,7 @@ public class EstadoVerificacionController : ControllerBase
         return Ok(estadoVerificacion);
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPost]
     public async Task<IActionResult> PostEstadoVerificacionIdAsync([FromBody] TEstadoVerificacionDTO estadoVerificacionDTO)
     {
@@ -37,12 +40,15 @@ public class EstadoVerificacionController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPut]
     public async Task<IActionResult> PutEstadoVerificacionIdAsync([FromBody] TEstadoVerificacionDTO estadoVerificacionDTO)
     {
         await _tEstadoVerificacionService.ActualizarAsync(estadoVerificacionDTO.NEstadoVerificacionID, estadoVerificacionDTO);
         return NoContent();
     }
+
+    [Authorize(Roles = "Administrador")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteEstadoVerificacionIdAsync(int id)
     {

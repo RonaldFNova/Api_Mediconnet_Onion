@@ -68,7 +68,7 @@ public class TUsuariosService : ITUsuariosService
         await _tUsuariosRepository.SaveChangesAsync();
 
         var rol = await  _tUsuariosRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
-        var token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol));
+        var token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol)!);
 
         return Convert.ToString(token);
     }

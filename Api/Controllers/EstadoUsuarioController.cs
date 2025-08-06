@@ -1,7 +1,7 @@
-using System.Runtime.CompilerServices;
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api_Mediconnet.Api.Controllers;
 
@@ -16,6 +16,7 @@ public class EstadoUsuarioController : ControllerBase
         _tEstadoUsuarioService = tEstadoUsuarioService;
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpGet]
     public async Task<IActionResult> GetEstadoUsuariosAsync()
     {
@@ -23,6 +24,7 @@ public class EstadoUsuarioController : ControllerBase
         return Ok(estadoUsuario);
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetEstadoUsuariosIdAsync(int id)
     {
@@ -30,6 +32,7 @@ public class EstadoUsuarioController : ControllerBase
         return Ok(estadoUsuario);
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPost]
     public async Task<IActionResult> PostEstadoUsuario([FromBody] TEstadoUsuarioDTO estadoUsuarioDTO)
     {
@@ -37,6 +40,7 @@ public class EstadoUsuarioController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPut]
     public async Task<IActionResult> PutEstadoUsuario([FromBody] TEstadoUsuarioDTO estadoUsuarioDTO)
     {
@@ -44,6 +48,7 @@ public class EstadoUsuarioController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteEstadoUsuario( int id)
     {

@@ -25,7 +25,7 @@ public class UsuariosController : ControllerBase
         return Ok(usuarios);
     }
 
-
+    [Authorize(Roles = "Administrador")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUsuario(int id)
     {
@@ -41,6 +41,7 @@ public class UsuariosController : ControllerBase
         return Ok(new { token });
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpPut]
     public async Task<IActionResult> PutUsuario([FromBody] TUsuarioCreateDTO usuarioCreateDTO)
     {
@@ -48,6 +49,7 @@ public class UsuariosController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Administrador")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUsuario(int id)
     {

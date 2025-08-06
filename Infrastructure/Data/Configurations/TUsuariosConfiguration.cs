@@ -18,31 +18,17 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasColumnName("NEstadoVerificacionFK")
             .HasColumnType("int(12)");
 
-        builder.HasOne(u => u.EstadoVerificacion)
-            .WithMany(e => e.Usuarios)
-            .HasForeignKey(u => u.NEstadoVerificacionFK)
-            .HasConstraintName("FK_Usuarios_EstadoVerificacion")
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(e => e.NRolFK)
+            .HasColumnName("NRolFK")
+            .HasColumnType("int(12)");
 
         builder.Property(e => e.NEstadoUsuarioFK)
             .HasColumnName("NEstadoUsuarioFK")
             .HasColumnType("int(12)");
 
-        builder.HasOne(u => u.EstadoUsuario)
-            .WithMany(e => e.Usuarios)
-            .HasForeignKey(u => u.NEstadoUsuarioFK)
-            .HasConstraintName("FK_Usuarios_EstadoUsuarios")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.Property(e => e.NRolFK)
-            .HasColumnName("NRolFK")
-            .HasColumnType("int(12)");
-
-        builder.HasOne(u => u.Rol)
-            .WithMany(e => e.Usuarios)
-            .HasForeignKey(u => u.NRolFK)
-            .HasConstraintName("FK_Usuarios_Rol")
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(e => e.NLoginFK)
+            .HasColumnName("NLoginFK")
+            .HasColumnType("int(32)");
 
         builder.Property(e => e.CEmail)
             .HasColumnName("CEmail")
@@ -64,6 +50,30 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
         builder.Property(e => e.DFechaRegistro)
             .HasColumnName("DFechaRegistro")
             .HasColumnType("DateTime");
+
+        builder.HasOne(u => u.EstadoVerificacion)
+            .WithMany(e => e.Usuarios)
+            .HasForeignKey(u => u.NEstadoVerificacionFK)
+            .HasConstraintName("FK_Usuarios_EstadoVerificacion")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(u => u.Logins)
+            .WithMany(e => e.Usuarios)
+            .HasForeignKey(u => u.NLoginFK)
+            .HasConstraintName("FK_Usuarios_Logins")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(u => u.EstadoUsuario)
+            .WithMany(e => e.Usuarios)
+            .HasForeignKey(u => u.NEstadoUsuarioFK)
+            .HasConstraintName("FK_Usuarios_EstadoUsuarios")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(u => u.Rol)
+            .WithMany(e => e.Usuarios)
+            .HasForeignKey(u => u.NRolFK)
+            .HasConstraintName("FK_Usuarios_Rol")
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
 

@@ -16,11 +16,11 @@ public class TTipoIdentificacionRepository : ITTipoIdentificacionRepository
     }
     public async Task<IEnumerable<TTipoIdentificacion>> GetTipoIdentificacionAsync()
     {
-        return await _context.TipoIdentificacion.ToListAsync();
+        return await _context.TTipoIdentificacion.ToListAsync();
     }
     public async Task<TTipoIdentificacion?> GetTipoIdentificacionIdAsync(int id)
     {
-        return await _context.TipoIdentificacion.FindAsync(id);
+        return await _context.TTipoIdentificacion.FindAsync(id);
     }
     public async Task AddAsync(TTipoIdentificacion tipoIdentificacion)
     {

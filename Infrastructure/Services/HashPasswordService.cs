@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Domain.Entities;
 
 namespace Api_Mediconnet.Infrastructure.Services;
 
@@ -9,14 +10,13 @@ public class HashPasswordService : IHashPasswordService
 
     public string Hash(string Password)
     {
-        return hasher.HashPassword(null, Password);
+        return hasher.HashPassword("Usuario", Password);
     }
 
     public bool Verificar(string Password, string PasswordHash)
     {
-        var resultado = hasher.VerifyHashedPassword(null, PasswordHash, Password);
+        var resultado = hasher.VerifyHashedPassword("Usuario", PasswordHash, Password);
 
         return resultado == PasswordVerificationResult.Success;
-
     }
 }

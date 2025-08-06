@@ -88,11 +88,28 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TLogins", b =>
+                {
+                    b.Property<int>("NLoginID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NLoginID");
+
+                    b.Property<DateTime>("DFechaLogin")
+                        .HasColumnType("DateTime")
+                        .HasColumnName("DFechaLogin");
+
+                    b.HasKey("NLoginID")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("TLogins", (string)null);
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
                 {
                     b.Property<int>("NRolID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int(12)")
+                        .HasColumnType("int(32)")
                         .HasColumnName("NRolID");
 
                     b.Property<string>("CNombre")
@@ -171,6 +188,10 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasColumnType("int(12)")
                         .HasColumnName("NEstadoVerificacionFK");
 
+                    b.Property<int>("NLoginFK")
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NLoginFK");
+
                     b.Property<int>("NRolFK")
                         .HasColumnType("int(12)")
                         .HasColumnName("NRolFK");
@@ -181,6 +202,8 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.HasIndex("NEstadoUsuarioFK");
 
                     b.HasIndex("NEstadoVerificacionFK");
+
+                    b.HasIndex("NLoginFK");
 
                     b.HasIndex("NRolFK");
 
@@ -229,6 +252,13 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Usuarios_EstadoVerificacion");
 
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TLogins", "Logins")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("NLoginFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Usuarios_Logins");
+
                     b.HasOne("Api_Mediconnet.Domain.Entities.TRol", "Rol")
                         .WithMany("Usuarios")
                         .HasForeignKey("NRolFK")
@@ -240,6 +270,8 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
                     b.Navigation("EstadoVerificacion");
 
+                    b.Navigation("Logins");
+
                     b.Navigation("Rol");
                 });
 
@@ -249,6 +281,11 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoVerificacion", b =>
+                {
+                    b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TLogins", b =>
                 {
                     b.Navigation("Usuarios");
                 });

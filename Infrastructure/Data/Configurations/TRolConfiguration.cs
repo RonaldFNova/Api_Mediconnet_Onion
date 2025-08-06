@@ -13,7 +13,7 @@ public class TRolConfiguration : IEntityTypeConfiguration<TRol>
         builder.HasKey(e => e.NRolID).HasName("PRIMARY");
         builder.Property(e => e.NRolID)
             .HasColumnName("NRolID")
-            .HasColumnType("int(12)");
+            .HasColumnType("int(32)");
 
         builder.Property(e => e.CNombre)
             .HasColumnName("CNombre")
