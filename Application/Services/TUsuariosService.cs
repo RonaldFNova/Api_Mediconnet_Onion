@@ -68,9 +68,9 @@ public class TUsuariosService : ITUsuariosService
         await _tUsuariosRepository.SaveChangesAsync();
 
         var rol = await  _tUsuariosRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
-        var token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol)!);
+        string token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol)!);
 
-        return Convert.ToString(token);
+        return token;
     }
 
     public async Task ActualizarAsync(int id, TUsuarioCreateDTO dTO)

@@ -8,6 +8,7 @@ using Api_Mediconnet.Application.interfaces;
 using Api_Mediconnet.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Api_Mediconnet.Api.Middleware;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -94,6 +95,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     );
 
 var app = builder.Build();
+
+app.UseHttpsRedirection();
+
+app.UseMiddleware<ErrorHandlingMiddleware>(); 
 
 app.UseAuthentication();
 
