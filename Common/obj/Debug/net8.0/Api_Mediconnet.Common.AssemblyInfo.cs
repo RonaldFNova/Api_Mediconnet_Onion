@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Api_Mediconnet.Common")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94823f8266674edc387dcb3381e93d2a8dec9ef7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e36037b12c840c522888be2d316b5b2238fd4b08")]
 [assembly: System.Reflection.AssemblyProductAttribute("Api_Mediconnet.Common")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Api_Mediconnet.Common")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

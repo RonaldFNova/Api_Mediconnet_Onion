@@ -1549,7 +1549,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Api_Mediconnet.Domain": "1.0.0"
+          "Api_Mediconnet.Domain": "1.0.0",
+          "Microsoft.AspNetCore.Identity": "2.3.1"
         },
         "compile": {
           "bin/placeholder/Api_Mediconnet.Application.dll": {}
@@ -3860,11 +3861,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\infrastructure\\Api_Mediconnet.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj",
       "projectName": "Api_Mediconnet.Infrastructure",
-      "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\infrastructure\\Api_Mediconnet.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\Api_Mediconnet.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\ronal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ronal\\AppData\\Roaming\\NuGet\\NuGet.Config"

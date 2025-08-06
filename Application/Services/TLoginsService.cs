@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.interfaces;
 using Api_Mediconnet.Domain.Entities;
@@ -10,10 +8,13 @@ namespace Api_Mediconnet.Application.Services;
 public class TLoginsService : ITLoginsService
 {
     private readonly ITLoginsRepository _tLoginsRepository;
-
-    public TLoginsService(ITLoginsRepository tLoginsRepository)
+    private readonly IHashPasswordService _hashPasswordService;
+    private readonly IJwtTokenIdService _jwtTokenIdService;
+    public TLoginsService(ITLoginsRepository tLoginsRepository, IHashPasswordService hashPasswordService, IJwtTokenIdService jwtTokenIdService)
     {
         _tLoginsRepository = tLoginsRepository;
+        _hashPasswordService = hashPasswordService;
+        _jwtTokenIdService = jwtTokenIdService;
     }
 
     public async Task<IEnumerable<TloginsDTO>> GetLoginsDTOsAsync()
@@ -39,16 +40,27 @@ public class TLoginsService : ITLoginsService
         };
     }
 
-    public async Task CrearAsync(TloginsDTO DTOs)
+    public async Task<string> CrearAsync(LoginsRequestDTO loginsRequest)
     {
-        var logins = new TLogins
-        {
-            NLoginID = DTOs.NLoginID,
-            DFechaLogin = DateTime.UtcNow
-        };
 
-        await _tLoginsRepository.AddAsync(logins);
+        var user = await _tLoginsRepository.GetByEmailAsync(loginsRequest.CEmail);
+        if (user == null) throw new Exception("Usuario no encontrado");
+
+        var result = _hashPasswordService.Verificar(loginsRequest.CPassword, user.CPassword);
+        if (!result) throw new Exception("La contrseña es incorrecta");
+
+        var NewLogins = new TLogins
+        {
+            DFechaLogin = DateTime.UtcNow,
+            NUsuarioFK = user.NUsuarioID
+        };
+        
+        var token = _jwtTokenIdService.GenerarToken(user.NUsuarioID.ToString(), user.Rol.CNombre);
+
+        await _tLoginsRepository.AddAsync(NewLogins);
         await _tLoginsRepository.SaveChangeAsync();
+
+        return token;        
     }
 
     public async Task ActualizarAsync(int id, TloginsDTO DTOs)

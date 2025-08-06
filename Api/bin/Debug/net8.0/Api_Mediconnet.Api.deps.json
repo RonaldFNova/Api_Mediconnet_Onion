@@ -1523,7 +1523,8 @@
       },
       "Api_Mediconnet.Application/1.0.0": {
         "dependencies": {
-          "Api_Mediconnet.Domain": "1.0.0"
+          "Api_Mediconnet.Domain": "1.0.0",
+          "Microsoft.AspNetCore.Identity": "2.3.1"
         },
         "runtime": {
           "Api_Mediconnet.Application.dll": {

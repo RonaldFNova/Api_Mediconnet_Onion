@@ -23,6 +23,13 @@ public class TLoginsRepository : ITLoginsRepository
         return await _context.TLogins.FindAsync(id);
     }
 
+    public async Task<TUsuarios?> GetByEmailAsync(string email)
+    {
+         return await _context.TUsuarios
+            .Include(u => u.Rol)
+            .FirstOrDefaultAsync(u => u.CEmail == email);
+    }
+
     public async Task AddAsync(TLogins logins)
     {
         await _context.TLogins.AddAsync(logins);

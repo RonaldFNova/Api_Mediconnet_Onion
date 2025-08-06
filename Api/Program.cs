@@ -80,6 +80,9 @@ builder.Services.AddScoped<ITEstadoVerificacionRepository, TEstadoVerificacionRe
 builder.Services.AddScoped<ITipoIdentificacionService, TTipoIdentificacionService>();
 builder.Services.AddScoped<ITTipoIdentificacionRepository, TTipoIdentificacionRepository>();
 
+builder.Services.AddScoped<ITLoginsService, TLoginsService>();
+builder.Services.AddScoped<ITLoginsRepository, TLoginsRepository>();
+
 builder.Services.AddScoped<IHashPasswordService, HashPasswordService>();
 
 builder.Services.AddScoped<IJwtTokenIdService, JwtTokenIdService>();

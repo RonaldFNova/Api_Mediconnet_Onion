@@ -48,20 +48,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TLogins",
-                columns: table => new
-                {
-                    NLoginID = table.Column<int>(type: "int(32)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DFechaLogin = table.Column<DateTime>(type: "DateTime", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PRIMARY", x => x.NLoginID);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "TRol",
                 columns: table => new
                 {
@@ -99,7 +85,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NEstadoVerificacionFK = table.Column<int>(type: "int(12)", nullable: false),
                     NEstadoUsuarioFK = table.Column<int>(type: "int(12)", nullable: false),
-                    NLoginFK = table.Column<int>(type: "int(32)", nullable: false),
                     NRolFK = table.Column<int>(type: "int(12)", nullable: false),
                     CNombre = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -127,16 +112,31 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         principalColumn: "NEstadoVerificacion",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Usuarios_Logins",
-                        column: x => x.NLoginFK,
-                        principalTable: "TLogins",
-                        principalColumn: "NLoginID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Usuarios_Rol",
                         column: x => x.NRolFK,
                         principalTable: "TRol",
                         principalColumn: "NRolID",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TLogins",
+                columns: table => new
+                {
+                    NLoginID = table.Column<int>(type: "int(32)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    DFechaLogin = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    NUsuarioFK = table.Column<int>(type: "int(32)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NLoginID);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Logins",
+                        column: x => x.NUsuarioFK,
+                        principalTable: "tUsuarios",
+                        principalColumn: "nUsuarioID",
                         onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -182,6 +182,11 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_TLogins_NUsuarioFK",
+                table: "TLogins",
+                column: "NUsuarioFK");
+
+            migrationBuilder.CreateIndex(
                 name: "CNombre2",
                 table: "TRol",
                 column: "CNombre",
@@ -210,11 +215,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 column: "NEstadoVerificacionFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tUsuarios_NLoginFK",
-                table: "tUsuarios",
-                column: "NLoginFK");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_tUsuarios_NRolFK",
                 table: "tUsuarios",
                 column: "NRolFK");
@@ -223,6 +223,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TLogins");
+
             migrationBuilder.DropTable(
                 name: "TTipoIdentificacion");
 
@@ -234,9 +237,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TEstadoVerificacion");
-
-            migrationBuilder.DropTable(
-                name: "TLogins");
 
             migrationBuilder.DropTable(
                 name: "TRol");

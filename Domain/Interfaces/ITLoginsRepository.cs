@@ -6,6 +6,7 @@ public interface ITLoginsRepository
 {
     Task<IEnumerable<TLogins>> GetLoginsAsync();
     Task<TLogins?> GetLoginsIdAsync(int id);
+    Task<TUsuarios?> GetByEmailAsync(string email);
     Task AddAsync(TLogins logins);
     void Update(TLogins logins);
     void Delete(TLogins logins);

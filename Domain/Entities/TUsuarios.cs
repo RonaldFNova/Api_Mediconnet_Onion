@@ -7,8 +7,6 @@ public class TUsuarios
     public virtual TEstadoVerificacion EstadoVerificacion { get; set; } = null!;
     public int NEstadoUsuarioFK { get; set; }
     public virtual TEstadoUsuario EstadoUsuario { get; set; } = null!;
-    public int NLoginFK { get; set; }
-    public virtual TLogins Logins { get; set; } = null!;
     public int NRolFK { get; set; }
     public virtual TRol Rol { get; set; } = null!;
     public string CNombre { get; set; } = null!;
@@ -16,5 +14,7 @@ public class TUsuarios
     public string CEmail { get; set; } = null!;
     public string CPassword { get; set; } = null!;
     public DateTime DFechaRegistro { get; set; }
+    public virtual ICollection<TLogins> Logins { get; set; } = null!;
+
 
 }

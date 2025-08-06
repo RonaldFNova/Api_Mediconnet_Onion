@@ -26,10 +26,6 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasColumnName("NEstadoUsuarioFK")
             .HasColumnType("int(12)");
 
-        builder.Property(e => e.NLoginFK)
-            .HasColumnName("NLoginFK")
-            .HasColumnType("int(32)");
-
         builder.Property(e => e.CEmail)
             .HasColumnName("CEmail")
             .HasMaxLength(255);
@@ -57,11 +53,6 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasConstraintName("FK_Usuarios_EstadoVerificacion")
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(u => u.Logins)
-            .WithMany(e => e.Usuarios)
-            .HasForeignKey(u => u.NLoginFK)
-            .HasConstraintName("FK_Usuarios_Logins")
-            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(u => u.EstadoUsuario)
             .WithMany(e => e.Usuarios)

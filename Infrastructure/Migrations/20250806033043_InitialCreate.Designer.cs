@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Mediconnet.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250805230203_InitialCreate")]
+    [Migration("20250806033043_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -102,8 +102,13 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasColumnType("DateTime")
                         .HasColumnName("DFechaLogin");
 
+                    b.Property<int>("NUsuarioFK")
+                        .HasColumnType("int(32)");
+
                     b.HasKey("NLoginID")
                         .HasName("PRIMARY");
+
+                    b.HasIndex("NUsuarioFK");
 
                     b.ToTable("TLogins", (string)null);
                 });
@@ -191,10 +196,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasColumnType("int(12)")
                         .HasColumnName("NEstadoVerificacionFK");
 
-                    b.Property<int>("NLoginFK")
-                        .HasColumnType("int(32)")
-                        .HasColumnName("NLoginFK");
-
                     b.Property<int>("NRolFK")
                         .HasColumnType("int(12)")
                         .HasColumnName("NRolFK");
@@ -205,8 +206,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.HasIndex("NEstadoUsuarioFK");
 
                     b.HasIndex("NEstadoVerificacionFK");
-
-                    b.HasIndex("NLoginFK");
 
                     b.HasIndex("NRolFK");
 
@@ -239,6 +238,18 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.ToTable("TTipoIdentificacion", (string)null);
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TLogins", b =>
+                {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TUsuarios", "Usuarios")
+                        .WithMany("Logins")
+                        .HasForeignKey("NUsuarioFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Usuarios_Logins");
+
+                    b.Navigation("Usuarios");
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
                 {
                     b.HasOne("Api_Mediconnet.Domain.Entities.TEstadoUsuario", "EstadoUsuario")
@@ -255,13 +266,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Usuarios_EstadoVerificacion");
 
-                    b.HasOne("Api_Mediconnet.Domain.Entities.TLogins", "Logins")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("NLoginFK")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Usuarios_Logins");
-
                     b.HasOne("Api_Mediconnet.Domain.Entities.TRol", "Rol")
                         .WithMany("Usuarios")
                         .HasForeignKey("NRolFK")
@@ -272,8 +276,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.Navigation("EstadoUsuario");
 
                     b.Navigation("EstadoVerificacion");
-
-                    b.Navigation("Logins");
 
                     b.Navigation("Rol");
                 });
@@ -288,14 +290,14 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.Navigation("Usuarios");
                 });
 
-            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TLogins", b =>
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
                 {
                     b.Navigation("Usuarios");
                 });
 
-            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
                 {
-                    b.Navigation("Usuarios");
+                    b.Navigation("Logins");
                 });
 #pragma warning restore 612, 618
         }
