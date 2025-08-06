@@ -103,11 +103,29 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))
     );
 
+builder.WebHost.UseUrls("http://0.0.0.0:80");
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 
 app.UseMiddleware<ErrorHandlingMiddleware>(); 
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthentication();
 

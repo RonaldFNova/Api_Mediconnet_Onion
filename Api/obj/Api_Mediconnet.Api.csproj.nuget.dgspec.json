@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj": {}
+    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Api\\Api_Mediconnet.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj": {
+    "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Api\\Api_Mediconnet.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj",
+        "projectUniqueName": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Api\\Api_Mediconnet.Api.csproj",
         "projectName": "Api_Mediconnet.Api",
-        "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\Api_Mediconnet.Api.csproj",
+        "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Api\\Api_Mediconnet.Api.csproj",
         "packagesPath": "C:\\Users\\ronal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\api\\obj\\",
+        "outputPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ronal\\AppData\\Roaming\\NuGet\\NuGet.Config"
