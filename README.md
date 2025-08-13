@@ -62,6 +62,30 @@ curl -X POST https://tuapi.com/Api/Usuario \
 
 - El `token` devuelto debe guardarse y usarse en el encabezado Authorization en sguientes solicitudes protegidas.
 - Es importante que el email sea válido, ya que puede ser utilizado posteriormente para verificación o recuperación de cuenta.
-- El RolFK es el id del tipo del rol que tendra ese usuario.
+- El `RolFK` es el id del tipo del rol que tendra ese usuario.
 
+
+### 2. Inicio de sesión (Login)
+Este endpoint permite a un usuario autenticarse en el sistema proporcionando su correo electrónico y contraseña. Si las credenciales son válidas, se devuelve un token JWT que puede usarse en solicitudes protegidas.  
+#### Ejemplo usando curl:
+```bash
+curl -X POST https://tuapi.com/Api/Login \
+  -H "Content-Type: application/json" \
+  -d '{
+       "Email": "TuCorreo@gmail.com",
+       "Password" : "Contraseña"
+      }'
+```
+
+#### Respuesta exitosa (200 OK):  
+```bash
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+}
+```
+
+#### Notas  
+- El `token` devuelto es un JWT (JSON Web Token) que debes enviar en las solicitudes posteriores para acceder a recursos protegidos.
+- El `token` devuelto representa la sesión del usuario y debe ser almacenado de forma segura en el cliente (por ejemplo, en localStorage o sessionStorage).
+- Se recomienda validar que el correo tenga formato válido antes de enviar.
 
