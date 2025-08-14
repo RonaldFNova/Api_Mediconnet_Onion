@@ -97,6 +97,9 @@ builder.Services.AddScoped<IHashPasswordService, HashPasswordService>();
 
 builder.Services.AddScoped<IJwtTokenIdService, JwtTokenIdService>();
 
+builder.Services.AddScoped<ITGrupoSanguineoService, TGrupoSanguineoService>();
+builder.Services.AddScoped<ITGrupoSanguineoRepository, TGrupoSanguineoRepository>();
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),

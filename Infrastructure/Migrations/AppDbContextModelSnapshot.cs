@@ -88,6 +88,29 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TGrupoSanguineo", b =>
+                {
+                    b.Property<int>("NGrupoSanguineoID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NGrupoSanguineoID");
+
+                    b.Property<string>("CNombre")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("CNombre");
+
+                    b.HasKey("NGrupoSanguineoID")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex(new[] { "CNombre" }, "CNombre")
+                        .IsUnique()
+                        .HasDatabaseName("CNombre2");
+
+                    b.ToTable("TGrupoSanguineo", (string)null);
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TLogins", b =>
                 {
                     b.Property<int>("NLoginID")
@@ -128,7 +151,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "CNombre" }, "CNombre")
                         .IsUnique()
-                        .HasDatabaseName("CNombre2");
+                        .HasDatabaseName("CNombre3");
 
                     b.ToTable("TRol", (string)null);
 
@@ -148,6 +171,29 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                             NRolID = 3,
                             CNombre = "Medico"
                         });
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TTipoIdentificacion", b =>
+                {
+                    b.Property<int>("NTipoIdentificacionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NTipoIdentificacion");
+
+                    b.Property<string>("CNombre")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("CNombre");
+
+                    b.HasKey("NTipoIdentificacionID")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex(new[] { "CNombre" }, "CNombre")
+                        .IsUnique()
+                        .HasDatabaseName("CNombre4");
+
+                    b.ToTable("TTipoIdentificacion", (string)null);
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
@@ -209,30 +255,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.HasIndex(new[] { "CEmail" }, "CEmail")
                         .IsUnique();
 
-                    b.ToTable("tUsuarios", (string)null);
-                });
-
-            modelBuilder.Entity("TTipoIdentificacion", b =>
-                {
-                    b.Property<int>("NTipoIdentificacionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(12)")
-                        .HasColumnName("NTipoIdentificacion");
-
-                    b.Property<string>("CNombre")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("CNombre");
-
-                    b.HasKey("NTipoIdentificacionID")
-                        .HasName("PRIMARY");
-
-                    b.HasIndex(new[] { "CNombre" }, "CNombre")
-                        .IsUnique()
-                        .HasDatabaseName("CNombre3");
-
-                    b.ToTable("TTipoIdentificacion", (string)null);
+                    b.ToTable("TUsuarios", (string)null);
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TLogins", b =>

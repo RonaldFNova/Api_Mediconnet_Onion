@@ -1,7 +1,6 @@
 namespace Api_Mediconnet.Domain.Entities;
-
-public class TTipoIdentificacion
+public class TGrupoSanguineo
 {
-    public int NTipoIdentificacionID { get; set; }
+    public int NGrupoSanguineoID { get; set; }
     public string CNombre { get; set; } = null!;
 }

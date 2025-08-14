@@ -8,7 +8,7 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
 {
     public void Configure(EntityTypeBuilder<TUsuarios> builder)
     {
-        builder.ToTable("tUsuarios");
+        builder.ToTable("TUsuarios");
         builder.HasKey(e => e.NUsuarioID).HasName("PRIMARY");
         builder.Property(e => e.NUsuarioID)
             .HasColumnName("nUsuarioID")
