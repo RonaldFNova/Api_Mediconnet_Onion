@@ -108,11 +108,40 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "TPersona",
+                columns: table => new
+                {
+                    NPersonaID = table.Column<int>(type: "int(32)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NUsuarioFK = table.Column<int>(type: "int(32)", nullable: false),
+                    NTipoIdentificacionFK = table.Column<int>(type: "int(32)", nullable: false),
+                    CNroIdentificacion = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CNroConctacto = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CDireccion = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DFechaNacimiento = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    ESexo = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NPersonaID);
+                    table.ForeignKey(
+                        name: "FK_Personas_TipoIdentificacion",
+                        column: x => x.NTipoIdentificacionFK,
+                        principalTable: "TTipoIdentificacion",
+                        principalColumn: "NTipoIdentificacion",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "TUsuarios",
                 columns: table => new
                 {
-                    nUsuarioID = table.Column<int>(type: "int(32)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    nUsuarioID = table.Column<int>(type: "int(32)", nullable: false),
                     NEstadoVerificacionFK = table.Column<int>(type: "int(12)", nullable: false),
                     NEstadoUsuarioFK = table.Column<int>(type: "int(12)", nullable: false),
                     NRolFK = table.Column<int>(type: "int(12)", nullable: false),
@@ -129,6 +158,12 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PRIMARY", x => x.nUsuarioID);
+                    table.ForeignKey(
+                        name: "FK_TUsuarios_TPersona_nUsuarioID",
+                        column: x => x.nUsuarioID,
+                        principalTable: "TPersona",
+                        principalColumn: "NPersonaID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Usuarios_EstadoUsuarios",
                         column: x => x.NEstadoUsuarioFK,
@@ -229,6 +264,17 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 column: "NUsuarioFK");
 
             migrationBuilder.CreateIndex(
+                name: "CNroIdentificacion",
+                table: "TPersona",
+                column: "CNroIdentificacion",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TPersona_NTipoIdentificacionFK",
+                table: "TPersona",
+                column: "NTipoIdentificacionFK");
+
+            migrationBuilder.CreateIndex(
                 name: "CNombre4",
                 table: "TRol",
                 column: "CNombre",
@@ -275,10 +321,10 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 name: "TLogins");
 
             migrationBuilder.DropTable(
-                name: "TTipoIdentificacion");
+                name: "TUsuarios");
 
             migrationBuilder.DropTable(
-                name: "TUsuarios");
+                name: "TPersona");
 
             migrationBuilder.DropTable(
                 name: "TEstadoUsuario");
@@ -288,6 +334,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TRol");
+
+            migrationBuilder.DropTable(
+                name: "TTipoIdentificacion");
         }
     }
 }

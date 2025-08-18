@@ -9,7 +9,6 @@ public class AppDbContext : DbContext
     {
         
     }
-    
     public virtual DbSet<TUsuarios> TUsuarios { get; set; }
     public virtual DbSet<TRol> TRol { get; set; }
     public virtual DbSet<TEstadoVerificacion> TEstadoVerificacion { get; set; }
@@ -18,7 +17,7 @@ public class AppDbContext : DbContext
     public virtual DbSet<TLogins> TLogins { get; set; }
     public virtual DbSet<TGrupoSanguineo> TGrupoSanguineo { get; set; }
     public virtual DbSet<TDiaSemana> TDiaSemana { get; set; }
-    
+    public virtual DbSet<TPersona> TPersonas { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 

@@ -15,6 +15,6 @@ public class TUsuarios
     public string CPassword { get; set; } = null!;
     public DateTime DFechaRegistro { get; set; }
     public virtual ICollection<TLogins> Logins { get; set; } = null!;
-
+    public TPersona Personas { get; set; } = null!;
 
 }

@@ -156,6 +156,60 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.ToTable("TLogins", (string)null);
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
+                {
+                    b.Property<int>("NPersonaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NPersonaID");
+
+                    b.Property<string>("CDireccion")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("CDireccion");
+
+                    b.Property<string>("CNroConctacto")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("CNroConctacto");
+
+                    b.Property<string>("CNroIdentificacion")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("CNroIdentificacion");
+
+                    b.Property<DateTime>("DFechaNacimiento")
+                        .HasColumnType("DateTime")
+                        .HasColumnName("DFechaNacimiento");
+
+                    b.Property<string>("ESexo")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
+                        .HasColumnName("ESexo");
+
+                    b.Property<int>("NTipoIdentificacionFK")
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NTipoIdentificacionFK");
+
+                    b.Property<int>("NUsuarioFK")
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NUsuarioFK");
+
+                    b.HasKey("NPersonaID")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("NTipoIdentificacionFK");
+
+                    b.HasIndex(new[] { "CNroIdentificacion" }, "CNroIdentificacion")
+                        .IsUnique();
+
+                    b.ToTable("TPersona", (string)null);
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
                 {
                     b.Property<int>("NRolID")
@@ -222,7 +276,6 @@ namespace Api_Mediconnet.Infrastructure.Migrations
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
                 {
                     b.Property<int>("NUsuarioID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int(32)")
                         .HasColumnName("nUsuarioID");
 
@@ -293,6 +346,18 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.Navigation("Usuarios");
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
+                {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TTipoIdentificacion", "TipoIdentificacion")
+                        .WithMany("Personas")
+                        .HasForeignKey("NTipoIdentificacionFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Personas_TipoIdentificacion");
+
+                    b.Navigation("TipoIdentificacion");
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
                 {
                     b.HasOne("Api_Mediconnet.Domain.Entities.TEstadoUsuario", "EstadoUsuario")
@@ -316,9 +381,17 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Usuarios_Rol");
 
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TPersona", "Personas")
+                        .WithOne("Usuarios")
+                        .HasForeignKey("Api_Mediconnet.Domain.Entities.TUsuarios", "NUsuarioID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("EstadoUsuario");
 
                     b.Navigation("EstadoVerificacion");
+
+                    b.Navigation("Personas");
 
                     b.Navigation("Rol");
                 });
@@ -333,9 +406,20 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.Navigation("Usuarios");
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
+                {
+                    b.Navigation("Usuarios")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
                 {
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TTipoIdentificacion", b =>
+                {
+                    b.Navigation("Personas");
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
