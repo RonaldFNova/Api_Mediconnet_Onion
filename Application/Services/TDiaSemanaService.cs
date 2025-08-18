@@ -6,11 +6,11 @@ using Api_Mediconnet.Domain.interfaces;
 
 namespace Api_Mediconnet.Application.Services;
 
-public class TDiaSemanaServices : ITDiaSemanaServices
+public class TDiaSemanaService : ITDiaSemanaServices
 {
     private readonly ITDiaSemanaRepository _tDiaSemanaRepository;
 
-    public TDiaSemanaServices(ITDiaSemanaRepository tDiaSemanaRepository)
+    public TDiaSemanaService(ITDiaSemanaRepository tDiaSemanaRepository)
     {
         _tDiaSemanaRepository = tDiaSemanaRepository;
     }
