@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Mediconnet.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250818171552_InitialCreate")]
+    [Migration("20250819191155_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -159,10 +159,36 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.ToTable("TLogins", (string)null);
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPaciente", b =>
+                {
+                    b.Property<int>("NPacienteID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NPacienteID");
+
+                    b.Property<string>("CAlergiasGenerales")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)")
+                        .HasColumnName("CAlergiasGenerales");
+
+                    b.Property<int>("NGrupoSanguineoFK")
+                        .HasColumnType("int(6)")
+                        .HasColumnName("NGrupoSanguineoFK");
+
+                    b.Property<int>("NPersonaFK")
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NPersonaFK");
+
+                    b.HasKey("NPacienteID")
+                        .HasName("PRIMARY");
+
+                    b.ToTable("TPaciente", (string)null);
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
                 {
                     b.Property<int>("NPersonaID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int(32)")
                         .HasColumnName("NPersonaID");
 
@@ -351,12 +377,20 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
                 {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TPaciente", "Paciente")
+                        .WithOne("Personas")
+                        .HasForeignKey("Api_Mediconnet.Domain.Entities.TPersona", "NPersonaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Api_Mediconnet.Domain.Entities.TTipoIdentificacion", "TipoIdentificacion")
                         .WithMany("Personas")
                         .HasForeignKey("NTipoIdentificacionFK")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("FK_Personas_TipoIdentificacion");
+
+                    b.Navigation("Paciente");
 
                     b.Navigation("TipoIdentificacion");
                 });
@@ -407,6 +441,12 @@ namespace Api_Mediconnet.Infrastructure.Migrations
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoVerificacion", b =>
                 {
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPaciente", b =>
+                {
+                    b.Navigation("Personas")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>

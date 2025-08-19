@@ -78,6 +78,23 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "TPaciente",
+                columns: table => new
+                {
+                    NPacienteID = table.Column<int>(type: "int(32)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NPersonaFK = table.Column<int>(type: "int(32)", nullable: false),
+                    NGrupoSanguineoFK = table.Column<int>(type: "int(6)", nullable: false),
+                    CAlergiasGenerales = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NPacienteID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "TRol",
                 columns: table => new
                 {
@@ -111,8 +128,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 name: "TPersona",
                 columns: table => new
                 {
-                    NPersonaID = table.Column<int>(type: "int(32)", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NPersonaID = table.Column<int>(type: "int(32)", nullable: false),
                     NUsuarioFK = table.Column<int>(type: "int(32)", nullable: false),
                     NTipoIdentificacionFK = table.Column<int>(type: "int(32)", nullable: false),
                     CNroIdentificacion = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
@@ -134,6 +150,12 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         principalTable: "TTipoIdentificacion",
                         principalColumn: "NTipoIdentificacion",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TPersona_TPaciente_NPersonaID",
+                        column: x => x.NPersonaID,
+                        principalTable: "TPaciente",
+                        principalColumn: "NPacienteID",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -337,6 +359,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TTipoIdentificacion");
+
+            migrationBuilder.DropTable(
+                name: "TPaciente");
         }
     }
 }

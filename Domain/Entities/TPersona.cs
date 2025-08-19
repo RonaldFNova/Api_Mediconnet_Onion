@@ -17,6 +17,7 @@ public class TPersona
     public DateTime DFechaNacimiento { get; set; }
     public ESexo ESexo { get; set; }
     public TUsuarios Usuarios { get; set; } = null!;
+    public TPaciente Paciente { get; set; } = null!;
     public virtual TTipoIdentificacion TipoIdentificacion { get; set; } = null!;
 
 }
