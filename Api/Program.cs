@@ -100,6 +100,12 @@ builder.Services.AddScoped<IJwtTokenIdService, JwtTokenIdService>();
 builder.Services.AddScoped<ITGrupoSanguineoService, TGrupoSanguineoService>();
 builder.Services.AddScoped<ITGrupoSanguineoRepository, TGrupoSanguineoRepository>();
 
+builder.Services.AddScoped<ITPersonaService, TPersonaService>();
+builder.Services.AddScoped<ITPersonaRepository, TPersonaRepository>();
+
+builder.Services.AddScoped<ITPacienteService, TPacienteService>();
+builder.Services.AddScoped<ITPacienteRepository, TPacienteRepository>();
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
