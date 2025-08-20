@@ -53,7 +53,6 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasConstraintName("FK_Usuarios_EstadoVerificacion")
             .OnDelete(DeleteBehavior.Restrict);
 
-
         builder.HasOne(u => u.EstadoUsuario)
             .WithMany(e => e.Usuarios)
             .HasForeignKey(u => u.NEstadoUsuarioFK)

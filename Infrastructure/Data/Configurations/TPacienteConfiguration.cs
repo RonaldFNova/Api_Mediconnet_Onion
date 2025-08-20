@@ -27,7 +27,9 @@ public class TPacienteConfiguration : IEntityTypeConfiguration<TPaciente>
             .HasMaxLength(2000);
 
         builder.HasOne(e => e.Personas)
-            .WithOne(e => e.Paciente)
-            .HasForeignKey<TPersona>(e => e.NPersonaID);
+            .WithOne(p => p.Paciente)
+            .HasForeignKey<TPaciente>(e => e.NPersonaFK)
+            .IsRequired(false);
+
     }
 }

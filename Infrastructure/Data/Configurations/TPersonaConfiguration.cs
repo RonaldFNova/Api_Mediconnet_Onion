@@ -51,7 +51,8 @@ public class TPersonaConfiguration : IEntityTypeConfiguration<TPersona>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(e => e.Usuarios)
-            .WithOne(e => e.Personas)
-            .HasForeignKey<TUsuarios>(e => e.NUsuarioID);
+            .WithOne(p => p.Personas)
+            .HasForeignKey<TPersona>(e => e.NUsuarioFK)
+            .IsRequired(false);
     }
 }
