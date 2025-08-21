@@ -20,6 +20,9 @@ public class AppDbContext : DbContext
     public virtual DbSet<TDiaSemana> TDiaSemana { get; set; }
     public virtual DbSet<TPersona> TPersona { get; set; }
     public virtual DbSet<TPaciente> TPaciente { get; set; }
+    public virtual DbSet<TEspecialidad> TEspecialidad { get; set; }
+
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
@@ -42,32 +45,32 @@ public class AppDbContext : DbContext
         );
 
         modelBuilder.Entity<TGrupoSanguineo>().HasData(
-            new TGrupoSanguineo {NGrupoSanguineoID = 1, CNombre = "A+"},
-            new TGrupoSanguineo {NGrupoSanguineoID = 2, CNombre =  "A-"},
-            new TGrupoSanguineo {NGrupoSanguineoID = 3, CNombre =  "B+"},
-            new TGrupoSanguineo {NGrupoSanguineoID = 4, CNombre =  "B-"},
-            new TGrupoSanguineo {NGrupoSanguineoID = 5, CNombre =  "AB+"},
-            new TGrupoSanguineo {NGrupoSanguineoID = 6, CNombre =  "AB-"},
-            new TGrupoSanguineo {NGrupoSanguineoID = 7, CNombre =  "O+"},
-            new TGrupoSanguineo {NGrupoSanguineoID = 8, CNombre =  "O-"}
+            new TGrupoSanguineo { NGrupoSanguineoID = 1, CNombre = "A+" },
+            new TGrupoSanguineo { NGrupoSanguineoID = 2, CNombre = "A-" },
+            new TGrupoSanguineo { NGrupoSanguineoID = 3, CNombre = "B+" },
+            new TGrupoSanguineo { NGrupoSanguineoID = 4, CNombre = "B-" },
+            new TGrupoSanguineo { NGrupoSanguineoID = 5, CNombre = "AB+" },
+            new TGrupoSanguineo { NGrupoSanguineoID = 6, CNombre = "AB-" },
+            new TGrupoSanguineo { NGrupoSanguineoID = 7, CNombre = "O+" },
+            new TGrupoSanguineo { NGrupoSanguineoID = 8, CNombre = "O-" }
         );
 
         modelBuilder.Entity<TTipoIdentificacion>().HasData(
-            new TTipoIdentificacion {NTipoIdentificacionID = 1, CNombre = "Cédula de ciudadanía"},
-            new TTipoIdentificacion {NTipoIdentificacionID = 2, CNombre = "Tarjeta de identidad"},
-            new TTipoIdentificacion {NTipoIdentificacionID = 3, CNombre = "Registro civil de nacimiento"},
-            new TTipoIdentificacion {NTipoIdentificacionID = 4, CNombre = "Cédula de extranjería"},
-            new TTipoIdentificacion {NTipoIdentificacionID = 5, CNombre = "Pasaporte"}
+            new TTipoIdentificacion { NTipoIdentificacionID = 1, CNombre = "Cédula de ciudadanía" },
+            new TTipoIdentificacion { NTipoIdentificacionID = 2, CNombre = "Tarjeta de identidad" },
+            new TTipoIdentificacion { NTipoIdentificacionID = 3, CNombre = "Registro civil de nacimiento" },
+            new TTipoIdentificacion { NTipoIdentificacionID = 4, CNombre = "Cédula de extranjería" },
+            new TTipoIdentificacion { NTipoIdentificacionID = 5, CNombre = "Pasaporte" }
         );
 
         modelBuilder.Entity<TDiaSemana>().HasData(
-            new TDiaSemana {NDiaSemanaID = 1, CNombre = "Lunes"},
-            new TDiaSemana {NDiaSemanaID = 2, CNombre = "Martes"},
-            new TDiaSemana {NDiaSemanaID = 3, CNombre = "Miércoles"},
-            new TDiaSemana {NDiaSemanaID = 4, CNombre = "Jueves"},
-            new TDiaSemana {NDiaSemanaID = 5, CNombre = "Viernes"},
-            new TDiaSemana {NDiaSemanaID = 6, CNombre = "Sábado"},
-            new TDiaSemana {NDiaSemanaID = 7, CNombre = "Domingo"}
+            new TDiaSemana { NDiaSemanaID = 1, CNombre = "Lunes" },
+            new TDiaSemana { NDiaSemanaID = 2, CNombre = "Martes" },
+            new TDiaSemana { NDiaSemanaID = 3, CNombre = "Miércoles" },
+            new TDiaSemana { NDiaSemanaID = 4, CNombre = "Jueves" },
+            new TDiaSemana { NDiaSemanaID = 5, CNombre = "Viernes" },
+            new TDiaSemana { NDiaSemanaID = 6, CNombre = "Sábado" },
+            new TDiaSemana { NDiaSemanaID = 7, CNombre = "Domingo" }
         );
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);

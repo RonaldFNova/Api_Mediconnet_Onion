@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Mediconnet.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250820190102_InitialCreate")]
+    [Migration("20250821174619_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -81,6 +81,35 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEspecialidad", b =>
+                {
+                    b.Property<int>("NEspecialidadID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NEspecialidadID");
+
+                    b.Property<string>("CDescripcion")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("CDescripcion");
+
+                    b.Property<string>("CNombre")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("CNombre");
+
+                    b.HasKey("NEspecialidadID")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex(new[] { "CNombre" }, "CNombre")
+                        .IsUnique()
+                        .HasDatabaseName("CNombre1");
+
+                    b.ToTable("TEspecialidad", (string)null);
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoUsuario", b =>
                 {
                     b.Property<int>("NEstadoUsuarioID")
@@ -99,7 +128,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "CNombre" }, "CNombre")
                         .IsUnique()
-                        .HasDatabaseName("CNombre1");
+                        .HasDatabaseName("CNombre2");
 
                     b.ToTable("TEstadoUsuario", (string)null);
 
@@ -134,7 +163,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "CNombre" }, "CNombre")
                         .IsUnique()
-                        .HasDatabaseName("CNombre2");
+                        .HasDatabaseName("CNombre3");
 
                     b.ToTable("TEstadoVerificacion", (string)null);
 
@@ -169,7 +198,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "CNombre" }, "CNombre")
                         .IsUnique()
-                        .HasDatabaseName("CNombre3");
+                        .HasDatabaseName("CNombre4");
 
                     b.ToTable("TGrupoSanguineo", (string)null);
 
@@ -343,7 +372,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "CNombre" }, "CNombre")
                         .IsUnique()
-                        .HasDatabaseName("CNombre4");
+                        .HasDatabaseName("CNombre5");
 
                     b.ToTable("TRol", (string)null);
 
@@ -383,7 +412,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
                     b.HasIndex(new[] { "CNombre" }, "CNombre")
                         .IsUnique()
-                        .HasDatabaseName("CNombre5");
+                        .HasDatabaseName("CNombre6");
 
                     b.ToTable("TTipoIdentificacion", (string)null);
 
