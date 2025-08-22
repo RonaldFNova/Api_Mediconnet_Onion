@@ -106,6 +106,9 @@ builder.Services.AddScoped<ITPersonaRepository, TPersonaRepository>();
 builder.Services.AddScoped<ITPacienteService, TPacienteService>();
 builder.Services.AddScoped<ITPacienteRepository, TPacienteRepository>();
 
+builder.Services.AddScoped<ITEspecialidadService, TEspecialidadService>();
+builder.Services.AddScoped<ITEspecialidadRepository, TEspecialidadRepository>();
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
