@@ -825,11 +825,20 @@
       "System.Threading.Channels/6.0.0": {},
       "Api_Mediconnet.Application/1.0.0": {
         "dependencies": {
+          "Api_Mediconnet.Common": "1.0.0",
           "Api_Mediconnet.Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.3.1"
         },
         "runtime": {
           "Api_Mediconnet.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Api_Mediconnet.Common/1.0.0": {
+        "runtime": {
+          "Api_Mediconnet.Common.dll": {
             "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1405,6 +1414,11 @@
       "hashPath": "system.threading.channels.6.0.0.nupkg.sha512"
     },
     "Api_Mediconnet.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Api_Mediconnet.Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

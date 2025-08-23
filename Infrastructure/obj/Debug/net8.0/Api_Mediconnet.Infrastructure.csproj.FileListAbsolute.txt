@@ -20,8 +20,12 @@ C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\ne
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Infrastructure.runtimeconfig.json
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Infrastructure.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Infrastructure.pdb
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Application.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Common.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Domain.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Domain.pdb
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Application.pdb
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Common.pdb
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.csproj.AssemblyReference.cache
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.AssemblyInfoInputs.cache
@@ -34,5 +38,3 @@ C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\obj\Debug\ne
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.pdb
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\Api_Mediconnet.Infrastructure.genruntimeconfig.cache
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\obj\Debug\net8.0\ref\Api_Mediconnet.Infrastructure.dll
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Application.dll
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\bin\Debug\net8.0\Api_Mediconnet.Application.pdb

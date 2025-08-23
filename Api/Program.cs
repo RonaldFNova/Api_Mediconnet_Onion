@@ -10,6 +10,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Api_Mediconnet.Api.Middleware;
 using System.Text;
+using Microsoft.Extensions.Logging.Console;
+using Serilog;
+
+
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,9 +78,44 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+
+
+// Configurar Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    // logs generales (ASP.NET, EF, etc.)
+    .WriteTo.File("Logs/system-.log", rollingInterval: RollingInterval.Day)
+    // logs de tu namespace (ejemplo Api_Mediconnet.*)
+    .WriteTo.Logger(lc => lc
+        .Filter.ByIncludingOnly(e =>
+            e.Properties.ContainsKey("SourceContext") &&
+            e.Properties["SourceContext"].ToString().Contains("Api_Mediconnet"))
+        .WriteTo.File("Logs/business-.log", rollingInterval: RollingInterval.Day))
+    .CreateLogger();
+    
+
+builder.Host.UseSerilog();
+
+
+builder.Logging.ClearProviders();
+
+builder.Logging.AddConsole(options =>
+{
+    options.FormatterName = ConsoleFormatterNames.Simple;
+});
+
+builder.Logging.AddSimpleConsole(options =>
+{
+    options.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ";
+    options.SingleLine = true; // opcional: logs en una sola línea
+});
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
 builder.Services.AddScoped<ITUsuariosService, TUsuariosService>();
 builder.Services.AddScoped<ITUsuariosRepository, TUsuarioRepository>();
@@ -115,7 +157,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))
     );
 
-builder.WebHost.UseUrls("http://0.0.0.0:80");
+builder.WebHost.UseUrls("http://localhost:5000");
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 

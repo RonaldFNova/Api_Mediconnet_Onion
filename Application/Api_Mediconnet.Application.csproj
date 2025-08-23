@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
     <ProjectReference Include="..\Domain\Api_Mediconnet.Domain.csproj" />
+    <ProjectReference Include="..\Common\Api_Mediconnet.Common.csproj" />
+
   </ItemGroup>
 
 </Project>

@@ -706,6 +706,16 @@
           }
         }
       },
+      "Api_Mediconnet.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Api_Mediconnet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Api_Mediconnet.Common.dll": {}
+        }
+      },
       "Api_Mediconnet.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -1721,6 +1731,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "Api_Mediconnet.Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Api_Mediconnet.Common.csproj",
+      "msbuildProject": "../Common/Api_Mediconnet.Common.csproj"
+    },
     "Api_Mediconnet.Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Api_Mediconnet.Domain.csproj",
@@ -1729,6 +1744,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Api_Mediconnet.Common >= 1.0.0",
       "Api_Mediconnet.Domain >= 1.0.0",
       "Microsoft.AspNetCore.Identity >= 2.3.1"
     ]
@@ -1758,6 +1774,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Common\\Api_Mediconnet.Common.csproj": {
+              "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Common\\Api_Mediconnet.Common.csproj"
+            },
             "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj": {
               "projectPath": "C:\\Users\\ronal\\Desktop\\Archivos\\Api_Mediconnet_Onion\\Domain\\Api_Mediconnet.Domain.csproj"
             }

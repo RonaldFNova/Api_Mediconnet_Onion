@@ -2,8 +2,7 @@ using Api_Mediconnet.Application.interfaces;
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Domain.Entities;
 using Api_Mediconnet.Domain.interfaces;
-
-
+using Api_Mediconnet.Common.Exceptions;
 
 namespace Api_Mediconnet.Application.Services;
 
@@ -11,17 +10,22 @@ public class TUsuariosService : ITUsuariosService
 {
     private readonly IHashPasswordService _servicioHashPassword;
     private readonly ITUsuariosRepository _tUsuariosRepository;
-     private readonly IJwtTokenIdService _jwtTokenIdService;
-    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IHashPasswordService servicioHashPassword, IJwtTokenIdService jwtTokenIdService)
+    private readonly IJwtTokenIdService _jwtTokenIdService;
+    private readonly IAppLogger<TUsuariosService> _appLogger;
+    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IHashPasswordService servicioHashPassword, IJwtTokenIdService jwtTokenIdService, IAppLogger<TUsuariosService> appLogger)
     {
         _tUsuariosRepository = tUsuariosRepository;
         _servicioHashPassword = servicioHashPassword;
         _jwtTokenIdService = jwtTokenIdService;
+        _appLogger = appLogger;
     }
 
     public async Task<IEnumerable<TUsuarioResponseDTO>> GetUsuariosAsync()
     {
         var Usuarios = await _tUsuariosRepository.GetUsuariosAsync();
+
+        _appLogger.LogInformation("Se busco toda la informacion de los usuarios");
+
         return Usuarios.Select(u => new TUsuarioResponseDTO
         {
             UsuarioID = u.NUsuarioID,
@@ -32,12 +36,19 @@ public class TUsuariosService : ITUsuariosService
             EstadoUsuarioFK = u.NEstadoUsuarioFK,
             EstadoVerificacionFK = u.NEstadoVerificacionFK
         });
+
     }
 
     public async Task<TUsuarioResponseDTO?> GetUsuariosIdAsync(int id)
     {
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
-        if (usuario == null) return null;
+        if (usuario == null)
+        {
+            _appLogger.LogError(null, "No se encontró el usuario con ID {id}", id);
+            throw new NotFoundException("Usuario","id");
+        }
+        
+         _appLogger.LogInformation("Se busco informacion del usuario con ID: {UsuarioId}",usuario.NUsuarioID);
 
         return new TUsuarioResponseDTO
         {
@@ -66,8 +77,13 @@ public class TUsuariosService : ITUsuariosService
         };
         await _tUsuariosRepository.AddAsync(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
-    
-        var rol = await  _tUsuariosRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
+
+        _appLogger.LogInformation(
+            "Se creó usuario con ID: {UsuarioId}, Nombre: {Nombre}, Email: {Email}",
+            usuario.NUsuarioID, usuario.CNombre, usuario.CEmail);
+
+
+        var rol = await _tUsuariosRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
         string token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol)!);
 
         return token;
@@ -77,7 +93,11 @@ public class TUsuariosService : ITUsuariosService
     {
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
 
-        if (usuario == null) return;
+        if (usuario == null)
+        {
+            _appLogger.LogError(null, "No se encontró el usuario con ID {id}", id);
+            throw new NotFoundException("Usuario","id");
+        }
 
         usuario.CNombre = dTO.Nombre;
         usuario.CApellido = dTO.Apellido;
@@ -87,6 +107,8 @@ public class TUsuariosService : ITUsuariosService
         usuario.NEstadoUsuarioFK = dTO.EstadoUsuarioFK;
         usuario.NEstadoVerificacionFK = dTO.EstadoVerificacionFK;
 
+        _appLogger.LogInformation("Se a actualizado usuario con ID: {UsuarioId}",usuario.NUsuarioID);
+
         _tUsuariosRepository.Update(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
     }
@@ -95,7 +117,13 @@ public class TUsuariosService : ITUsuariosService
     {
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
 
-        if (usuario == null) return;
+        if (usuario == null)
+        {
+            _appLogger.LogError(null, "No se encontró el usuario con ID {id}", id);
+            throw new NotFoundException("Usuario","id");
+        }
+
+        _appLogger.LogInformation("Se ha eliminado usuario con ID: {UsuarioId}",usuario.NUsuarioID);
 
         _tUsuariosRepository.Delete(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
