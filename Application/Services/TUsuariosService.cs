@@ -44,8 +44,8 @@ public class TUsuariosService : ITUsuariosService
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
         if (usuario == null)
         {
-            _appLogger.LogError(null, "No se encontró el usuario con ID {id}", id);
-            throw new NotFoundException("Usuario","id");
+            _appLogger.LogError("No se encontró el usuario con ID {id}", id);
+            return null;
         }
         
          _appLogger.LogInformation("Se busco informacion del usuario con ID: {UsuarioId}",usuario.NUsuarioID);
