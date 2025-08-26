@@ -10,16 +10,22 @@ public class TLoginsService : ITLoginsService
     private readonly ITLoginsRepository _tLoginsRepository;
     private readonly IHashPasswordService _hashPasswordService;
     private readonly IJwtTokenIdService _jwtTokenIdService;
-    public TLoginsService(ITLoginsRepository tLoginsRepository, IHashPasswordService hashPasswordService, IJwtTokenIdService jwtTokenIdService)
+    private readonly IAppLogger<TLoginsService> _appLogger;
+
+    public TLoginsService(ITLoginsRepository tLoginsRepository, IHashPasswordService hashPasswordService, IJwtTokenIdService jwtTokenIdService, IAppLogger<TLoginsService> appLogger)
     {
         _tLoginsRepository = tLoginsRepository;
         _hashPasswordService = hashPasswordService;
         _jwtTokenIdService = jwtTokenIdService;
+        _appLogger = appLogger;
     }
 
     public async Task<IEnumerable<TloginsDTO>> GetLoginsDTOsAsync()
     {
         var Logins = await _tLoginsRepository.GetLoginsAsync();
+
+        _appLogger.LogInformation("Se recuperó la lista completa de Logins.");
+
         return Logins.Select(e => new TloginsDTO
         {
             LoginID = e.NLoginID,
@@ -31,7 +37,13 @@ public class TLoginsService : ITLoginsService
     {
         var logins = await _tLoginsRepository.GetLoginsIdAsync(id);
 
-        if (logins == null) return null;
+        if (logins == null)
+        {
+            _appLogger.LogError("No se encontró un login con el ID {id}.", id);
+            return null;
+        }
+        
+        _appLogger.LogInformation("Login con ID {LoginId} recuperado correctamente.", logins.NLoginID);
 
         return new TloginsDTO
         {
@@ -44,10 +56,18 @@ public class TLoginsService : ITLoginsService
     {
 
         var user = await _tLoginsRepository.GetByEmailAsync(loginsRequest.Email);
-        if (user == null) throw new Exception("Usuario no encontrado");
+        if (user == null)
+        {
+            _appLogger.LogError("No se encontró un usuario con el Email {Email}.", loginsRequest.Email);
+            throw new Exception("Usuario no encontrado");
+        } 
 
         var result = _hashPasswordService.Verificar(loginsRequest.Password, user.CPassword);
-        if (!result) throw new Exception("La contrseña es incorrecta");
+        if (!result)
+        {
+            _appLogger.LogError("Contraseña incorrecta para el usuario con Email {Email}.", loginsRequest.Email);
+            throw new Exception("Contraseña incorrecta");
+        }
 
         var NewLogins = new TLogins
         {
@@ -60,6 +80,8 @@ public class TLoginsService : ITLoginsService
         await _tLoginsRepository.AddAsync(NewLogins);
         await _tLoginsRepository.SaveChangeAsync();
 
+        _appLogger.LogInformation("Login con ID {LoginId} creado exitosamente.", NewLogins.NLoginID);
+
         return token;        
     }
 
@@ -67,21 +89,33 @@ public class TLoginsService : ITLoginsService
     {
         var logins = await _tLoginsRepository.GetLoginsIdAsync(id);
 
-        if (logins == null) return;
+        if (logins == null)
+        {
+            _appLogger.LogError(null, "Error al actualizar el login con ID {id}: no existe en el sistema.", id);
+            return;
+        }
 
         logins.DFechaLogin = DTOs.FechaLogin;
 
         _tLoginsRepository.Update(logins);
         await _tLoginsRepository.SaveChangeAsync();
+
+        _appLogger.LogInformation("Login con ID {LoginId} actualizado correctamente.", logins.NLoginID);
     }
 
     public async Task EliminarAsync(int id)
     {
         var logins = await _tLoginsRepository.GetLoginsIdAsync(id);
 
-        if (logins == null) return;
+        if (logins == null)
+        {
+            _appLogger.LogError(null, "Error al eliminar el login con ID {id}: no existe en el sistema.", id);
+            return;
+        }
 
         _tLoginsRepository.Delete(logins);
         await _tLoginsRepository.SaveChangeAsync();
+
+        _appLogger.LogInformation("Usuario con ID {LoginId} eliminado correctamente.", logins.NLoginID);
     }
 }

@@ -8,15 +8,19 @@ namespace Api_Mediconnet.Application.Services;
 public class TPersonaService : ITPersonaService
 {
     private readonly ITPersonaRepository _tPersonaRepository;
+    private readonly IAppLogger<TPersonaService> _appLogger;
 
-    public TPersonaService(ITPersonaRepository tPersonaRepository)
+    public TPersonaService(ITPersonaRepository tPersonaRepository, IAppLogger<TPersonaService> appLogger)
     {
         _tPersonaRepository = tPersonaRepository;
+        _appLogger = appLogger;
     }
 
     public async Task<IEnumerable<TPersonaDTO>> GetPersonaDTOsAsync()
     {
         var personaDTO = await _tPersonaRepository.GetPersonaAsync();
+
+        _appLogger.LogInformation("Se recuperó la lista completa de Personas.");
 
         return personaDTO.Select(e => new TPersonaDTO
         {
@@ -35,7 +39,13 @@ public class TPersonaService : ITPersonaService
     {
         var persona = await _tPersonaRepository.GetPersonaIdAsync(id);
 
-        if (persona == null) return null;
+        if (persona == null)
+        {
+            _appLogger.LogError("No se encontró una persona con el ID {id}.", id);
+            return null;
+        }
+        
+        _appLogger.LogInformation("Persona con ID {PersonaId} recuperado correctamente.", persona.NPersonaID);
 
         return new TPersonaDTO
         {
@@ -62,15 +72,21 @@ public class TPersonaService : ITPersonaService
             DFechaNacimiento = personaDTO.FechaNacimiento,
             ESexo = Enum.Parse<ESexo>(personaDTO.Sexo)
         };
+
         await _tPersonaRepository.AddAsync(persona);
         await _tPersonaRepository.SaveChangeAsync();
+
+        _appLogger.LogInformation("Rol con ID {PersonaId} creado exitosamente.", persona.NPersonaID);
     }
 
     public async Task ActualizarAsync(int id, TPersonaDTO personaDTO)
     {
         var persona = await _tPersonaRepository.GetPersonaIdAsync(id);
 
-        if (persona == null) return;
+        if (persona == null)
+        {
+            _appLogger.LogError(null, "Error al actualizar la persona con ID {id}: no existe en el sistema.", id);
+        }
 
         persona.NUsuarioFK = personaDTO.UsuarioFK;
         persona.NTipoIdentificacionFK = personaDTO.TipoIdentificacionfk;
@@ -82,15 +98,22 @@ public class TPersonaService : ITPersonaService
 
         _tPersonaRepository.Update(persona);
         await _tPersonaRepository.SaveChangeAsync();
+
+        _appLogger.LogInformation("Persona con ID {PersonaId} actualizado correctamente.", persona.NPersonaID);
     }
 
     public async Task EliminarAsync(int id)
     {
         var persona = await _tPersonaRepository.GetPersonaIdAsync(id);
 
-        if (persona == null) return;
+        if (persona == null)
+        {
+            _appLogger.LogError(null, "Error al eliminar la persona con ID {id}: no existe en el sistema.", id);
+        }
 
         _tPersonaRepository.Delete(persona);
         await _tPersonaRepository.SaveChangeAsync();
+
+        _appLogger.LogInformation("Persona con ID {PersonaId} eliminado correctamente.", persona.NPersonaID);
     }
 }

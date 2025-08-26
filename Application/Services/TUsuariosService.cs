@@ -2,7 +2,6 @@ using Api_Mediconnet.Application.interfaces;
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Domain.Entities;
 using Api_Mediconnet.Domain.interfaces;
-using Api_Mediconnet.Common.Exceptions;
 
 namespace Api_Mediconnet.Application.Services;
 
@@ -24,7 +23,7 @@ public class TUsuariosService : ITUsuariosService
     {
         var Usuarios = await _tUsuariosRepository.GetUsuariosAsync();
 
-        _appLogger.LogInformation("Se busco toda la informacion de los usuarios");
+        _appLogger.LogInformation("Se recuperó la lista completa de usuarios.");
 
         return Usuarios.Select(u => new TUsuarioResponseDTO
         {
@@ -44,11 +43,11 @@ public class TUsuariosService : ITUsuariosService
         var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
         if (usuario == null)
         {
-            _appLogger.LogError("No se encontró el usuario con ID {id}", id);
+            _appLogger.LogError("No se encontró un usuario con el ID {id}.", id);
             return null;
         }
-        
-         _appLogger.LogInformation("Se busco informacion del usuario con ID: {UsuarioId}",usuario.NUsuarioID);
+
+        _appLogger.LogInformation("Usuario con ID {UsuarioId} recuperado correctamente.", usuario.NUsuarioID);
 
         return new TUsuarioResponseDTO
         {
@@ -78,10 +77,7 @@ public class TUsuariosService : ITUsuariosService
         await _tUsuariosRepository.AddAsync(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
 
-        _appLogger.LogInformation(
-            "Se creó usuario con ID: {UsuarioId}, Nombre: {Nombre}, Email: {Email}",
-            usuario.NUsuarioID, usuario.CNombre, usuario.CEmail);
-
+        _appLogger.LogInformation("Usuario con ID {UsuarioId} creado exitosamente.", usuario.NUsuarioID);
 
         var rol = await _tUsuariosRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
         string token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol)!);
@@ -95,8 +91,7 @@ public class TUsuariosService : ITUsuariosService
 
         if (usuario == null)
         {
-            _appLogger.LogError(null, "No se encontró el usuario con ID {id}", id);
-            throw new NotFoundException("Usuario","id");
+            _appLogger.LogError(null, "Error al actualizar el usuario con ID {id}: no existe en el sistema.", id);
         }
 
         usuario.CNombre = dTO.Nombre;
@@ -107,10 +102,10 @@ public class TUsuariosService : ITUsuariosService
         usuario.NEstadoUsuarioFK = dTO.EstadoUsuarioFK;
         usuario.NEstadoVerificacionFK = dTO.EstadoVerificacionFK;
 
-        _appLogger.LogInformation("Se a actualizado usuario con ID: {UsuarioId}",usuario.NUsuarioID);
-
         _tUsuariosRepository.Update(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
+
+        _appLogger.LogInformation("Usuario con ID {UsuarioId} actualizado correctamente.", usuario.NUsuarioID);
     }
 
     public async Task EliminarAsync(int id)
@@ -119,13 +114,12 @@ public class TUsuariosService : ITUsuariosService
 
         if (usuario == null)
         {
-            _appLogger.LogError(null, "No se encontró el usuario con ID {id}", id);
-            throw new NotFoundException("Usuario","id");
+            _appLogger.LogError(null, "Error al eliminar el usuario con ID {id}: no existe en el sistema.", id);
         }
-
-        _appLogger.LogInformation("Se ha eliminado usuario con ID: {UsuarioId}",usuario.NUsuarioID);
 
         _tUsuariosRepository.Delete(usuario);
         await _tUsuariosRepository.SaveChangesAsync();
+
+        _appLogger.LogInformation("Usuario con ID {UsuarioId} eliminado correctamente.", usuario.NUsuarioID);
     }
 }

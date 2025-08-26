@@ -1,0 +1,9 @@
+2025-08-26 13:41:27.321 -05:00 [INF] Executed DbCommand (120ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-08-26 13:41:27.502 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-26 13:41:27.610 -05:00 [INF] Now listening on: http://localhost:5000
+2025-08-26 13:41:27.615 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-26 13:41:27.617 -05:00 [INF] Hosting environment: Production
+2025-08-26 13:41:27.619 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
