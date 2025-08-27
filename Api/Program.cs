@@ -14,10 +14,6 @@ using Microsoft.Extensions.Logging.Console;
 using Serilog;
 
 
-
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -157,7 +153,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))
     );
 
-builder.WebHost.UseUrls("http://localhost:5000");
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.UseUrls($"http://*:{port}");
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
