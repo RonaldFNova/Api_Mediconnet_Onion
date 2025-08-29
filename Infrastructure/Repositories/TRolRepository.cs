@@ -1,5 +1,3 @@
-using System.Buffers.Binary;
-using System.Security.Cryptography;
 using Api_Mediconnet.Domain.Entities;
 using Api_Mediconnet.Domain.interfaces;
 using Api_Mediconnet.Infrastructure.Data;

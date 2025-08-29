@@ -1,0 +1,376 @@
+2025-08-29 09:44:54.626 -05:00 [INF] Executed DbCommand (97ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE `Api_Mediconnet_Onion`;
+2025-08-29 09:44:56.661 -05:00 [INF] Executed DbCommand (95ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+2025-08-29 09:44:56.774 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TDiaSemana` (
+    `NDiaSemanaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NDiaSemanaID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:56.881 -05:00 [INF] Executed DbCommand (102ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEspecialidad` (
+    `NEspecialidadID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEspecialidadID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:56.984 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoUsuario` (
+    `NEstadoUsuarioID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.086 -05:00 [INF] Executed DbCommand (97ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoVerificacion` (
+    `NEstadoVerificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoVerificacion`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.196 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TGrupoSanguineo` (
+    `NGrupoSanguineoID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NGrupoSanguineoID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.300 -05:00 [INF] Executed DbCommand (100ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TRol` (
+    `NRolID` int(32) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NRolID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.402 -05:00 [INF] Executed DbCommand (98ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TTipoIdentificacion` (
+    `NTipoIdentificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NTipoIdentificacion`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.514 -05:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TUsuarios` (
+    `nUsuarioID` int(32) NOT NULL AUTO_INCREMENT,
+    `NEstadoVerificacionFK` int(12) NOT NULL,
+    `NEstadoUsuarioFK` int(12) NOT NULL,
+    `NRolFK` int(12) NOT NULL,
+    `CNombre` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `CApellido` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    `CEmail` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `CPassword` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` DateTime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`nUsuarioID`),
+    CONSTRAINT `FK_Usuarios_EstadoUsuarios` FOREIGN KEY (`NEstadoUsuarioFK`) REFERENCES `TEstadoUsuario` (`NEstadoUsuarioID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuarios_EstadoVerificacion` FOREIGN KEY (`NEstadoVerificacionFK`) REFERENCES `TEstadoVerificacion` (`NEstadoVerificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuarios_Rol` FOREIGN KEY (`NRolFK`) REFERENCES `TRol` (`NRolID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.618 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TLogins` (
+    `NLoginID` int(32) NOT NULL AUTO_INCREMENT,
+    `DFechaLogin` DateTime NOT NULL,
+    `NUsuarioFK` int(32) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NLoginID`),
+    CONSTRAINT `FK_Usuarios_Logins` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuarios` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.728 -05:00 [INF] Executed DbCommand (106ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPersona` (
+    `NPersonaID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(32) NOT NULL,
+    `NTipoIdentificacionFK` int(32) NOT NULL,
+    `CNroIdentificacion` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    `CNroConctacto` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDireccion` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaNacimiento` DateTime NOT NULL,
+    `ESexo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPersonaID`),
+    CONSTRAINT `FK_Personas_TipoIdentificacion` FOREIGN KEY (`NTipoIdentificacionFK`) REFERENCES `TTipoIdentificacion` (`NTipoIdentificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPersona_TUsuarios_NUsuarioFK` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuarios` (`nUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.835 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPaciente` (
+    `NPacienteID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NGrupoSanguineoFK` int(6) NOT NULL,
+    `CAlergiasGenerales` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPacienteID`),
+    CONSTRAINT `FK_TPaciente_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:44:57.946 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TDiaSemana` (`NDiaSemanaID`, `CNombre`)
+VALUES (1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miércoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sábado'),
+(7, 'Domingo');
+2025-08-29 09:44:58.043 -05:00 [INF] Executed DbCommand (94ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoUsuario` (`NEstadoUsuarioID`, `CNombre`)
+VALUES (1, 'Activo'),
+(2, 'Inactivo');
+2025-08-29 09:44:58.136 -05:00 [INF] Executed DbCommand (90ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoVerificacion` (`NEstadoVerificacion`, `CNombre`)
+VALUES (1, 'Verificado'),
+(2, 'No Verificado');
+2025-08-29 09:44:58.235 -05:00 [INF] Executed DbCommand (96ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TGrupoSanguineo` (`NGrupoSanguineoID`, `CNombre`)
+VALUES (1, 'A+'),
+(2, 'A-'),
+(3, 'B+'),
+(4, 'B-'),
+(5, 'AB+'),
+(6, 'AB-'),
+(7, 'O+'),
+(8, 'O-');
+2025-08-29 09:44:58.331 -05:00 [INF] Executed DbCommand (92ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TRol` (`NRolID`, `CNombre`)
+VALUES (1, 'Administrador'),
+(2, 'Paciente'),
+(3, 'Medico');
+2025-08-29 09:44:58.428 -05:00 [INF] Executed DbCommand (95ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TTipoIdentificacion` (`NTipoIdentificacion`, `CNombre`)
+VALUES (1, 'Cédula de ciudadanía'),
+(2, 'Tarjeta de identidad'),
+(3, 'Registro civil de nacimiento'),
+(4, 'Cédula de extranjería'),
+(5, 'Pasaporte');
+2025-08-29 09:44:58.556 -05:00 [INF] Executed DbCommand (124ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre` ON `TDiaSemana` (`CNombre`);
+2025-08-29 09:44:58.665 -05:00 [INF] Executed DbCommand (106ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre1` ON `TEspecialidad` (`CNombre`);
+2025-08-29 09:44:58.783 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre2` ON `TEstadoUsuario` (`CNombre`);
+2025-08-29 09:44:58.893 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre3` ON `TEstadoVerificacion` (`CNombre`);
+2025-08-29 09:44:59.016 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre4` ON `TGrupoSanguineo` (`CNombre`);
+2025-08-29 09:44:59.122 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TLogins_NUsuarioFK` ON `TLogins` (`NUsuarioFK`);
+2025-08-29 09:44:59.234 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPaciente_NPersonaFK` ON `TPaciente` (`NPersonaFK`);
+2025-08-29 09:44:59.341 -05:00 [INF] Executed DbCommand (104ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNroIdentificacion` ON `TPersona` (`CNroIdentificacion`);
+2025-08-29 09:44:59.449 -05:00 [INF] Executed DbCommand (105ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPersona_NTipoIdentificacionFK` ON `TPersona` (`NTipoIdentificacionFK`);
+2025-08-29 09:44:59.557 -05:00 [INF] Executed DbCommand (105ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPersona_NUsuarioFK` ON `TPersona` (`NUsuarioFK`);
+2025-08-29 09:44:59.680 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre5` ON `TRol` (`CNombre`);
+2025-08-29 09:44:59.785 -05:00 [INF] Executed DbCommand (102ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre6` ON `TTipoIdentificacion` (`CNombre`);
+2025-08-29 09:44:59.899 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CEmail` ON `TUsuarios` (`CEmail`);
+2025-08-29 09:45:00.020 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuarios_NEstadoUsuarioFK` ON `TUsuarios` (`NEstadoUsuarioFK`);
+2025-08-29 09:45:00.134 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuarios_NEstadoVerificacionFK` ON `TUsuarios` (`NEstadoVerificacionFK`);
+2025-08-29 09:45:00.244 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuarios_NRolFK` ON `TUsuarios` (`NRolFK`);
+2025-08-29 09:45:00.524 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-29 09:45:00.679 -05:00 [INF] Now listening on: http://[::]:5000
+2025-08-29 09:45:00.685 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-29 09:45:00.687 -05:00 [INF] Hosting environment: Production
+2025-08-29 09:45:00.689 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-08-29 09:52:04.707 -05:00 [INF] Executed DbCommand (121ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE `Api_Mediconnet_Onion`;
+2025-08-29 09:52:06.774 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+2025-08-29 09:52:06.985 -05:00 [INF] Executed DbCommand (205ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TDiaSemana` (
+    `NDiaSemanaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NDiaSemanaID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.088 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEspecialidad` (
+    `NEspecialidadID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEspecialidadID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.192 -05:00 [INF] Executed DbCommand (100ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoUsuario` (
+    `NEstadoUsuarioID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.290 -05:00 [INF] Executed DbCommand (92ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoVerificacion` (
+    `NEstadoVerificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoVerificacion`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.385 -05:00 [INF] Executed DbCommand (89ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TGrupoSanguineo` (
+    `NGrupoSanguineoID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NGrupoSanguineoID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.482 -05:00 [INF] Executed DbCommand (93ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TRol` (
+    `NRolID` int(32) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NRolID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.582 -05:00 [INF] Executed DbCommand (95ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TTipoIdentificacion` (
+    `NTipoIdentificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NTipoIdentificacion`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.696 -05:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TUsuarios` (
+    `nUsuarioID` int(32) NOT NULL AUTO_INCREMENT,
+    `NEstadoVerificacionFK` int(12) NOT NULL,
+    `NEstadoUsuarioFK` int(12) NOT NULL,
+    `NRolFK` int(12) NOT NULL,
+    `CNombre` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `CApellido` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    `CEmail` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `CPassword` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` DateTime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`nUsuarioID`),
+    CONSTRAINT `FK_Usuarios_EstadoUsuarios` FOREIGN KEY (`NEstadoUsuarioFK`) REFERENCES `TEstadoUsuario` (`NEstadoUsuarioID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuarios_EstadoVerificacion` FOREIGN KEY (`NEstadoVerificacionFK`) REFERENCES `TEstadoVerificacion` (`NEstadoVerificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuarios_Rol` FOREIGN KEY (`NRolFK`) REFERENCES `TRol` (`NRolID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.803 -05:00 [INF] Executed DbCommand (101ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TLogins` (
+    `NLoginID` int(32) NOT NULL AUTO_INCREMENT,
+    `DFechaLogin` DateTime NOT NULL,
+    `NUsuarioFK` int(32) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NLoginID`),
+    CONSTRAINT `FK_Usuarios_Logins` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuarios` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:07.909 -05:00 [INF] Executed DbCommand (102ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPersona` (
+    `NPersonaID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(32) NOT NULL,
+    `NTipoIdentificacionFK` int(32) NOT NULL,
+    `CNroIdentificacion` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    `CNroConctacto` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDireccion` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaNacimiento` DateTime NOT NULL,
+    `ESexo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPersonaID`),
+    CONSTRAINT `FK_Personas_TipoIdentificacion` FOREIGN KEY (`NTipoIdentificacionFK`) REFERENCES `TTipoIdentificacion` (`NTipoIdentificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPersona_TUsuarios_NUsuarioFK` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuarios` (`nUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:08.048 -05:00 [INF] Executed DbCommand (133ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPaciente` (
+    `NPacienteID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NGrupoSanguineoFK` int(6) NOT NULL,
+    `CAlergiasGenerales` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPacienteID`),
+    CONSTRAINT `FK_TPaciente_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-08-29 09:52:08.184 -05:00 [INF] Executed DbCommand (132ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TDiaSemana` (`NDiaSemanaID`, `CNombre`)
+VALUES (1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miércoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sábado'),
+(7, 'Domingo');
+2025-08-29 09:52:08.282 -05:00 [INF] Executed DbCommand (93ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoUsuario` (`NEstadoUsuarioID`, `CNombre`)
+VALUES (1, 'Activo'),
+(2, 'Inactivo');
+2025-08-29 09:52:08.379 -05:00 [INF] Executed DbCommand (94ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoVerificacion` (`NEstadoVerificacion`, `CNombre`)
+VALUES (1, 'Verificado'),
+(2, 'No Verificado');
+2025-08-29 09:52:08.478 -05:00 [INF] Executed DbCommand (94ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TGrupoSanguineo` (`NGrupoSanguineoID`, `CNombre`)
+VALUES (1, 'A+'),
+(2, 'A-'),
+(3, 'B+'),
+(4, 'B-'),
+(5, 'AB+'),
+(6, 'AB-'),
+(7, 'O+'),
+(8, 'O-');
+2025-08-29 09:52:08.578 -05:00 [INF] Executed DbCommand (95ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TRol` (`NRolID`, `CNombre`)
+VALUES (1, 'Administrador'),
+(2, 'Paciente'),
+(3, 'Medico');
+2025-08-29 09:52:08.674 -05:00 [INF] Executed DbCommand (90ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TTipoIdentificacion` (`NTipoIdentificacion`, `CNombre`)
+VALUES (1, 'Cédula de ciudadanía'),
+(2, 'Tarjeta de identidad'),
+(3, 'Registro civil de nacimiento'),
+(4, 'Cédula de extranjería'),
+(5, 'Pasaporte');
+2025-08-29 09:52:08.827 -05:00 [INF] Executed DbCommand (149ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre` ON `TDiaSemana` (`CNombre`);
+2025-08-29 09:52:08.923 -05:00 [INF] Executed DbCommand (92ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre1` ON `TEspecialidad` (`CNombre`);
+2025-08-29 09:52:09.037 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre2` ON `TEstadoUsuario` (`CNombre`);
+2025-08-29 09:52:09.145 -05:00 [INF] Executed DbCommand (104ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre3` ON `TEstadoVerificacion` (`CNombre`);
+2025-08-29 09:52:09.249 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre4` ON `TGrupoSanguineo` (`CNombre`);
+2025-08-29 09:52:09.356 -05:00 [INF] Executed DbCommand (104ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TLogins_NUsuarioFK` ON `TLogins` (`NUsuarioFK`);
+2025-08-29 09:52:09.464 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPaciente_NPersonaFK` ON `TPaciente` (`NPersonaFK`);
+2025-08-29 09:52:09.570 -05:00 [INF] Executed DbCommand (100ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNroIdentificacion` ON `TPersona` (`CNroIdentificacion`);
+2025-08-29 09:52:09.679 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPersona_NTipoIdentificacionFK` ON `TPersona` (`NTipoIdentificacionFK`);
+2025-08-29 09:52:09.788 -05:00 [INF] Executed DbCommand (104ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPersona_NUsuarioFK` ON `TPersona` (`NUsuarioFK`);
+2025-08-29 09:52:09.901 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre5` ON `TRol` (`CNombre`);
+2025-08-29 09:52:10.029 -05:00 [INF] Executed DbCommand (124ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre6` ON `TTipoIdentificacion` (`CNombre`);
+2025-08-29 09:52:10.135 -05:00 [INF] Executed DbCommand (102ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CEmail` ON `TUsuarios` (`CEmail`);
+2025-08-29 09:52:10.239 -05:00 [INF] Executed DbCommand (101ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuarios_NEstadoUsuarioFK` ON `TUsuarios` (`NEstadoUsuarioFK`);
+2025-08-29 09:52:10.350 -05:00 [INF] Executed DbCommand (106ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuarios_NEstadoVerificacionFK` ON `TUsuarios` (`NEstadoVerificacionFK`);
+2025-08-29 09:52:10.467 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuarios_NRolFK` ON `TUsuarios` (`NRolFK`);
+2025-08-29 09:52:10.657 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-29 09:52:10.729 -05:00 [INF] Now listening on: http://[::]:5000
+2025-08-29 09:52:10.733 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-29 09:52:10.735 -05:00 [INF] Hosting environment: Production
+2025-08-29 09:52:10.736 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-08-29 09:53:19.077 -05:00 [INF] Executed DbCommand (105ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-08-29 09:53:19.217 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-29 09:53:19.286 -05:00 [INF] Now listening on: http://[::]:5000
+2025-08-29 09:53:19.291 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-29 09:53:19.293 -05:00 [INF] Hosting environment: Production
+2025-08-29 09:53:19.294 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-08-29 10:00:49.794 -05:00 [INF] Executed DbCommand (97ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-08-29 10:00:49.955 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-29 10:00:50.037 -05:00 [INF] Now listening on: http://[::]:5000
+2025-08-29 10:00:50.043 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-29 10:00:50.045 -05:00 [INF] Hosting environment: Production
+2025-08-29 10:00:50.046 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-08-29 10:02:58.653 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-08-29 10:02:58.800 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-29 10:02:58.870 -05:00 [INF] Now listening on: http://[::]:5000
+2025-08-29 10:02:58.875 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-29 10:02:58.876 -05:00 [INF] Hosting environment: Production
+2025-08-29 10:02:58.878 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-08-29 10:05:29.030 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-08-29 10:05:29.186 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-29 10:05:29.263 -05:00 [INF] Now listening on: http://[::]:5000
+2025-08-29 10:05:29.268 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-29 10:05:29.269 -05:00 [INF] Hosting environment: Production
+2025-08-29 10:05:29.270 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api

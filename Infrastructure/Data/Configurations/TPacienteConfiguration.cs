@@ -30,6 +30,5 @@ public class TPacienteConfiguration : IEntityTypeConfiguration<TPaciente>
             .WithOne(p => p.Paciente)
             .HasForeignKey<TPaciente>(e => e.NPersonaFK)
             .IsRequired(false);
-
     }
 }

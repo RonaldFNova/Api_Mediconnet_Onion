@@ -351,6 +351,51 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.ToTable("TPersona", (string)null);
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TProfesional", b =>
+                {
+                    b.Property<int>("NProfesionalID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NProfesionalID");
+
+                    b.Property<string>("CBiografia")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)")
+                        .HasColumnName("CBiografia");
+
+                    b.Property<string>("CRegistroProfesional")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("CRegistroProfesional");
+
+                    b.Property<DateTime>("DFechaContratacion")
+                        .HasColumnType("DateTime")
+                        .HasColumnName("DFechaContratacion");
+
+                    b.Property<string>("ETipoProfesional")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
+                        .HasColumnName("ETipoProfesional");
+
+                    b.Property<int>("NPersonaFK")
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NPersonaFK");
+
+                    b.HasKey("NProfesionalID")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("NPersonaFK")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "CRegistroProfesional" }, "CRegistroProfesional")
+                        .IsUnique();
+
+                    b.ToTable("TProfesional", (string)null);
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
                 {
                     b.Property<int>("NRolID")
@@ -542,6 +587,15 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.Navigation("Usuarios");
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TProfesional", b =>
+                {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TPersona", "Personas")
+                        .WithOne("Profesional")
+                        .HasForeignKey("Api_Mediconnet.Domain.Entities.TProfesional", "NPersonaFK");
+
+                    b.Navigation("Personas");
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuarios", b =>
                 {
                     b.HasOne("Api_Mediconnet.Domain.Entities.TEstadoUsuario", "EstadoUsuario")
@@ -585,6 +639,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
                 {
                     b.Navigation("Paciente")
+                        .IsRequired();
+
+                    b.Navigation("Profesional")
                         .IsRequired();
                 });
 

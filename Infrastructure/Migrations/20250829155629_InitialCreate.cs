@@ -245,6 +245,32 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "TProfesional",
+                columns: table => new
+                {
+                    NProfesionalID = table.Column<int>(type: "int(32)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NPersonaFK = table.Column<int>(type: "int(32)", nullable: false),
+                    CRegistroProfesional = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DFechaContratacion = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    ETipoProfesional = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CBiografia = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NProfesionalID);
+                    table.ForeignKey(
+                        name: "FK_TProfesional_TPersona_NPersonaFK",
+                        column: x => x.NPersonaFK,
+                        principalTable: "TPersona",
+                        principalColumn: "NPersonaID");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "TDiaSemana",
                 columns: new[] { "NDiaSemanaID", "CNombre" },
@@ -373,6 +399,18 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "CRegistroProfesional",
+                table: "TProfesional",
+                column: "CRegistroProfesional",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TProfesional_NPersonaFK",
+                table: "TProfesional",
+                column: "NPersonaFK",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "CNombre5",
                 table: "TRol",
                 column: "CNombre",
@@ -423,6 +461,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TPaciente");
+
+            migrationBuilder.DropTable(
+                name: "TProfesional");
 
             migrationBuilder.DropTable(
                 name: "TPersona");
