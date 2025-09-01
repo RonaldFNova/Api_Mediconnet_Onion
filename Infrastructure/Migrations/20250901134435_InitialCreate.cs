@@ -18,6 +18,23 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "TArea",
+                columns: table => new
+                {
+                    NAreaID = table.Column<int>(type: "int(12)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CNombre = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CDescripcion = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NAreaID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "TDiaSemana",
                 columns: table => new
                 {
@@ -342,30 +359,36 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "CNombre",
-                table: "TDiaSemana",
+                table: "TArea",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "CNombre1",
-                table: "TEspecialidad",
+                table: "TDiaSemana",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "CNombre2",
-                table: "TEstadoUsuario",
+                table: "TEspecialidad",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "CNombre3",
-                table: "TEstadoVerificacion",
+                table: "TEstadoUsuario",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "CNombre4",
+                table: "TEstadoVerificacion",
+                column: "CNombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "CNombre5",
                 table: "TGrupoSanguineo",
                 column: "CNombre",
                 unique: true);
@@ -411,13 +434,13 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "CNombre5",
+                name: "CNombre6",
                 table: "TRol",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "CNombre6",
+                name: "CNombre7",
                 table: "TTipoIdentificacion",
                 column: "CNombre",
                 unique: true);
@@ -447,6 +470,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TArea");
+
             migrationBuilder.DropTable(
                 name: "TDiaSemana");
 

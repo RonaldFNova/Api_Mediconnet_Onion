@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Api_Mediconnet.Domain.Entities;
-using System.Net.Http.Headers;
 
 namespace Api_Mediconnet.Infrastructure.Data;
 
@@ -22,7 +21,7 @@ public class AppDbContext : DbContext
     public virtual DbSet<TPaciente> TPaciente { get; set; }
     public virtual DbSet<TEspecialidad> TEspecialidad { get; set; }
     public virtual DbSet<TProfesional> TProfesional { get; set; }
-    
+    public virtual DbSet<TArea> TArea { get; set; }    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
