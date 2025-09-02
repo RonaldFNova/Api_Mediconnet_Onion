@@ -150,6 +150,9 @@ builder.Services.AddScoped<ITEspecialidadRepository, TEspecialidadRepository>();
 builder.Services.AddScoped<ITProfesionalService, TProfesionalService>();
 builder.Services.AddScoped<ITProfesionalRepository, TProfesionalRepository>();
 
+builder.Services.AddScoped<ITAreaService, TAreaService>();
+builder.Services.AddScoped<ITAreaRepository, TAreaRepository>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
     b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))

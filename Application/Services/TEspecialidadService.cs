@@ -72,7 +72,7 @@ public class TEspecialidadService : ITEspecialidadService
 
         if (especialidad == null)
         {
-            _appLogger.LogError(null, "Error al actualizar la especialidad con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al actualizar la especialidad con ID {id}: no existe en el sistema.", id);
             return;
         }
 
@@ -91,7 +91,7 @@ public class TEspecialidadService : ITEspecialidadService
 
         if (especialidad == null)
         {
-            _appLogger.LogError(null, "Error al eliminar la especialidad con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al eliminar la especialidad con ID {id}: no existe en el sistema.", id);
             return;
         }
 
