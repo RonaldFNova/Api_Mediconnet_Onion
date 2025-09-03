@@ -67,6 +67,21 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "TEstadoCita",
+                columns: table => new
+                {
+                    NEstadoCitaID = table.Column<int>(type: "int(6)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CNombre = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NEstadoCitaID);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "TEstadoUsuario",
                 columns: table => new
                 {
@@ -377,18 +392,24 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "CNombre3",
-                table: "TEstadoUsuario",
+                table: "TEstadoCita",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "CNombre4",
-                table: "TEstadoVerificacion",
+                table: "TEstadoUsuario",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "CNombre5",
+                table: "TEstadoVerificacion",
+                column: "CNombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "CNombre6",
                 table: "TGrupoSanguineo",
                 column: "CNombre",
                 unique: true);
@@ -434,13 +455,13 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "CNombre6",
+                name: "CNombre7",
                 table: "TRol",
                 column: "CNombre",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "CNombre7",
+                name: "CNombre8",
                 table: "TTipoIdentificacion",
                 column: "CNombre",
                 unique: true);
@@ -478,6 +499,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TEspecialidad");
+
+            migrationBuilder.DropTable(
+                name: "TEstadoCita");
 
             migrationBuilder.DropTable(
                 name: "TGrupoSanguineo");

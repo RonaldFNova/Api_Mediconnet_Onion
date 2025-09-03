@@ -22,6 +22,7 @@ public class AppDbContext : DbContext
     public virtual DbSet<TEspecialidad> TEspecialidad { get; set; }
     public virtual DbSet<TProfesional> TProfesional { get; set; }
     public virtual DbSet<TArea> TArea { get; set; }    
+    public virtual DbSet<TEstadoCita> TEstadoCita { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
