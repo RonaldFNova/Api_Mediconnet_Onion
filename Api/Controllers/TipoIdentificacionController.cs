@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Application.DTOs;
 using Microsoft.AspNetCore.Authorization;
 

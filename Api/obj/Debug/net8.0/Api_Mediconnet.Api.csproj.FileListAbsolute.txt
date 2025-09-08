@@ -109,8 +109,8 @@ C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Api
 C:\Users\ronal\OneDrive\Escritorio\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Api_Mediconnet.Application.pdb
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\appsettings.json
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Api_Mediconnet.Api.exe
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Api\bin\Debug\net8.0\Api_Mediconnet.Api.deps.json
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Api\bin\Debug\net8.0\Api_Mediconnet.Api.runtimeconfig.json
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Api_Mediconnet.Api.deps.json
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Api_Mediconnet.Api.runtimeconfig.json
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Api_Mediconnet.Api.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\Api_Mediconnet.Api.pdb
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\bin\Debug\net8.0\DotNetEnv.dll
@@ -249,9 +249,9 @@ C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\static
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Api_Mediconnet.Api.props
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\scopedcss\bundle\Api_Mediconnet.Api.styles.css
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Api\obj\Debug\net8.0\Api_Medi.F5BFE279.Up2Date
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Medi.F5BFE279.Up2Date
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Mediconnet.Api.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\refint\Api_Mediconnet.Api.dll
 C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Mediconnet.Api.pdb
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Api\obj\Debug\net8.0\Api_Mediconnet.Api.genruntimeconfig.cache
-C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Api\obj\Debug\net8.0\ref\Api_Mediconnet.Api.dll
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\Api_Mediconnet.Api.genruntimeconfig.cache
+C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\obj\Debug\net8.0\ref\Api_Mediconnet.Api.dll

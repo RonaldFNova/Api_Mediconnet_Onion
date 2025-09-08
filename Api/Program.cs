@@ -3,8 +3,8 @@ using Api_Mediconnet.Infrastructure.Data;
 using DotNetEnv;
 using Api_Mediconnet.Application.Services;
 using Api_Mediconnet.Infrastructure.Repositories;
-using Api_Mediconnet.Domain.interfaces;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -152,6 +152,9 @@ builder.Services.AddScoped<ITProfesionalRepository, TProfesionalRepository>();
 
 builder.Services.AddScoped<ITAreaService, TAreaService>();
 builder.Services.AddScoped<ITAreaRepository, TAreaRepository>();
+
+builder.Services.AddScoped<ITEstadoCitaService, TEstadoCitaService>();
+builder.Services.AddScoped<ITEstadoCitaRepository, TEstadoCitaRepository>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),

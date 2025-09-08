@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Api_Mediconne.Api.Controllers;
