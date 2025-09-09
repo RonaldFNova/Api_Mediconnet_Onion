@@ -1,7 +1,7 @@
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 
 namespace Api_Mediconnet.Application.Services;
 
@@ -67,7 +67,7 @@ public class TGrupoSanguineoService : ITGrupoSanguineoService
 
         if (grupoSanguineo == null)
         {
-            _appLogger.LogError(null, "Error al actualizar el grupo sanguineo con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al actualizar el grupo sanguineo con ID {id}: no existe en el sistema.", id);
             return;
         }
 
@@ -85,7 +85,7 @@ public class TGrupoSanguineoService : ITGrupoSanguineoService
 
         if (grupoSanguineo == null)
         {
-            _appLogger.LogError(null, "Error al eliminar el grupo sanguineo con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al eliminar el grupo sanguineo con ID {id}: no existe en el sistema.", id);
             return;
         }
 

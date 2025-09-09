@@ -1,6 +1,6 @@
 using Api_Mediconnet.Application.DTOs;
 
-namespace Api_Mediconnet.Application.interfaces;
+namespace Api_Mediconnet.Application.Interfaces;
 
 public interface ITLoginsService
 {

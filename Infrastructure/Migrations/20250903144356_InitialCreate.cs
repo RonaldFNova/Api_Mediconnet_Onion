@@ -157,7 +157,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TUsuarios",
+                name: "TUsuario",
                 columns: table => new
                 {
                     nUsuarioID = table.Column<int>(type: "int(32)", nullable: false)
@@ -179,19 +179,19 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.nUsuarioID);
                     table.ForeignKey(
-                        name: "FK_Usuarios_EstadoUsuarios",
+                        name: "FK_Usuario_EstadoUsuario",
                         column: x => x.NEstadoUsuarioFK,
                         principalTable: "TEstadoUsuario",
                         principalColumn: "NEstadoUsuarioID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Usuarios_EstadoVerificacion",
+                        name: "FK_Usuario_EstadoVerificacion",
                         column: x => x.NEstadoVerificacionFK,
                         principalTable: "TEstadoVerificacion",
                         principalColumn: "NEstadoVerificacion",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Usuarios_Rol",
+                        name: "FK_Usuario_Rol",
                         column: x => x.NRolFK,
                         principalTable: "TRol",
                         principalColumn: "NRolID",
@@ -212,9 +212,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.NLoginID);
                     table.ForeignKey(
-                        name: "FK_Usuarios_Logins",
+                        name: "FK_Usuario_Logins",
                         column: x => x.NUsuarioFK,
-                        principalTable: "TUsuarios",
+                        principalTable: "TUsuario",
                         principalColumn: "nUsuarioID",
                         onDelete: ReferentialAction.Restrict);
                 })
@@ -248,9 +248,9 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         principalColumn: "NTipoIdentificacion",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TPersona_TUsuarios_NUsuarioFK",
+                        name: "FK_TPersona_TUsuario_NUsuarioFK",
                         column: x => x.NUsuarioFK,
-                        principalTable: "TUsuarios",
+                        principalTable: "TUsuario",
                         principalColumn: "nUsuarioID");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -468,23 +468,23 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "CEmail",
-                table: "TUsuarios",
+                table: "TUsuario",
                 column: "CEmail",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TUsuarios_NEstadoUsuarioFK",
-                table: "TUsuarios",
+                name: "IX_TUsuario_NEstadoUsuarioFK",
+                table: "TUsuario",
                 column: "NEstadoUsuarioFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TUsuarios_NEstadoVerificacionFK",
-                table: "TUsuarios",
+                name: "IX_TUsuario_NEstadoVerificacionFK",
+                table: "TUsuario",
                 column: "NEstadoVerificacionFK");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TUsuarios_NRolFK",
-                table: "TUsuarios",
+                name: "IX_TUsuario_NRolFK",
+                table: "TUsuario",
                 column: "NRolFK");
         }
 
@@ -522,7 +522,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 name: "TTipoIdentificacion");
 
             migrationBuilder.DropTable(
-                name: "TUsuarios");
+                name: "TUsuario");
 
             migrationBuilder.DropTable(
                 name: "TEstadoUsuario");

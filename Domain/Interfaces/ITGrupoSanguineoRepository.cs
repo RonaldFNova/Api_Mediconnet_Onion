@@ -1,6 +1,6 @@
 using Api_Mediconnet.Domain.Entities;
 
-namespace Api_Mediconnet.Domain.interfaces;
+namespace Api_Mediconnet.Domain.Interfaces;
 public interface ITGrupoSanguineoRepository
 {
     Task<IEnumerable<TGrupoSanguineo>> GetGrupoSanguineoAsync();

@@ -40,5 +40,11 @@ public class TProfesionalConfiguration : IEntityTypeConfiguration<TProfesional>
             .WithOne(p => p.Profesional)
             .HasForeignKey<TProfesional>(e => e.NPersonaFK)
             .IsRequired(false);
+
+        builder.HasOne(e => e.Especialidad)                  
+            .WithMany(u => u.Profesional)              
+            .HasForeignKey(u => u.NEspecialidadFK)           
+            .HasConstraintName("FK_Profesional_Especialidad")
+            .OnDelete(DeleteBehavior.Restrict); 
     }
 }

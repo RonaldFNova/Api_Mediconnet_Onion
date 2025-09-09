@@ -113,10 +113,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
-builder.Services.AddScoped<ITUsuariosService, TUsuariosService>();
-builder.Services.AddScoped<ITUsuariosRepository, TUsuarioRepository>();
+builder.Services.AddScoped<ITUsuarioService, TUsuarioService>();
+builder.Services.AddScoped<ITUsuarioRepository, TUsuarioRepository>();
 
-builder.Services.AddScoped<ITEstadoUsuarioService, TEstadoUsuarioService>();
+builder.Services.AddScoped<ITEstadoUsuarioervice, TEstadoUsuarioervice>();
 builder.Services.AddScoped<ITEstadoUsuarioRepository, TEstadoUsuarioRepository>();
 
 builder.Services.AddScoped<ITRolService, TRolService>();

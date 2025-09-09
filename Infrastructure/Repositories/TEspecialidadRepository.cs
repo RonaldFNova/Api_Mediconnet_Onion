@@ -1,5 +1,5 @@
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 using Api_Mediconnet.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

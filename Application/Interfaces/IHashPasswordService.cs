@@ -1,4 +1,4 @@
-namespace Api_Mediconnet.Application.interfaces;
+namespace Api_Mediconnet.Application.Interfaces;
 
 public interface IHashPasswordService
 {

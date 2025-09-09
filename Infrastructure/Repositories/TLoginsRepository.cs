@@ -1,5 +1,5 @@
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 using Api_Mediconnet.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,9 +23,9 @@ public class TLoginsRepository : ITLoginsRepository
         return await _context.TLogins.FindAsync(id);
     }
 
-    public async Task<TUsuarios?> GetByEmailAsync(string email)
+    public async Task<TUsuario?> GetByEmailAsync(string email)
     {
-         return await _context.TUsuarios
+         return await _context.TUsuario
             .Include(u => u.Rol)
             .FirstOrDefaultAsync(u => u.CEmail == email);
     }

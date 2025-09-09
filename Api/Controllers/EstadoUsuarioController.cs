@@ -9,26 +9,26 @@ namespace Api_Mediconnet.Api.Controllers;
 [Route("Api/EstadoUsuario")]
 public class EstadoUsuarioController : ControllerBase
 {
-    private readonly ITEstadoUsuarioService _tEstadoUsuarioService;
+    private readonly ITEstadoUsuarioervice _tEstadoUsuarioervice;
 
-    public EstadoUsuarioController(ITEstadoUsuarioService tEstadoUsuarioService)
+    public EstadoUsuarioController(ITEstadoUsuarioervice tEstadoUsuarioervice)
     {
-        _tEstadoUsuarioService = tEstadoUsuarioService;
+        _tEstadoUsuarioervice = tEstadoUsuarioervice;
     }
 
     [Authorize(Roles = "Administrador")]
     [HttpGet]
-    public async Task<IActionResult> GetEstadoUsuariosAsync()
+    public async Task<IActionResult> GetEstadoUsuarioAsync()
     {
-        var estadoUsuario = await _tEstadoUsuarioService.GetEstadoUsuarioDTOsAsync();
+        var estadoUsuario = await _tEstadoUsuarioervice.GetEstadoUsuarioDTOsAsync();
         return Ok(estadoUsuario);
     }
 
     [Authorize(Roles = "Administrador")]
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetEstadoUsuariosIdAsync(int id)
+    public async Task<IActionResult> GetEstadoUsuarioIdAsync(int id)
     {
-        var estadoUsuario = await _tEstadoUsuarioService.GetEstadoUsuarioIdDTOsAsync(id);
+        var estadoUsuario = await _tEstadoUsuarioervice.GetEstadoUsuarioIdDTOsAsync(id);
         return Ok(estadoUsuario);
     }
 
@@ -36,7 +36,7 @@ public class EstadoUsuarioController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PostEstadoUsuario([FromBody] TEstadoUsuarioDTO estadoUsuarioDTO)
     {
-        await _tEstadoUsuarioService.CrearAsync(estadoUsuarioDTO);
+        await _tEstadoUsuarioervice.CrearAsync(estadoUsuarioDTO);
         return Ok();
     }
 
@@ -44,7 +44,7 @@ public class EstadoUsuarioController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutEstadoUsuario([FromBody] TEstadoUsuarioDTO estadoUsuarioDTO)
     {
-        await _tEstadoUsuarioService.ActualizarAsync(estadoUsuarioDTO.EstadoUsuarioID, estadoUsuarioDTO);
+        await _tEstadoUsuarioervice.ActualizarAsync(estadoUsuarioDTO.EstadoUsuarioID, estadoUsuarioDTO);
         return NoContent();
     }
 
@@ -52,7 +52,7 @@ public class EstadoUsuarioController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteEstadoUsuario( int id)
     {
-        await _tEstadoUsuarioService.EliminarAsync(id);
+        await _tEstadoUsuarioervice.EliminarAsync(id);
         return NoContent();
     }
 }

@@ -1,6 +1,6 @@
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Application.Interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 using Api_Mediconnet.Domain.Entities;
 
 namespace Api_Mediconnet.Application.Services;
@@ -67,7 +67,7 @@ public class TEstadoVerificacionService : ITEstadoVerificacionService
 
         if (estadoVerificacion == null)
         {
-            _appLogger.LogError(null, "Error al actualizar el estado de verificación con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al actualizar el estado de verificación con ID {id}: no existe en el sistema.", id);
             return;
         }
 
@@ -85,7 +85,7 @@ public class TEstadoVerificacionService : ITEstadoVerificacionService
 
         if (estadoVerificacion == null)
         {
-            _appLogger.LogError(null, "Error al eliminar el estado de verificación con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al eliminar el estado de verificación con ID {id}: no existe en el sistema.", id);
             return;
         }
 

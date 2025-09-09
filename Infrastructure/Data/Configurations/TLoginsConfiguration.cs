@@ -19,10 +19,10 @@ public class TLoginsConfiguration : IEntityTypeConfiguration<TLogins>
             .HasColumnName("DFechaLogin")
             .HasColumnType("DateTime");
 
-        builder.HasOne(u => u.Usuarios)
+        builder.HasOne(u => u.Usuario)
             .WithMany(e => e.Logins)
             .HasForeignKey(u => u.NUsuarioFK)
-            .HasConstraintName("FK_Usuarios_Logins")
+            .HasConstraintName("FK_Usuario_Logins")
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

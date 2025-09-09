@@ -16,9 +16,9 @@ public class TPersona
     public string CDireccion { get; set; } = null!;
     public DateTime DFechaNacimiento { get; set; }
     public ESexo ESexo { get; set; }
-    public TUsuarios Usuarios { get; set; } = null!;
-    public TPaciente Paciente { get; set; } = null!;
-    public TProfesional Profesional { get; set; } = null!;
+    public TUsuario Usuario { get; set; } = null!;
+    public TPaciente? Paciente { get; set; }
+    public TProfesional? Profesional { get; set; }
     public virtual TTipoIdentificacion TipoIdentificacion { get; set; } = null!;
 
 }

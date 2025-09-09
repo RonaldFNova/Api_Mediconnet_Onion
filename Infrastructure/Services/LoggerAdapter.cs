@@ -1,4 +1,4 @@
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Api_Mediconnet.Infrastructure.Services;

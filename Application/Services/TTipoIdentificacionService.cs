@@ -1,6 +1,6 @@
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Application.Interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 using Api_Mediconnet.Domain.Entities;
 
 
@@ -68,7 +68,8 @@ public class TTipoIdentificacionService : ITipoIdentificacionService
 
         if (TipoIdentificacion == null)
         {
-            _appLogger.LogError(null, "Error al actualizar la identificacion con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al actualizar la identificacion con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
         TipoIdentificacion.CNombre = DTO.Nombre;
@@ -86,7 +87,8 @@ public class TTipoIdentificacionService : ITipoIdentificacionService
 
         if (TipoIdentificacion == null)
         {
-            _appLogger.LogError(null, "Error al eliminar la identificacion con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al eliminar la identificacion con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
         _tTipoIdentificacionRepository.Delete(TipoIdentificacion);

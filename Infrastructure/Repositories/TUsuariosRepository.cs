@@ -1,12 +1,12 @@
 
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 using Api_Mediconnet.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api_Mediconnet.Infrastructure.Repositories;
 
-public class TUsuarioRepository : ITUsuariosRepository
+public class TUsuarioRepository : ITUsuarioRepository
 {
     private readonly AppDbContext _context;
 
@@ -14,31 +14,31 @@ public class TUsuarioRepository : ITUsuariosRepository
     {
         _context = context;
     }
-    public async Task<IEnumerable<TUsuarios>> GetUsuariosAsync()
+    public async Task<IEnumerable<TUsuario>> GetUsuarioAsync()
     {
-        return await _context.TUsuarios.ToListAsync();
+        return await _context.TUsuario.ToListAsync();
     }
-    public async Task<TUsuarios?> GetUsuariosIdAsync(int id)
+    public async Task<TUsuario?> GetUsuarioIdAsync(int id)
     {
-        return await _context.TUsuarios.FindAsync(id);
+        return await _context.TUsuario.FindAsync(id);
     }
-    public async Task AddAsync(TUsuarios usuarios)
+    public async Task AddAsync(TUsuario Usuario)
     {
-        await _context.TUsuarios.AddAsync(usuarios);
+        await _context.TUsuario.AddAsync(Usuario);
     }
     public async Task<string?> GetRolNombreByUsuarioIdAsync(int id)
     {
-        return await _context.TUsuarios.Where(u => u.NUsuarioID == id)
+        return await _context.TUsuario.Where(u => u.NUsuarioID == id)
             .Select(u => u.Rol.CNombre)
             .FirstOrDefaultAsync();
     }
-    public void Update(TUsuarios usuarios)
+    public void Update(TUsuario Usuario)
     {
-        _context.TUsuarios.Update(usuarios);
+        _context.TUsuario.Update(Usuario);
     }
-    public void Delete(TUsuarios usuarios)
+    public void Delete(TUsuario Usuario)
     {
-        _context.TUsuarios.Remove(usuarios);
+        _context.TUsuario.Remove(Usuario);
     }
     public async Task<bool> SaveChangesAsync()
     {

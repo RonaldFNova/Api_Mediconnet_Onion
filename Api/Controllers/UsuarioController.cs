@@ -7,36 +7,36 @@ namespace Api_Mediconnet.Api.Controllers;
 
 [ApiController]
 [Route("Api/Usuario")]
-public class UsuariosController : ControllerBase
+public class UsuarioController : ControllerBase
 {
-    private readonly ITUsuariosService _usuariosService;
+    private readonly ITUsuarioService _UsuarioService;
 
-    public UsuariosController(ITUsuariosService usuariosService)
+    public UsuarioController(ITUsuarioService UsuarioService)
     {
-        _usuariosService = usuariosService;
+        _UsuarioService = UsuarioService;
     }
 
 
     [Authorize(Roles = "Administrador")]
     [HttpGet]
-    public async Task<IActionResult> GetUsuarios()
+    public async Task<IActionResult> GetUsuario()
     {
-        var usuarios = await _usuariosService.GetUsuariosAsync();
-        return Ok(usuarios);
+        var Usuario = await _UsuarioService.GetUsuarioAsync();
+        return Ok(Usuario);
     }
 
     [Authorize(Roles = "Administrador")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUsuario(int id)
     {
-        var usuario = await _usuariosService.GetUsuariosIdAsync(id);
+        var usuario = await _UsuarioService.GetUsuarioIdAsync(id);
         return Ok(usuario);
     }
 
     [HttpPost]
     public async Task<IActionResult> PostUsuario([FromBody] TUsuarioCreateDTO usuarioCreateDTO)
     {
-        string token = await _usuariosService.CrearAsync(usuarioCreateDTO);
+        string token = await _UsuarioService.CrearAsync(usuarioCreateDTO);
 
         return Ok(new { token });
     }
@@ -45,7 +45,7 @@ public class UsuariosController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> PutUsuario([FromBody] TUsuarioCreateDTO usuarioCreateDTO)
     {
-        await _usuariosService.ActualizarAsync(usuarioCreateDTO.UsuarioID, usuarioCreateDTO);
+        await _UsuarioService.ActualizarAsync(usuarioCreateDTO.UsuarioID, usuarioCreateDTO);
         return NoContent();
     }
 
@@ -53,7 +53,7 @@ public class UsuariosController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUsuario(int id)
     {
-        await _usuariosService.EliminarAsync(id);
+        await _UsuarioService.EliminarAsync(id);
         return NoContent();
     }
     

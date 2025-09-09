@@ -1,8 +1,8 @@
 using Api_Mediconnet.Application.DTOs;
 
-namespace Api_Mediconnet.Application.interfaces;
+namespace Api_Mediconnet.Application.Interfaces;
 
-public interface ITEstadoUsuarioService
+public interface ITEstadoUsuarioervice
 {
     Task<IEnumerable<TEstadoUsuarioDTO>> GetEstadoUsuarioDTOsAsync();
 

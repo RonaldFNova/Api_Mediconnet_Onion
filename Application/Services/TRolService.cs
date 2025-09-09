@@ -1,7 +1,7 @@
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 
 namespace Api_Mediconnet.Application.Services;
 
@@ -69,7 +69,8 @@ public class TRolService : ITRolService
 
         if (rol == null)
         {
-            _appLogger.LogError(null, "Error al actualizar el rol con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al actualizar el rol con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
         rol.CNombre = dTO.Rol;
@@ -86,7 +87,8 @@ public class TRolService : ITRolService
 
         if (rol == null)
         {
-            _appLogger.LogError(null, "Error al eliminar el rol con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al eliminar el rol con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
         _tRolRepository.Delete(rol);

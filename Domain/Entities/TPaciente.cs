@@ -6,6 +6,6 @@ public class TPaciente
     public int NPersonaFK { get; set; }
     public int NGrupoSanguineoFK { get; set; }
     public string CAlergiasGenerales { get; set; } = null!;
-    public TPersona Personas { get; set; } = null!;
-
+    public TPersona Persona { get; set; } = null!;
+    public TGrupoSanguineo GrupoSanguineo { get; set; } = null!;
 }

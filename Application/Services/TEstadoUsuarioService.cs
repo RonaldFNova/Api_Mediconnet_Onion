@@ -1,16 +1,16 @@
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 
 namespace Api_Mediconnet.Application.Services;
 
-public class TEstadoUsuarioService : ITEstadoUsuarioService
+public class TEstadoUsuarioervice : ITEstadoUsuarioervice
 {
     private readonly ITEstadoUsuarioRepository _tEstadoUsuarioRepository;
-     private readonly IAppLogger<TEstadoUsuarioService> _appLogger;
+     private readonly IAppLogger<TEstadoUsuarioervice> _appLogger;
 
-    public TEstadoUsuarioService(ITEstadoUsuarioRepository tEstadoUsuarioRepository, IAppLogger<TEstadoUsuarioService> appLogger)
+    public TEstadoUsuarioervice(ITEstadoUsuarioRepository tEstadoUsuarioRepository, IAppLogger<TEstadoUsuarioervice> appLogger)
     {
         _tEstadoUsuarioRepository = tEstadoUsuarioRepository;
         _appLogger = appLogger;

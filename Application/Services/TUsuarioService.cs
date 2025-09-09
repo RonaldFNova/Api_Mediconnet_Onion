@@ -1,31 +1,31 @@
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 
 namespace Api_Mediconnet.Application.Services;
 
-public class TUsuariosService : ITUsuariosService
+public class TUsuarioService : ITUsuarioService
 {
     private readonly IHashPasswordService _servicioHashPassword;
-    private readonly ITUsuariosRepository _tUsuariosRepository;
+    private readonly ITUsuarioRepository _tUsuarioRepository;
     private readonly IJwtTokenIdService _jwtTokenIdService;
-    private readonly IAppLogger<TUsuariosService> _appLogger;
-    public TUsuariosService(ITUsuariosRepository tUsuariosRepository, IHashPasswordService servicioHashPassword, IJwtTokenIdService jwtTokenIdService, IAppLogger<TUsuariosService> appLogger)
+    private readonly IAppLogger<TUsuarioService> _appLogger;
+    public TUsuarioService(ITUsuarioRepository tUsuarioRepository, IHashPasswordService servicioHashPassword, IJwtTokenIdService jwtTokenIdService, IAppLogger<TUsuarioService> appLogger)
     {
-        _tUsuariosRepository = tUsuariosRepository;
+        _tUsuarioRepository = tUsuarioRepository;
         _servicioHashPassword = servicioHashPassword;
         _jwtTokenIdService = jwtTokenIdService;
         _appLogger = appLogger;
     }
 
-    public async Task<IEnumerable<TUsuarioResponseDTO>> GetUsuariosAsync()
+    public async Task<IEnumerable<TUsuarioResponseDTO>> GetUsuarioAsync()
     {
-        var Usuarios = await _tUsuariosRepository.GetUsuariosAsync();
+        var Usuario = await _tUsuarioRepository.GetUsuarioAsync();
 
-        _appLogger.LogInformation("Se recuperó la lista completa de usuarios.");
+        _appLogger.LogInformation("Se recuperó la lista completa de Usuario.");
 
-        return Usuarios.Select(u => new TUsuarioResponseDTO
+        return Usuario.Select(u => new TUsuarioResponseDTO
         {
             UsuarioID = u.NUsuarioID,
             Nombre = u.CNombre,
@@ -38,9 +38,9 @@ public class TUsuariosService : ITUsuariosService
 
     }
 
-    public async Task<TUsuarioResponseDTO?> GetUsuariosIdAsync(int id)
+    public async Task<TUsuarioResponseDTO?> GetUsuarioIdAsync(int id)
     {
-        var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
+        var usuario = await _tUsuarioRepository.GetUsuarioIdAsync(id);
         if (usuario == null)
         {
             _appLogger.LogError("No se encontró un usuario con el ID {id}.", id);
@@ -63,7 +63,7 @@ public class TUsuariosService : ITUsuariosService
 
     public async Task<string> CrearAsync(TUsuarioCreateDTO dTO)
     {
-        var usuario = new TUsuarios
+        var usuario = new TUsuario
         {
             CNombre = dTO.Nombre,
             CApellido = dTO.Apellido,
@@ -74,12 +74,12 @@ public class TUsuariosService : ITUsuariosService
             NEstadoVerificacionFK = 2,
             DFechaRegistro = DateTime.UtcNow
         };
-        await _tUsuariosRepository.AddAsync(usuario);
-        await _tUsuariosRepository.SaveChangesAsync();
+        await _tUsuarioRepository.AddAsync(usuario);
+        await _tUsuarioRepository.SaveChangesAsync();
 
         _appLogger.LogInformation("Usuario con ID {UsuarioId} creado exitosamente.", usuario.NUsuarioID);
 
-        var rol = await _tUsuariosRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
+        var rol = await _tUsuarioRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
         string token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol)!);
 
         return token;
@@ -87,11 +87,12 @@ public class TUsuariosService : ITUsuariosService
 
     public async Task ActualizarAsync(int id, TUsuarioCreateDTO dTO)
     {
-        var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
+        var usuario = await _tUsuarioRepository.GetUsuarioIdAsync(id);
 
         if (usuario == null)
         {
-            _appLogger.LogError(null, "Error al actualizar el usuario con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al actualizar el usuario con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
         usuario.CNombre = dTO.Nombre;
@@ -102,23 +103,24 @@ public class TUsuariosService : ITUsuariosService
         usuario.NEstadoUsuarioFK = dTO.EstadoUsuarioFK;
         usuario.NEstadoVerificacionFK = dTO.EstadoVerificacionFK;
 
-        _tUsuariosRepository.Update(usuario);
-        await _tUsuariosRepository.SaveChangesAsync();
+        _tUsuarioRepository.Update(usuario);
+        await _tUsuarioRepository.SaveChangesAsync();
 
         _appLogger.LogInformation("Usuario con ID {UsuarioId} actualizado correctamente.", usuario.NUsuarioID);
     }
 
     public async Task EliminarAsync(int id)
     {
-        var usuario = await _tUsuariosRepository.GetUsuariosIdAsync(id);
+        var usuario = await _tUsuarioRepository.GetUsuarioIdAsync(id);
 
         if (usuario == null)
         {
-            _appLogger.LogError(null, "Error al eliminar el usuario con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al eliminar el usuario con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
-        _tUsuariosRepository.Delete(usuario);
-        await _tUsuariosRepository.SaveChangesAsync();
+        _tUsuarioRepository.Delete(usuario);
+        await _tUsuarioRepository.SaveChangesAsync();
 
         _appLogger.LogInformation("Usuario con ID {UsuarioId} eliminado correctamente.", usuario.NUsuarioID);
     }

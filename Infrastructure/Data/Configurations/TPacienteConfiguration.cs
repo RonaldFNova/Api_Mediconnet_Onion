@@ -26,9 +26,16 @@ public class TPacienteConfiguration : IEntityTypeConfiguration<TPaciente>
             .HasColumnName("CAlergiasGenerales")
             .HasMaxLength(2000);
 
-        builder.HasOne(e => e.Personas)
-            .WithOne(p => p.Paciente)
+        builder.HasOne(e => e.Persona)
+            .WithOne(u => u.Paciente)
             .HasForeignKey<TPaciente>(e => e.NPersonaFK)
             .IsRequired(false);
+
+        builder.HasOne(e => e.GrupoSanguineo)
+            .WithMany(u => u.Paciente)
+            .HasForeignKey(e => e.NGrupoSanguineoFK)
+            .HasConstraintName("FK_Paciente_GrupoSanguineo")
+            .OnDelete(DeleteBehavior.Restrict);
+            
     }
 }

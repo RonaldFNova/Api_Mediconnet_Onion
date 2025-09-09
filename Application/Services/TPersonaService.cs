@@ -1,7 +1,7 @@
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces;
+using Api_Mediconnet.Domain.Interfaces;
 
 namespace Api_Mediconnet.Application.Services;
 
@@ -85,7 +85,8 @@ public class TPersonaService : ITPersonaService
 
         if (persona == null)
         {
-            _appLogger.LogError(null, "Error al actualizar la persona con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al actualizar la persona con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
         persona.NUsuarioFK = personaDTO.UsuarioFK;
@@ -108,7 +109,8 @@ public class TPersonaService : ITPersonaService
 
         if (persona == null)
         {
-            _appLogger.LogError(null, "Error al eliminar la persona con ID {id}: no existe en el sistema.", id);
+            _appLogger.LogError("Error al eliminar la persona con ID {id}: no existe en el sistema.", id);
+            return;
         }
 
         _tPersonaRepository.Delete(persona);

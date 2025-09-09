@@ -1,4 +1,4 @@
-namespace Api_Mediconnet.Domain.interfaces;
+namespace Api_Mediconnet.Domain.Interfaces;
 
 using Api_Mediconnet.Domain.Entities;
 

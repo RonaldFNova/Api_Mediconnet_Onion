@@ -1,7 +1,7 @@
 using Api_Mediconnet.Application.DTOs;
-using Api_Mediconnet.Application.interfaces;
+using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
-using Api_Mediconnet.Domain.interfaces; 
+using Api_Mediconnet.Domain.Interfaces; 
 
 namespace Api_Mediconnet.Application.Services;
 

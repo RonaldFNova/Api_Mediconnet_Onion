@@ -4,11 +4,11 @@ using Api_Mediconnet.Domain.Entities;
 
 namespace Api_Mediconnet.Infrastructure.Data.Configurations;
 
-public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
+public class TUsuarioConfiguration : IEntityTypeConfiguration<TUsuario>
 {
-    public void Configure(EntityTypeBuilder<TUsuarios> builder)
+    public void Configure(EntityTypeBuilder<TUsuario> builder)
     {
-        builder.ToTable("TUsuarios");
+        builder.ToTable("TUsuario");
         builder.HasKey(e => e.NUsuarioID).HasName("PRIMARY");
         builder.Property(e => e.NUsuarioID)
             .HasColumnName("nUsuarioID")
@@ -48,22 +48,23 @@ public class TUsuariosConfiguration : IEntityTypeConfiguration<TUsuarios>
             .HasColumnType("DateTime");
 
         builder.HasOne(u => u.EstadoVerificacion)
-            .WithMany(e => e.Usuarios)
+            .WithMany(e => e.Usuario)
             .HasForeignKey(u => u.NEstadoVerificacionFK)
-            .HasConstraintName("FK_Usuarios_EstadoVerificacion")
+            .HasConstraintName("FK_Usuario_EstadoVerificacion")
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(u => u.EstadoUsuario)
-            .WithMany(e => e.Usuarios)
+            .WithMany(e => e.Usuario)
             .HasForeignKey(u => u.NEstadoUsuarioFK)
-            .HasConstraintName("FK_Usuarios_EstadoUsuarios")
+            .HasConstraintName("FK_Usuario_EstadoUsuario")
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(u => u.Rol)
-            .WithMany(e => e.Usuarios)
-            .HasForeignKey(u => u.NRolFK)
-            .HasConstraintName("FK_Usuarios_Rol")
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(u => u.Rol)                  
+            .WithMany(r => r.Usuario)              
+            .HasForeignKey(u => u.NRolFK)           
+            .HasConstraintName("FK_Usuario_Rol")
+            .OnDelete(DeleteBehavior.Restrict); 
+
     }
 }
 

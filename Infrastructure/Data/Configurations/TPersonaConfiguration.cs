@@ -50,8 +50,8 @@ public class TPersonaConfiguration : IEntityTypeConfiguration<TPersona>
             .HasConstraintName("FK_Personas_TipoIdentificacion")
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(e => e.Usuarios)
-            .WithOne(p => p.Personas)
+        builder.HasOne(e => e.Usuario)
+            .WithOne(p => p.Persona)
             .HasForeignKey<TPersona>(e => e.NUsuarioFK)
             .IsRequired(false);
     }
