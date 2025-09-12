@@ -156,6 +156,9 @@ builder.Services.AddScoped<ITAreaRepository, TAreaRepository>();
 builder.Services.AddScoped<ITEstadoCitaService, TEstadoCitaService>();
 builder.Services.AddScoped<ITEstadoCitaRepository, TEstadoCitaRepository>();
 
+builder.Services.AddScoped<ITCitaService, TCitaService>();
+builder.Services.AddScoped<ITCitaRepository, TCitaRepository>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
     b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))
