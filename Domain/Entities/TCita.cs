@@ -6,6 +6,7 @@ public class TCita
     public int NEstadoCitaFK { get; set; }
     public int NProfesionalFK { get; set; }
     public int NPacienteFK { get; set; }
+    public int NDiaSemanaFK { get; set; }
     public DateTime DFecha { get; set; }
     public TimeSpan DHora { get; set; }
     public TimeSpan DDuracion { get; set; }
@@ -14,4 +15,5 @@ public class TCita
     public virtual TProfesional Profesional { get; set; } = null!;
     public virtual TPaciente Paciente { get; set; } = null!;
     public virtual TEstadoCita Estado { get; set; } = null!;
+    public virtual TDiaSemana DiaSemana { get; set; } = null!;
 }

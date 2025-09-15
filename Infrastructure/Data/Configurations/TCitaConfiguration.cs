@@ -30,12 +30,12 @@ public class TCitaConfiguration : IEntityTypeConfiguration<TCita>
             .HasColumnName("DFecha")
             .HasColumnType("datetime");
 
-        builder.Property(e => e.THora)
-            .HasColumnName("THora")
+        builder.Property(e => e.DHora)
+            .HasColumnName("DHora")
             .HasColumnType("time");
 
-        builder.Property(e => e.CDuracion)
-            .HasColumnName("CDuracion")
+        builder.Property(e => e.DDuracion)
+            .HasColumnName("DDuracion")
             .HasColumnType("time");
 
         builder.Property(e => e.CObservacion)
@@ -45,5 +45,13 @@ public class TCitaConfiguration : IEntityTypeConfiguration<TCita>
         builder.Property(e => e.DFechaRegistro)
             .HasColumnName("DFechaRegistro")
             .HasColumnType("datetime");
+
+
+        builder.HasOne(e => e.DiaSemana)
+            .WithMany(u => u.Cita)
+            .HasForeignKey(u => u.NDiaSemanaFK)
+            .HasConstraintName("FK_Cita_DiaSemana")
+            .OnDelete(DeleteBehavior.Restrict);
+
    }         
 }

@@ -41,10 +41,17 @@ public class TProfesionalConfiguration : IEntityTypeConfiguration<TProfesional>
             .HasForeignKey<TProfesional>(e => e.NPersonaFK)
             .IsRequired(false);
 
-        builder.HasOne(e => e.Especialidad)                  
-            .WithMany(u => u.Profesional)              
-            .HasForeignKey(u => u.NEspecialidadFK)           
+        builder.HasOne(e => e.Especialidad)
+            .WithMany(u => u.Profesional)
+            .HasForeignKey(u => u.NEspecialidadFK)
             .HasConstraintName("FK_Profesional_Especialidad")
-            .OnDelete(DeleteBehavior.Restrict); 
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.Area)
+            .WithMany(U => U.Profesional)
+            .HasForeignKey(u => u.NAreaFK)
+            .HasConstraintName("FK_Profesional_Area")
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }
