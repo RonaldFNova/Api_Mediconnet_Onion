@@ -17,6 +17,7 @@ public class JwtTokenIdService : IJwtTokenIdService
         _config = config;
     }
 
+    
     public string GenerarToken(string id, string rol)
     {
         var claims = new[]

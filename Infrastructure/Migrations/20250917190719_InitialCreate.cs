@@ -200,6 +200,34 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "TCodigoVerificacion",
+                columns: table => new
+                {
+                    NCodigoVerificacionID = table.Column<int>(type: "int(32)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NUsuarioFK = table.Column<int>(type: "int(6)", nullable: false),
+                    CCodigo = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NTipoCodigo = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DFechaExpiracion = table.Column<DateTime>(type: "datetime", nullable: false),
+                    BUsado = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),
+                    NIntentos = table.Column<int>(type: "int(11)", nullable: false),
+                    DFechaCreacion = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NCodigoVerificacionID);
+                    table.ForeignKey(
+                        name: "FK_CodigoVerificacion_Usuario",
+                        column: x => x.NUsuarioFK,
+                        principalTable: "TUsuario",
+                        principalColumn: "nUsuarioID",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "TLogins",
                 columns: table => new
                 {
@@ -270,6 +298,12 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.NPacienteID);
                     table.ForeignKey(
+                        name: "FK_Paciente_GrupoSanguineo",
+                        column: x => x.NGrupoSanguineoFK,
+                        principalTable: "TGrupoSanguineo",
+                        principalColumn: "NGrupoSanguineoID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_TPaciente_TPersona_NPersonaFK",
                         column: x => x.NPersonaFK,
                         principalTable: "TPersona",
@@ -284,6 +318,8 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     NProfesionalID = table.Column<int>(type: "int(32)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NPersonaFK = table.Column<int>(type: "int(32)", nullable: false),
+                    NEspecialidadFK = table.Column<int>(type: "int(12)", nullable: false),
+                    NAreaFK = table.Column<int>(type: "int(12)", nullable: false),
                     CRegistroProfesional = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DFechaContratacion = table.Column<DateTime>(type: "DateTime", nullable: false),
@@ -296,10 +332,72 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PRIMARY", x => x.NProfesionalID);
                     table.ForeignKey(
+                        name: "FK_Profesional_Area",
+                        column: x => x.NAreaFK,
+                        principalTable: "TArea",
+                        principalColumn: "NAreaID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Profesional_Especialidad",
+                        column: x => x.NEspecialidadFK,
+                        principalTable: "TEspecialidad",
+                        principalColumn: "NEspecialidadID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_TProfesional_TPersona_NPersonaFK",
                         column: x => x.NPersonaFK,
                         principalTable: "TPersona",
                         principalColumn: "NPersonaID");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TCita",
+                columns: table => new
+                {
+                    NCitaID = table.Column<int>(type: "int(12)", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    NEstadoCitaFK = table.Column<int>(type: "int(12)", nullable: false),
+                    NProfesionalFK = table.Column<int>(type: "int(12)", nullable: false),
+                    NPacienteFK = table.Column<int>(type: "int(12)", nullable: false),
+                    NDiaSemanaFK = table.Column<int>(type: "int(12)", nullable: false),
+                    DFecha = table.Column<DateTime>(type: "datetime", nullable: false),
+                    DHora = table.Column<TimeSpan>(type: "time", nullable: false),
+                    DDuracion = table.Column<TimeSpan>(type: "time", nullable: false),
+                    CObservacion = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DFechaRegistro = table.Column<DateTime>(type: "datetime", nullable: false),
+                    ProfesionalNProfesionalID = table.Column<int>(type: "int(32)", nullable: false),
+                    PacienteNPacienteID = table.Column<int>(type: "int(32)", nullable: false),
+                    EstadoNEstadoCitaID = table.Column<int>(type: "int(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PRIMARY", x => x.NCitaID);
+                    table.ForeignKey(
+                        name: "FK_Cita_DiaSemana",
+                        column: x => x.NDiaSemanaFK,
+                        principalTable: "TDiaSemana",
+                        principalColumn: "NDiaSemanaID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TCita_TEstadoCita_EstadoNEstadoCitaID",
+                        column: x => x.EstadoNEstadoCitaID,
+                        principalTable: "TEstadoCita",
+                        principalColumn: "NEstadoCitaID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TCita_TPaciente_PacienteNPacienteID",
+                        column: x => x.PacienteNPacienteID,
+                        principalTable: "TPaciente",
+                        principalColumn: "NPacienteID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TCita_TProfesional_ProfesionalNProfesionalID",
+                        column: x => x.ProfesionalNProfesionalID,
+                        principalTable: "TProfesional",
+                        principalColumn: "NProfesionalID",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -379,6 +477,37 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_TCita_EstadoNEstadoCitaID",
+                table: "TCita",
+                column: "EstadoNEstadoCitaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCita_NDiaSemanaFK",
+                table: "TCita",
+                column: "NDiaSemanaFK");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCita_PacienteNPacienteID",
+                table: "TCita",
+                column: "PacienteNPacienteID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCita_ProfesionalNProfesionalID",
+                table: "TCita",
+                column: "ProfesionalNProfesionalID");
+
+            migrationBuilder.CreateIndex(
+                name: "CCodigo",
+                table: "TCodigoVerificacion",
+                column: "CCodigo",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TCodigoVerificacion_NUsuarioFK",
+                table: "TCodigoVerificacion",
+                column: "NUsuarioFK");
+
+            migrationBuilder.CreateIndex(
                 name: "CNombre1",
                 table: "TDiaSemana",
                 column: "CNombre",
@@ -420,6 +549,11 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 column: "NUsuarioFK");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TPaciente_NGrupoSanguineoFK",
+                table: "TPaciente",
+                column: "NGrupoSanguineoFK");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TPaciente_NPersonaFK",
                 table: "TPaciente",
                 column: "NPersonaFK",
@@ -447,6 +581,16 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 table: "TProfesional",
                 column: "CRegistroProfesional",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TProfesional_NAreaFK",
+                table: "TProfesional",
+                column: "NAreaFK");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TProfesional_NEspecialidadFK",
+                table: "TProfesional",
+                column: "NEspecialidadFK");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TProfesional_NPersonaFK",
@@ -492,28 +636,34 @@ namespace Api_Mediconnet.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TArea");
+                name: "TCita");
+
+            migrationBuilder.DropTable(
+                name: "TCodigoVerificacion");
+
+            migrationBuilder.DropTable(
+                name: "TLogins");
 
             migrationBuilder.DropTable(
                 name: "TDiaSemana");
 
             migrationBuilder.DropTable(
-                name: "TEspecialidad");
-
-            migrationBuilder.DropTable(
                 name: "TEstadoCita");
-
-            migrationBuilder.DropTable(
-                name: "TGrupoSanguineo");
-
-            migrationBuilder.DropTable(
-                name: "TLogins");
 
             migrationBuilder.DropTable(
                 name: "TPaciente");
 
             migrationBuilder.DropTable(
                 name: "TProfesional");
+
+            migrationBuilder.DropTable(
+                name: "TGrupoSanguineo");
+
+            migrationBuilder.DropTable(
+                name: "TArea");
+
+            migrationBuilder.DropTable(
+                name: "TEspecialidad");
 
             migrationBuilder.DropTable(
                 name: "TPersona");

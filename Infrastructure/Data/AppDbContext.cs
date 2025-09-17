@@ -24,6 +24,8 @@ public class AppDbContext : DbContext
     public virtual DbSet<TArea> TArea { get; set; }    
     public virtual DbSet<TEstadoCita> TEstadoCita { get; set; }
     public virtual DbSet<TCita> TCita { get; set; }
+    public virtual DbSet<TCodigoVerificacion> TCodigoVerificacion { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 

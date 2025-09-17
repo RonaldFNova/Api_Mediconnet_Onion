@@ -47,6 +47,125 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.ToTable("TArea", (string)null);
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TCita", b =>
+                {
+                    b.Property<int>("NCitaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NCitaID");
+
+                    b.Property<string>("CObservacion")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("CObservacion");
+
+                    b.Property<TimeSpan>("DDuracion")
+                        .HasColumnType("time")
+                        .HasColumnName("DDuracion");
+
+                    b.Property<DateTime>("DFecha")
+                        .HasColumnType("datetime")
+                        .HasColumnName("DFecha");
+
+                    b.Property<DateTime>("DFechaRegistro")
+                        .HasColumnType("datetime")
+                        .HasColumnName("DFechaRegistro");
+
+                    b.Property<TimeSpan>("DHora")
+                        .HasColumnType("time")
+                        .HasColumnName("DHora");
+
+                    b.Property<int>("EstadoNEstadoCitaID")
+                        .HasColumnType("int(6)");
+
+                    b.Property<int>("NDiaSemanaFK")
+                        .HasColumnType("int(12)");
+
+                    b.Property<int>("NEstadoCitaFK")
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NEstadoCitaFK");
+
+                    b.Property<int>("NPacienteFK")
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NPacienteFK");
+
+                    b.Property<int>("NProfesionalFK")
+                        .HasColumnType("int(12)")
+                        .HasColumnName("NProfesionalFK");
+
+                    b.Property<int>("PacienteNPacienteID")
+                        .HasColumnType("int(32)");
+
+                    b.Property<int>("ProfesionalNProfesionalID")
+                        .HasColumnType("int(32)");
+
+                    b.HasKey("NCitaID")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("EstadoNEstadoCitaID");
+
+                    b.HasIndex("NDiaSemanaFK");
+
+                    b.HasIndex("PacienteNPacienteID");
+
+                    b.HasIndex("ProfesionalNProfesionalID");
+
+                    b.ToTable("TCita", (string)null);
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TCodigoVerificacion", b =>
+                {
+                    b.Property<int>("NCodigoVerificacionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int(32)")
+                        .HasColumnName("NCodigoVerificacionID");
+
+                    b.Property<bool>("BUsado")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false)
+                        .HasColumnName("BUsado");
+
+                    b.Property<string>("CCodigo")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("CCodigo");
+
+                    b.Property<DateTime>("DFechaCreacion")
+                        .HasColumnType("datetime")
+                        .HasColumnName("DFechaCreacion");
+
+                    b.Property<DateTime>("DFechaExpiracion")
+                        .HasColumnType("datetime")
+                        .HasColumnName("DFechaExpiracion");
+
+                    b.Property<int>("NIntentos")
+                        .HasColumnType("int(11)")
+                        .HasColumnName("NIntentos");
+
+                    b.Property<string>("NTipoCodigo")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)")
+                        .HasColumnName("NTipoCodigo");
+
+                    b.Property<int>("NUsuarioFK")
+                        .HasColumnType("int(6)")
+                        .HasColumnName("NUsuarioFK");
+
+                    b.HasKey("NCodigoVerificacionID")
+                        .HasName("PRIMARY");
+
+                    b.HasIndex("NUsuarioFK");
+
+                    b.HasIndex(new[] { "CCodigo" }, "CCodigo")
+                        .IsUnique();
+
+                    b.ToTable("TCodigoVerificacion", (string)null);
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TDiaSemana", b =>
                 {
                     b.Property<int>("NDiaSemanaID")
@@ -340,6 +459,8 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.HasKey("NPacienteID")
                         .HasName("PRIMARY");
 
+                    b.HasIndex("NGrupoSanguineoFK");
+
                     b.HasIndex("NPersonaFK")
                         .IsUnique();
 
@@ -432,12 +553,22 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasColumnType("varchar(25)")
                         .HasColumnName("ETipoProfesional");
 
+                    b.Property<int>("NAreaFK")
+                        .HasColumnType("int(12)");
+
+                    b.Property<int>("NEspecialidadFK")
+                        .HasColumnType("int(12)");
+
                     b.Property<int>("NPersonaFK")
                         .HasColumnType("int(32)")
                         .HasColumnName("NPersonaFK");
 
                     b.HasKey("NProfesionalID")
                         .HasName("PRIMARY");
+
+                    b.HasIndex("NAreaFK");
+
+                    b.HasIndex("NEspecialidadFK");
 
                     b.HasIndex("NPersonaFK")
                         .IsUnique();
@@ -600,6 +731,54 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.ToTable("TUsuario", (string)null);
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TCita", b =>
+                {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TEstadoCita", "Estado")
+                        .WithMany("Cita")
+                        .HasForeignKey("EstadoNEstadoCitaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TDiaSemana", "DiaSemana")
+                        .WithMany("Cita")
+                        .HasForeignKey("NDiaSemanaFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Cita_DiaSemana");
+
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TPaciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteNPacienteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TProfesional", "Profesional")
+                        .WithMany()
+                        .HasForeignKey("ProfesionalNProfesionalID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DiaSemana");
+
+                    b.Navigation("Estado");
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Profesional");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TCodigoVerificacion", b =>
+                {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TUsuario", "Usuario")
+                        .WithMany("CodigoVerificacion")
+                        .HasForeignKey("NUsuarioFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_CodigoVerificacion_Usuario");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TLogins", b =>
                 {
                     b.HasOne("Api_Mediconnet.Domain.Entities.TUsuario", "Usuario")
@@ -614,11 +793,20 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPaciente", b =>
                 {
-                    b.HasOne("Api_Mediconnet.Domain.Entities.TPersona", "Personas")
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TGrupoSanguineo", "GrupoSanguineo")
+                        .WithMany("Paciente")
+                        .HasForeignKey("NGrupoSanguineoFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Paciente_GrupoSanguineo");
+
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TPersona", "Persona")
                         .WithOne("Paciente")
                         .HasForeignKey("Api_Mediconnet.Domain.Entities.TPaciente", "NPersonaFK");
 
-                    b.Navigation("Personas");
+                    b.Navigation("GrupoSanguineo");
+
+                    b.Navigation("Persona");
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
@@ -631,7 +819,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasConstraintName("FK_Personas_TipoIdentificacion");
 
                     b.HasOne("Api_Mediconnet.Domain.Entities.TUsuario", "Usuario")
-                        .WithOne("Personas")
+                        .WithOne("Persona")
                         .HasForeignKey("Api_Mediconnet.Domain.Entities.TPersona", "NUsuarioFK");
 
                     b.Navigation("TipoIdentificacion");
@@ -641,9 +829,27 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TProfesional", b =>
                 {
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TArea", "Area")
+                        .WithMany("Profesional")
+                        .HasForeignKey("NAreaFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Profesional_Area");
+
+                    b.HasOne("Api_Mediconnet.Domain.Entities.TEspecialidad", "Especialidad")
+                        .WithMany("Profesional")
+                        .HasForeignKey("NEspecialidadFK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("FK_Profesional_Especialidad");
+
                     b.HasOne("Api_Mediconnet.Domain.Entities.TPersona", "Personas")
                         .WithOne("Profesional")
                         .HasForeignKey("Api_Mediconnet.Domain.Entities.TProfesional", "NPersonaFK");
+
+                    b.Navigation("Area");
+
+                    b.Navigation("Especialidad");
 
                     b.Navigation("Personas");
                 });
@@ -678,6 +884,26 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.Navigation("Rol");
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TArea", b =>
+                {
+                    b.Navigation("Profesional");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TDiaSemana", b =>
+                {
+                    b.Navigation("Cita");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEspecialidad", b =>
+                {
+                    b.Navigation("Profesional");
+                });
+
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoCita", b =>
+                {
+                    b.Navigation("Cita");
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TEstadoUsuario", b =>
                 {
                     b.Navigation("Usuario");
@@ -688,13 +914,16 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TGrupoSanguineo", b =>
+                {
+                    b.Navigation("Paciente");
+                });
+
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TPersona", b =>
                 {
-                    b.Navigation("Paciente")
-                        .IsRequired();
+                    b.Navigation("Paciente");
 
-                    b.Navigation("Profesional")
-                        .IsRequired();
+                    b.Navigation("Profesional");
                 });
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TRol", b =>
@@ -709,9 +938,11 @@ namespace Api_Mediconnet.Infrastructure.Migrations
 
             modelBuilder.Entity("Api_Mediconnet.Domain.Entities.TUsuario", b =>
                 {
+                    b.Navigation("CodigoVerificacion");
+
                     b.Navigation("Logins");
 
-                    b.Navigation("Personas")
+                    b.Navigation("Persona")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

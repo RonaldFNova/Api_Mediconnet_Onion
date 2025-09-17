@@ -69,7 +69,7 @@ public class TUsuarioService : ITUsuarioService
             CApellido = dTO.Apellido,
             CEmail = dTO.Email,
             CPassword = _servicioHashPassword.Hash(dTO.Password),
-            NRolFK = dTO.RolFK,
+            NRolFK = 2, // Asignar rol de Paciente por defecto
             NEstadoUsuarioFK = 1,
             NEstadoVerificacionFK = 2,
             DFechaRegistro = DateTime.UtcNow
