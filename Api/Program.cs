@@ -159,6 +159,9 @@ builder.Services.AddScoped<ITEstadoCitaRepository, TEstadoCitaRepository>();
 builder.Services.AddScoped<ITCitaService, TCitaService>();
 builder.Services.AddScoped<ITCitaRepository, TCitaRepository>();
 
+builder.Services.AddScoped<ITCodigoVerificacionService, TCodigoVerificacionService>();
+builder.Services.AddScoped<ITCodigoVerificacionRepository, TCodigoVerificacionRepository>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
     b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))

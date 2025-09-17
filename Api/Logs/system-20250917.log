@@ -665,3 +665,12 @@ WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
 2025-09-17 14:07:47.650 -05:00 [INF] Application started. Press Ctrl+C to shut down.
 2025-09-17 14:07:47.651 -05:00 [INF] Hosting environment: Production
 2025-09-17 14:07:47.652 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-17 16:12:24.696 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-09-17 16:12:24.851 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-17 16:12:24.925 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-17 16:12:24.928 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-17 16:12:24.929 -05:00 [INF] Hosting environment: Production
+2025-09-17 16:12:24.930 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
