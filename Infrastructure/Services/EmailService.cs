@@ -1,31 +1,26 @@
 using Api_Mediconnet.Application.Interfaces;
-using Microsoft.Extensions.Configuration;
-using sib_api_v3_sdk.Api;
-using sib_api_v3_sdk.Client;
-using sib_api_v3_sdk.Model;
+using System.Net;
+using System.Net.Mail;
 
 namespace Api_Mediconnet.Infrastructure.Services
 {
     public class EmailService : IEmailService
     {
         private readonly CodeEmailService _codeEmailService;
-        private readonly string _apiKeyBrevo;
+        private readonly string _smtpUser;
+        private readonly string _smtpPass;
 
-        public EmailService(IConfiguration configuration, CodeEmailService codeEmailService)
+        public EmailService(CodeEmailService codeEmailService)
         {
             _codeEmailService = codeEmailService;
-            _apiKeyBrevo = Environment.GetEnvironmentVariable("BREVO_API_KEY")
-                ?? throw new Exception("API Key not configured");
+            _smtpUser = Environment.GetEnvironmentVariable("GMAIL_USER") 
+                        ?? throw new Exception("GMAIL_USER not configured");
+            _smtpPass = Environment.GetEnvironmentVariable("GMAIL_PASS") 
+                        ?? throw new Exception("GMAIL_PASS not configured");
         }
 
-        public async System.Threading.Tasks.Task SendEmailCodeAsync(string emailDestino, string nombreUsuario)
+        public async Task SendEmailCodeAsync(string emailDestino, string nombreUsuario)
         {
-            // Configuración de API Key
-            Configuration.Default.ApiKey.Clear();
-            Configuration.Default.ApiKey.Add("api-key", _apiKeyBrevo);
-
-            var apiInstance = new TransactionalEmailsApi();
-
             string codigo_verificacion = _codeEmailService.GenerateCode();
 
             var subject = "Verifica tu dirección de correo electrónico";
@@ -133,17 +128,23 @@ namespace Api_Mediconnet.Infrastructure.Services
             </body>
             </html>";
 
-            var sendSmtpEmail = new SendSmtpEmail(
-                sender: new SendSmtpEmailSender("MediConnet", "rdevia1@udi.edu.co"),
-                to: new List<SendSmtpEmailTo> { new SendSmtpEmailTo(emailDestino) },
-                subject: subject,
-                textContent: plainTextContent,
-                htmlContent: htmlContent
-            );
+            using (var smtpClient = new SmtpClient("smtp.gmail.com", 587))
+            {
+                smtpClient.Credentials = new NetworkCredential(_smtpUser, _smtpPass);
+                smtpClient.EnableSsl = true;
 
-            await apiInstance.SendTransacEmailAsync(sendSmtpEmail);
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(_smtpUser, "MediConnet"),
+                    Subject = subject,
+                    Body = htmlContent,
+                    IsBodyHtml = true
+                };
+
+                mailMessage.To.Add(emailDestino);
+
+                await smtpClient.SendMailAsync(mailMessage);
+            }
         }
     }
 }
-
-

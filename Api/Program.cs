@@ -56,10 +56,11 @@ if (string.IsNullOrWhiteSpace(jwtKey) || string.IsNullOrWhiteSpace(validIssuer) 
     throw new InvalidOperationException("Variables de entorno no encontradas");
 }
 
-var ApiKeySendGrid = Environment.GetEnvironmentVariable("BREVO_API_KEY");
-if (string.IsNullOrWhiteSpace(ApiKeySendGrid))
+var _smtpUser = Environment.GetEnvironmentVariable("GMAIL_USER");
+var _smtpPass = Environment.GetEnvironmentVariable("GMAIL_PASS");
+if (string.IsNullOrWhiteSpace(_smtpUser) || string.IsNullOrWhiteSpace(_smtpPass))
 {
-    throw new InvalidOperationException("BREVO_API_KEY no encontrada");
+    throw new InvalidOperationException("GMAIL_USER o GMAIL_PASS no encontradas");
 }
 
 var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
