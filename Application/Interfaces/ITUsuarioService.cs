@@ -7,6 +7,7 @@ public interface ITUsuarioService
     Task<IEnumerable<TUsuarioResponseDTO>> GetUsuarioAsync();
     Task<TUsuarioResponseDTO?> GetUsuarioIdAsync(int id);
     Task<string> CrearAsync(TUsuarioCreateDTO usuarioDto);
-    Task ActualizarAsync(int id, TUsuarioCreateDTO UsuarioDto);    
+    Task ActualizarAsync(int id, TUsuarioCreateDTO UsuarioDto);
     Task EliminarAsync(int id);
+    Task<UsuarioEmailDTO> GetEmailAsync(int id);
 }

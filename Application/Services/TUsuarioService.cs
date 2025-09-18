@@ -124,4 +124,22 @@ public class TUsuarioService : ITUsuarioService
 
         _appLogger.LogInformation("Usuario con ID {UsuarioId} eliminado correctamente.", usuario.NUsuarioID);
     }
+
+    public async Task<UsuarioEmailDTO> GetEmailAsync(int id)
+    {
+        var usuario = await _tUsuarioRepository.GetUsuarioIdAsync(id);
+        if (usuario == null)
+        {
+            _appLogger.LogError("No se encontró un usuario con el ID {id}.", id);
+            return null;
+        }
+
+        _appLogger.LogInformation("Email del usuario con ID {UsuarioId} recuperado correctamente.", usuario.NUsuarioID);
+
+        return new UsuarioEmailDTO
+        {
+            NombreCompleto = $"{usuario.CNombre} {usuario.CApellido}",
+            Email = usuario.CEmail
+        };
+    }
 }
