@@ -139,7 +139,8 @@ public class TUsuarioService : ITUsuarioService
         return new UsuarioEmailDTO
         {
             NombreCompleto = $"{usuario.CNombre} {usuario.CApellido}",
-            Email = usuario.CEmail
+            Email = usuario.CEmail,
+            UsuarioID = usuario.NUsuarioID
         };
     }
 }

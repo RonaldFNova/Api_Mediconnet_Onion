@@ -12,7 +12,7 @@ public class TCodigoVerificacion
     public int NCodigoVerificacionID { get; set; }
     public int NUsuarioFK { get; set; }
     public string CCodigo { get; set; } = null!;
-    public TipoCodigoVerificacion NTipoCodigo { get; set; }
+    public TipoCodigoVerificacion ETipoCodigo { get; set; }
     public DateTime DFechaExpiracion { get; set; }
     public bool BUsado { get; set; }
     public int NIntentos { get; set; }

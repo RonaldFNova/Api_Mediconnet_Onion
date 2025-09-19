@@ -43,4 +43,14 @@ public class TCodigoVerificacionRepository : ITCodigoVerificacionRepository
     {
         return await _context.SaveChangesAsync() > 0;
     }
+    public async Task<TCodigoVerificacion?> GetCodigoUserFkAsync(int usuarioId)
+    {
+        return await _context.TCodigoVerificacion
+            .Where(c => c.NUsuarioFK == usuarioId 
+                    && c.ETipoCodigo == TipoCodigoVerificacion.Email
+                    && c.BUsado == false)  
+            .OrderByDescending(c => c.DFechaCreacion)
+            .FirstOrDefaultAsync();
+    }
+
 }

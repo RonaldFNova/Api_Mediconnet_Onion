@@ -208,7 +208,7 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                     NUsuarioFK = table.Column<int>(type: "int(6)", nullable: false),
                     CCodigo = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    NTipoCodigo = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
+                    ETipoCodigo = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DFechaExpiracion = table.Column<DateTime>(type: "datetime", nullable: false),
                     BUsado = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false),

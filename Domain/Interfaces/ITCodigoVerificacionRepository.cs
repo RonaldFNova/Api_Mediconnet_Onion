@@ -10,4 +10,5 @@ public interface ITCodigoVerificacionRepository
     void Update(TCodigoVerificacion codigoVerificacion);
     void Delete(TCodigoVerificacion codigoVerificacion);
     Task<bool> SaveChangesAsync();
+    Task<TCodigoVerificacion?> GetCodigoUserFkAsync(int id);
 }

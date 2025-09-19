@@ -40,8 +40,8 @@ public class TCodigoVerificacionConfiguration : IEntityTypeConfiguration<TCodigo
             .HasColumnName("NIntentos")
             .HasColumnType("int(11)");
 
-        builder.Property(e => e.NTipoCodigo)
-            .HasColumnName("NTipoCodigo")
+        builder.Property(e => e.ETipoCodigo)
+            .HasColumnName("ETipoCodigo")
             .HasConversion<string>()
             .HasMaxLength(25);
 

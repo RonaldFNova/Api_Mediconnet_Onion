@@ -64,7 +64,9 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
             NUsuarioFK = codigoVerificacionDTO.UsuarioFK,
             DFechaExpiracion = codigoVerificacionDTO.FechaExpiracion,
             BUsado = codigoVerificacionDTO.Usado,
-            DFechaCreacion = DateTime.UtcNow
+            DFechaCreacion = DateTime.UtcNow,
+            ETipoCodigo = Enum.Parse<TipoCodigoVerificacion>(codigoVerificacionDTO.TipoCodigo),
+            NIntentos = codigoVerificacionDTO.Intentos
         };
 
         await _tCodigoVerificacionRepository.AddAsync(codigoVerificacion);
@@ -109,4 +111,58 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
 
         _appLogger.LogInformation("Código de Verificación con ID {id} eliminado correctamente.", id);
     }
+
+    public async Task<bool> ValidarCodigoVerificacionAsync(int id, string codigo)
+    {
+        var codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserFkAsync(id);
+
+        Console.WriteLine("ID del código de verificación: " + id);
+        Console.WriteLine("Código proporcionado: " + codigo);
+
+        if (codigoVerificacion == null)
+        {
+            _appLogger.LogError("No se encontró un código de verificación con el ID {id} para validar.", id);
+            return false;
+        }
+
+        if (codigoVerificacion.BUsado)
+        {
+            _appLogger.LogWarning("El código de verificación con ID {id} ya ha sido usado.", id);
+            return false;
+        }
+
+        if (DateTime.UtcNow > codigoVerificacion.DFechaExpiracion)
+        {
+            _appLogger.LogWarning("El código de verificación con ID {id} ha expirado.", id);
+            codigoVerificacion.BUsado = true;
+            _tCodigoVerificacionRepository.Update(codigoVerificacion);
+            await _tCodigoVerificacionRepository.SaveChangesAsync();
+            return false;
+        }
+
+        if (codigoVerificacion.CCodigo == codigo)
+        {
+            codigoVerificacion.BUsado = true;
+            _appLogger.LogWarning("El código de verificación con ID {id} es correcto. Intento {Intentos}.", id, codigoVerificacion.NIntentos);
+            _tCodigoVerificacionRepository.Update(codigoVerificacion);
+            await _tCodigoVerificacionRepository.SaveChangesAsync();
+            return true;
+        }
+        else
+        {
+            codigoVerificacion.NIntentos += 1;
+
+            if (codigoVerificacion.NIntentos > 9)
+            {
+                codigoVerificacion.BUsado = true;
+                _appLogger.LogWarning("El código de verificación con ID {id} ha sido bloqueado por exceder el número de intentos.", id);
+            }
+
+            _appLogger.LogWarning("El código de verificación con ID {id} es incorrecto.", id);
+            _tCodigoVerificacionRepository.Update(codigoVerificacion);
+            await _tCodigoVerificacionRepository.SaveChangesAsync();
+            return false;
+        }
+    }
+    
 }

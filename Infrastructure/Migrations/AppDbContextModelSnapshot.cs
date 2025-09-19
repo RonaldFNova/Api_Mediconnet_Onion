@@ -141,15 +141,15 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("DFechaExpiracion");
 
-                    b.Property<int>("NIntentos")
-                        .HasColumnType("int(11)")
-                        .HasColumnName("NIntentos");
-
-                    b.Property<string>("NTipoCodigo")
+                    b.Property<string>("ETipoCodigo")
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("varchar(25)")
-                        .HasColumnName("NTipoCodigo");
+                        .HasColumnName("ETipoCodigo");
+
+                    b.Property<int>("NIntentos")
+                        .HasColumnType("int(11)")
+                        .HasColumnName("NIntentos");
 
                     b.Property<int>("NUsuarioFK")
                         .HasColumnType("int(6)")

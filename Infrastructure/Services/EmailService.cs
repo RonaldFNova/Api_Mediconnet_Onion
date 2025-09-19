@@ -1,6 +1,7 @@
 using Api_Mediconnet.Application.Interfaces;
 using System.Net;
 using System.Net.Mail;
+using Api_Mediconnet.Application.DTOs;
 
 namespace Api_Mediconnet.Infrastructure.Services
 {
@@ -9,19 +10,35 @@ namespace Api_Mediconnet.Infrastructure.Services
         private readonly CodeEmailService _codeEmailService;
         private readonly string _smtpUser;
         private readonly string _smtpPass;
+        private readonly ITCodigoVerificacionService _tCodigoVerificacionService;
 
-        public EmailService(CodeEmailService codeEmailService)
+        public EmailService(CodeEmailService codeEmailService, ITCodigoVerificacionService tCodigoVerificacionService)
         {
             _codeEmailService = codeEmailService;
+            _tCodigoVerificacionService = tCodigoVerificacionService;
             _smtpUser = Environment.GetEnvironmentVariable("GMAIL_USER") 
                         ?? throw new Exception("GMAIL_USER not configured");
             _smtpPass = Environment.GetEnvironmentVariable("GMAIL_PASS") 
                         ?? throw new Exception("GMAIL_PASS not configured");
         }
 
-        public async Task SendEmailCodeAsync(string emailDestino, string nombreUsuario)
+        public async Task SendEmailCodeAsync(string emailDestino, string nombreUsuario, int userId)
         {
+            
             string codigo_verificacion = _codeEmailService.GenerateCode();
+
+            var codigoDTO = new TCodigoVerificacionDTO
+            {
+              Codigo = codigo_verificacion,
+              UsuarioFK = userId,
+              FechaExpiracion = DateTime.UtcNow.AddMinutes(15),
+              FechaCreacion = DateTime.UtcNow,
+              TipoCodigo = "Email",
+              Usado = false,
+              Intentos = 0
+            };
+
+            await _tCodigoVerificacionService.CrearAsync(codigoDTO);
 
             var subject = "Verifica tu dirección de correo electrónico";
 
