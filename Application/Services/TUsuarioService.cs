@@ -70,8 +70,8 @@ public class TUsuarioService : ITUsuarioService
             CEmail = dTO.Email,
             CPassword = _servicioHashPassword.Hash(dTO.Password),
             NRolFK = 2, // Asignar rol de Paciente por defecto
-            NEstadoUsuarioFK = 1,
-            NEstadoVerificacionFK = 2,
+            NEstadoUsuarioFK = 1, 
+            NEstadoVerificacionFK = 1, // Estado de verificación "No Verificado"
             DFechaRegistro = DateTime.UtcNow
         };
         await _tUsuarioRepository.AddAsync(usuario);

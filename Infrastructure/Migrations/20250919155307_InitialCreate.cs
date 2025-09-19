@@ -429,8 +429,8 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                 columns: new[] { "NEstadoVerificacion", "CNombre" },
                 values: new object[,]
                 {
-                    { 1, "Verificado" },
-                    { 2, "No Verificado" }
+                    { 1, "No Verificado" },
+                    { 2, "Verificado" }
                 });
 
             migrationBuilder.InsertData(

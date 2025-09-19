@@ -1,0 +1,5 @@
+2025-09-19 10:59:09.931 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-19 11:00:17.743 -05:00 [INF] Email del usuario con ID 1 recuperado correctamente.
+2025-09-19 11:00:18.713 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-19 11:01:01.257 -05:00 [WRN] El código de verificación con ID 1 es incorrecto.
+2025-09-19 11:02:07.568 -05:00 [WRN] El código de verificación con ID 1 es correcto. Intento 1.

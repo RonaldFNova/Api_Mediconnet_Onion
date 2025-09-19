@@ -339,12 +339,12 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         new
                         {
                             NEstadoVerificacionID = 1,
-                            CNombre = "Verificado"
+                            CNombre = "No Verificado"
                         },
                         new
                         {
                             NEstadoVerificacionID = 2,
-                            CNombre = "No Verificado"
+                            CNombre = "Verificado"
                         });
                 });
 

@@ -32,8 +32,8 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<TEstadoVerificacion>().HasData(
-            new TEstadoVerificacion { NEstadoVerificacionID = 1, CNombre = "Verificado" },
-            new TEstadoVerificacion { NEstadoVerificacionID = 2, CNombre = "No Verificado" }
+            new TEstadoVerificacion { NEstadoVerificacionID = 1, CNombre = "No Verificado" },
+            new TEstadoVerificacion { NEstadoVerificacionID = 2, CNombre = "Verificado" }
         );
 
         modelBuilder.Entity<TRol>().HasData(

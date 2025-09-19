@@ -1,6 +1,7 @@
 using Api_Mediconnet.Domain.Entities;
 
 namespace Api_Mediconnet.Domain.Interfaces;
+
 public interface ITEstadoVerificacionRepository
 {
     Task<IEnumerable<TEstadoVerificacion>> GetEstadoVerificacionAsync();
@@ -9,4 +10,5 @@ public interface ITEstadoVerificacionRepository
     void Update(TEstadoVerificacion estadoVerificacion);
     void Delete(TEstadoVerificacion estadoVerificacion);
     Task<bool> SaveChangeAsync();
+
 }

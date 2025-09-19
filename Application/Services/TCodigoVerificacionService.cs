@@ -8,10 +8,12 @@ namespace Api_Mediconnet.Application.Services;
 public class TCodigoVerificacionService : ITCodigoVerificacionService
 {
     private readonly ITCodigoVerificacionRepository _tCodigoVerificacionRepository;
+    private readonly ITUsuarioRepository _tUsuarioRepository;
     private readonly IAppLogger<TCodigoVerificacionService> _appLogger;
 
-    public TCodigoVerificacionService(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger<TCodigoVerificacionService> appLogger)
+    public TCodigoVerificacionService(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger<TCodigoVerificacionService> appLogger, ITUsuarioRepository tUsuarioRepository)
     {
+        _tUsuarioRepository = tUsuarioRepository;
         _tCodigoVerificacionRepository = tCodigoVerificacionRepository;
         _appLogger = appLogger;
     }
@@ -116,9 +118,6 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
     {
         var codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserFkAsync(id);
 
-        Console.WriteLine("ID del código de verificación: " + id);
-        Console.WriteLine("Código proporcionado: " + codigo);
-
         if (codigoVerificacion == null)
         {
             _appLogger.LogError("No se encontró un código de verificación con el ID {id} para validar.", id);
@@ -146,6 +145,14 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
             _appLogger.LogWarning("El código de verificación con ID {id} es correcto. Intento {Intentos}.", id, codigoVerificacion.NIntentos);
             _tCodigoVerificacionRepository.Update(codigoVerificacion);
             await _tCodigoVerificacionRepository.SaveChangesAsync();
+
+            var usuario = await _tUsuarioRepository.GetUsuarioIdAsync(codigoVerificacion.NUsuarioFK);
+
+            usuario.NEstadoVerificacionFK = 2;
+
+            _tUsuarioRepository.Update(usuario);
+            await _tUsuarioRepository.SaveChangesAsync();
+
             return true;
         }
         else

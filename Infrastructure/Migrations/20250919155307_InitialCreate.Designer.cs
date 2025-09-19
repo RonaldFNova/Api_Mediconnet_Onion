@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Mediconnet.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250919015646_InitialCreate")]
+    [Migration("20250919155307_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -342,12 +342,12 @@ namespace Api_Mediconnet.Infrastructure.Migrations
                         new
                         {
                             NEstadoVerificacionID = 1,
-                            CNombre = "Verificado"
+                            CNombre = "No Verificado"
                         },
                         new
                         {
                             NEstadoVerificacionID = 2,
-                            CNombre = "No Verificado"
+                            CNombre = "Verificado"
                         });
                 });
 
