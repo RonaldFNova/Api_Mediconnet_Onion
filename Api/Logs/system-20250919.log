@@ -372,3 +372,1119 @@ SELECT ROW_COUNT();
 2025-09-19 11:02:08.506 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.VerificarEmailCode (Api_Mediconnet.Api) in 1403.2722ms
 2025-09-19 11:02:08.507 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.VerificarEmailCode (Api_Mediconnet.Api)'
 2025-09-19 11:02:08.509 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar - 200 null application/json; charset=utf-8 1414.6909ms
+2025-09-19 12:40:17.369 -05:00 [INF] Executed DbCommand (131ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-09-19 12:40:17.522 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-19 12:40:17.604 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-19 12:40:17.607 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-19 12:40:17.607 -05:00 [INF] Hosting environment: Production
+2025-09-19 12:40:17.608 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-19 12:40:28.961 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 12:40:28.989 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-09-19 12:40:28.997 -05:00 [INF] CORS policy execution successful.
+2025-09-19 12:40:29.010 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 50.2244ms
+2025-09-19 12:40:29.016 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 99
+2025-09-19 12:40:29.024 -05:00 [INF] CORS policy execution successful.
+2025-09-19 12:40:29.069 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 12:40:29.098 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 12:40:30.130 -05:00 [ERR] Failed executing DbCommand (244ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 12:40:30.300 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'Api_Mediconnet.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Duplicate entry 'ronaldstevenrios@gmail.com' for key 'TUsuario.CEmail'
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Duplicate entry 'ronaldstevenrios@gmail.com' for key 'TUsuario.CEmail'
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-09-19 12:40:30.322 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1217.3022ms
+2025-09-19 12:40:30.326 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 12:40:30.330 -05:00 [ERR] Se produjo un error no controlado.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Duplicate entry 'ronaldstevenrios@gmail.com' for key 'TUsuario.CEmail'
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Api_Mediconnet.Infrastructure.Repositories.TUsuarioRepository.SaveChangesAsync() in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\Repositories\TUsuariosRepository.cs:line 45
+   at Api_Mediconnet.Application.Services.TUsuarioService.CrearAsync(TUsuarioCreateDTO dTO) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Application\Services\TUsuarioService.cs:line 78
+   at Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario(TUsuarioCreateDTO usuarioCreateDTO) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Controllers\UsuarioController.cs:line 39
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Api_Mediconnet.Api.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext httpContent) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Middleware\ErrorHandlingMiddleware.cs:line 21
+2025-09-19 12:40:30.422 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 500 null application/json 1405.9513ms
+2025-09-19 12:40:39.947 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 12:40:39.949 -05:00 [INF] CORS policy execution successful.
+2025-09-19 12:40:39.950 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 3.1067ms
+2025-09-19 12:40:39.953 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 100
+2025-09-19 12:40:39.957 -05:00 [INF] CORS policy execution successful.
+2025-09-19 12:40:39.959 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 12:40:39.961 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 12:40:40.894 -05:00 [INF] Executed DbCommand (260ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 12:40:41.069 -05:00 [INF] Usuario con ID 3 creado exitosamente.
+2025-09-19 12:40:41.498 -05:00 [INF] Executed DbCommand (124ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 12:40:41.530 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 12:40:41.543 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1580.0541ms
+2025-09-19 12:40:41.545 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 12:40:41.548 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1595.7966ms
+2025-09-19 13:29:16.885 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 13:29:16.889 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:29:16.890 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 5.1545ms
+2025-09-19 13:29:16.893 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 100
+2025-09-19 13:29:16.897 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:29:16.901 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:29:16.903 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 13:29:19.062 -05:00 [INF] Executed DbCommand (243ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 13:29:19.182 -05:00 [INF] Usuario con ID 4 creado exitosamente.
+2025-09-19 13:29:19.519 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 13:29:19.522 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 13:29:19.523 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 2617.6013ms
+2025-09-19 13:29:19.524 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:29:19.526 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 2632.8608ms
+2025-09-19 13:30:38.791 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 13:30:38.794 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:30:38.795 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 3.7924ms
+2025-09-19 13:30:38.799 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 89
+2025-09-19 13:30:38.802 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:30:38.804 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:30:38.805 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 13:30:39.669 -05:00 [INF] Executed DbCommand (223ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 13:30:39.783 -05:00 [INF] Usuario con ID 5 creado exitosamente.
+2025-09-19 13:30:40.007 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 13:30:40.010 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 13:30:40.013 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1205.2276ms
+2025-09-19 13:30:40.016 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:30:40.018 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1219.3457ms
+2025-09-19 13:31:24.645 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 13:31:24.648 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:31:24.649 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 4.3107ms
+2025-09-19 13:31:24.653 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 91
+2025-09-19 13:31:24.655 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:31:24.657 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:31:24.659 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 13:31:25.913 -05:00 [INF] Executed DbCommand (226ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 13:31:26.028 -05:00 [INF] Usuario con ID 6 creado exitosamente.
+2025-09-19 13:31:26.380 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 13:31:26.383 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 13:31:26.384 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1723.0076ms
+2025-09-19 13:31:26.388 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:31:26.390 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1737.4559ms
+2025-09-19 13:32:23.120 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 13:32:23.123 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:32:23.125 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 5.0317ms
+2025-09-19 13:32:23.130 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 90
+2025-09-19 13:32:23.133 -05:00 [INF] CORS policy execution successful.
+2025-09-19 13:32:23.134 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:32:23.141 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 13:32:24.001 -05:00 [INF] Executed DbCommand (238ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 13:32:24.127 -05:00 [INF] Usuario con ID 7 creado exitosamente.
+2025-09-19 13:32:24.484 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 13:32:24.487 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 13:32:24.488 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1344.4126ms
+2025-09-19 13:32:24.490 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 13:32:24.491 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1361.7566ms
+2025-09-19 13:57:06.339 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE `Api_Mediconnet_Onion`;
+2025-09-19 13:57:08.678 -05:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+2025-09-19 13:57:08.818 -05:00 [INF] Executed DbCommand (138ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TArea` (
+    `NAreaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(1000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NAreaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:08.938 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TDiaSemana` (
+    `NDiaSemanaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NDiaSemanaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.057 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEspecialidad` (
+    `NEspecialidadID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEspecialidadID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.182 -05:00 [INF] Executed DbCommand (122ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoCita` (
+    `NEstadoCitaID` int(6) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoCitaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.303 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoUsuario` (
+    `NEstadoUsuarioID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.420 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoVerificacion` (
+    `NEstadoVerificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoVerificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.542 -05:00 [INF] Executed DbCommand (120ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TGrupoSanguineo` (
+    `NGrupoSanguineoID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NGrupoSanguineoID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.663 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TRol` (
+    `NRolID` int(32) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NRolID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.781 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TTipoIdentificacion` (
+    `NTipoIdentificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NTipoIdentificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:09.906 -05:00 [INF] Executed DbCommand (121ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TUsuario` (
+    `nUsuarioID` int(32) NOT NULL AUTO_INCREMENT,
+    `NEstadoVerificacionFK` int(12) NOT NULL,
+    `NEstadoUsuarioFK` int(12) NOT NULL,
+    `NRolFK` int(12) NOT NULL,
+    `CNombre` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `CApellido` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    `CEmail` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `CPassword` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` DateTime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`nUsuarioID`),
+    CONSTRAINT `FK_Usuario_EstadoUsuario` FOREIGN KEY (`NEstadoUsuarioFK`) REFERENCES `TEstadoUsuario` (`NEstadoUsuarioID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_EstadoVerificacion` FOREIGN KEY (`NEstadoVerificacionFK`) REFERENCES `TEstadoVerificacion` (`NEstadoVerificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_Rol` FOREIGN KEY (`NRolFK`) REFERENCES `TRol` (`NRolID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:10.036 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCodigoVerificacion` (
+    `NCodigoVerificacionID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(6) NOT NULL,
+    `CCodigo` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `ETipoCodigo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaExpiracion` datetime NOT NULL,
+    `BUsado` tinyint(1) NOT NULL DEFAULT FALSE,
+    `NIntentos` int(11) NOT NULL,
+    `DFechaCreacion` datetime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCodigoVerificacionID`),
+    CONSTRAINT `FK_CodigoVerificacion_Usuario` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:10.165 -05:00 [INF] Executed DbCommand (126ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TLogins` (
+    `NLoginID` int(32) NOT NULL AUTO_INCREMENT,
+    `DFechaLogin` DateTime NOT NULL,
+    `NUsuarioFK` int(32) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NLoginID`),
+    CONSTRAINT `FK_Usuario_Logins` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:10.312 -05:00 [INF] Executed DbCommand (144ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPersona` (
+    `NPersonaID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(32) NOT NULL,
+    `NTipoIdentificacionFK` int(32) NOT NULL,
+    `CNroIdentificacion` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    `CNroConctacto` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDireccion` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaNacimiento` DateTime NOT NULL,
+    `ESexo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPersonaID`),
+    CONSTRAINT `FK_Personas_TipoIdentificacion` FOREIGN KEY (`NTipoIdentificacionFK`) REFERENCES `TTipoIdentificacion` (`NTipoIdentificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPersona_TUsuario_NUsuarioFK` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:10.442 -05:00 [INF] Executed DbCommand (128ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPaciente` (
+    `NPacienteID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NGrupoSanguineoFK` int(6) NOT NULL,
+    `CAlergiasGenerales` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPacienteID`),
+    CONSTRAINT `FK_Paciente_GrupoSanguineo` FOREIGN KEY (`NGrupoSanguineoFK`) REFERENCES `TGrupoSanguineo` (`NGrupoSanguineoID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPaciente_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:10.578 -05:00 [INF] Executed DbCommand (132ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TProfesional` (
+    `NProfesionalID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NEspecialidadFK` int(12) NOT NULL,
+    `NAreaFK` int(12) NOT NULL,
+    `CRegistroProfesional` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaContratacion` DateTime NOT NULL,
+    `ETipoProfesional` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `CBiografia` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NProfesionalID`),
+    CONSTRAINT `FK_Profesional_Area` FOREIGN KEY (`NAreaFK`) REFERENCES `TArea` (`NAreaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Profesional_Especialidad` FOREIGN KEY (`NEspecialidadFK`) REFERENCES `TEspecialidad` (`NEspecialidadID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TProfesional_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:10.731 -05:00 [INF] Executed DbCommand (150ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCita` (
+    `NCitaID` int(12) NOT NULL AUTO_INCREMENT,
+    `NEstadoCitaFK` int(12) NOT NULL,
+    `NProfesionalFK` int(12) NOT NULL,
+    `NPacienteFK` int(12) NOT NULL,
+    `NDiaSemanaFK` int(12) NOT NULL,
+    `DFecha` datetime NOT NULL,
+    `DHora` time NOT NULL,
+    `DDuracion` time NOT NULL,
+    `CObservacion` varchar(500) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` datetime NOT NULL,
+    `ProfesionalNProfesionalID` int(32) NOT NULL,
+    `PacienteNPacienteID` int(32) NOT NULL,
+    `EstadoNEstadoCitaID` int(6) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCitaID`),
+    CONSTRAINT `FK_Cita_DiaSemana` FOREIGN KEY (`NDiaSemanaFK`) REFERENCES `TDiaSemana` (`NDiaSemanaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TCita_TEstadoCita_EstadoNEstadoCitaID` FOREIGN KEY (`EstadoNEstadoCitaID`) REFERENCES `TEstadoCita` (`NEstadoCitaID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TPaciente_PacienteNPacienteID` FOREIGN KEY (`PacienteNPacienteID`) REFERENCES `TPaciente` (`NPacienteID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TProfesional_ProfesionalNProfesionalID` FOREIGN KEY (`ProfesionalNProfesionalID`) REFERENCES `TProfesional` (`NProfesionalID`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+2025-09-19 13:57:10.848 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TDiaSemana` (`NDiaSemanaID`, `CNombre`)
+VALUES (1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miércoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sábado'),
+(7, 'Domingo');
+2025-09-19 13:57:10.966 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoUsuario` (`NEstadoUsuarioID`, `CNombre`)
+VALUES (1, 'Activo'),
+(2, 'Inactivo');
+2025-09-19 13:57:11.072 -05:00 [INF] Executed DbCommand (104ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoVerificacion` (`NEstadoVerificacion`, `CNombre`)
+VALUES (1, 'No Verificado'),
+(2, 'Verificado');
+2025-09-19 13:57:11.191 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TGrupoSanguineo` (`NGrupoSanguineoID`, `CNombre`)
+VALUES (1, 'A+'),
+(2, 'A-'),
+(3, 'B+'),
+(4, 'B-'),
+(5, 'AB+'),
+(6, 'AB-'),
+(7, 'O+'),
+(8, 'O-');
+2025-09-19 13:57:11.307 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TRol` (`NRolID`, `CNombre`)
+VALUES (1, 'Administrador'),
+(2, 'Paciente'),
+(3, 'Medico');
+2025-09-19 13:57:11.420 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TTipoIdentificacion` (`NTipoIdentificacion`, `CNombre`)
+VALUES (1, 'Cédula de ciudadanía'),
+(2, 'Tarjeta de identidad'),
+(3, 'Registro civil de nacimiento'),
+(4, 'Cédula de extranjería'),
+(5, 'Pasaporte');
+2025-09-19 13:57:11.571 -05:00 [INF] Executed DbCommand (147ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre` ON `TArea` (`CNombre`);
+2025-09-19 13:57:11.700 -05:00 [INF] Executed DbCommand (127ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_EstadoNEstadoCitaID` ON `TCita` (`EstadoNEstadoCitaID`);
+2025-09-19 13:57:11.822 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_NDiaSemanaFK` ON `TCita` (`NDiaSemanaFK`);
+2025-09-19 13:57:11.980 -05:00 [INF] Executed DbCommand (156ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_PacienteNPacienteID` ON `TCita` (`PacienteNPacienteID`);
+2025-09-19 13:57:12.119 -05:00 [INF] Executed DbCommand (136ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_ProfesionalNProfesionalID` ON `TCita` (`ProfesionalNProfesionalID`);
+2025-09-19 13:57:12.263 -05:00 [INF] Executed DbCommand (141ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CCodigo` ON `TCodigoVerificacion` (`CCodigo`);
+2025-09-19 13:57:12.403 -05:00 [INF] Executed DbCommand (138ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCodigoVerificacion_NUsuarioFK` ON `TCodigoVerificacion` (`NUsuarioFK`);
+2025-09-19 13:57:12.608 -05:00 [INF] Executed DbCommand (201ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre1` ON `TDiaSemana` (`CNombre`);
+2025-09-19 13:57:12.745 -05:00 [INF] Executed DbCommand (135ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre2` ON `TEspecialidad` (`CNombre`);
+2025-09-19 13:57:12.872 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre3` ON `TEstadoCita` (`CNombre`);
+2025-09-19 13:57:13.000 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre4` ON `TEstadoUsuario` (`CNombre`);
+2025-09-19 13:57:13.124 -05:00 [INF] Executed DbCommand (122ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre5` ON `TEstadoVerificacion` (`CNombre`);
+2025-09-19 13:57:13.251 -05:00 [INF] Executed DbCommand (124ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre6` ON `TGrupoSanguineo` (`CNombre`);
+2025-09-19 13:57:13.375 -05:00 [INF] Executed DbCommand (123ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TLogins_NUsuarioFK` ON `TLogins` (`NUsuarioFK`);
+2025-09-19 13:57:13.507 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPaciente_NGrupoSanguineoFK` ON `TPaciente` (`NGrupoSanguineoFK`);
+2025-09-19 13:57:13.639 -05:00 [INF] Executed DbCommand (130ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPaciente_NPersonaFK` ON `TPaciente` (`NPersonaFK`);
+2025-09-19 13:57:13.769 -05:00 [INF] Executed DbCommand (127ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNroIdentificacion` ON `TPersona` (`CNroIdentificacion`);
+2025-09-19 13:57:13.898 -05:00 [INF] Executed DbCommand (127ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPersona_NTipoIdentificacionFK` ON `TPersona` (`NTipoIdentificacionFK`);
+2025-09-19 13:57:14.027 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPersona_NUsuarioFK` ON `TPersona` (`NUsuarioFK`);
+2025-09-19 13:57:14.167 -05:00 [INF] Executed DbCommand (137ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CRegistroProfesional` ON `TProfesional` (`CRegistroProfesional`);
+2025-09-19 13:57:14.293 -05:00 [INF] Executed DbCommand (124ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NAreaFK` ON `TProfesional` (`NAreaFK`);
+2025-09-19 13:57:14.417 -05:00 [INF] Executed DbCommand (120ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NEspecialidadFK` ON `TProfesional` (`NEspecialidadFK`);
+2025-09-19 13:57:14.570 -05:00 [INF] Executed DbCommand (150ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TProfesional_NPersonaFK` ON `TProfesional` (`NPersonaFK`);
+2025-09-19 13:57:14.708 -05:00 [INF] Executed DbCommand (136ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre7` ON `TRol` (`CNombre`);
+2025-09-19 13:57:14.848 -05:00 [INF] Executed DbCommand (137ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre8` ON `TTipoIdentificacion` (`CNombre`);
+2025-09-19 13:57:14.977 -05:00 [INF] Executed DbCommand (126ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CEmail` ON `TUsuario` (`CEmail`);
+2025-09-19 13:57:15.113 -05:00 [INF] Executed DbCommand (133ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoUsuarioFK` ON `TUsuario` (`NEstadoUsuarioFK`);
+2025-09-19 13:57:15.250 -05:00 [INF] Executed DbCommand (134ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoVerificacionFK` ON `TUsuario` (`NEstadoVerificacionFK`);
+2025-09-19 13:57:15.378 -05:00 [INF] Executed DbCommand (126ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NRolFK` ON `TUsuario` (`NRolFK`);
+2025-09-19 13:57:15.603 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-19 13:57:15.712 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-19 13:57:15.716 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-19 13:57:15.718 -05:00 [INF] Hosting environment: Production
+2025-09-19 13:57:15.719 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-19 14:04:56.529 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:04:56.555 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-09-19 14:04:56.560 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:04:56.568 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 40.4616ms
+2025-09-19 14:04:56.575 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 101
+2025-09-19 14:04:56.581 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:04:56.606 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:04:56.630 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:04:58.936 -05:00 [INF] Executed DbCommand (123ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:04:59.076 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-19 14:04:59.575 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:04:59.611 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:04:59.633 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 2997.1075ms
+2025-09-19 14:04:59.637 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:04:59.643 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 3067.2396ms
+2025-09-19 14:06:13.902 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:06:13.904 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:06:13.905 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 2.9078ms
+2025-09-19 14:06:13.907 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 101
+2025-09-19 14:06:13.911 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:06:13.913 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:06:13.915 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:06:14.674 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:06:14.790 -05:00 [INF] Usuario con ID 2 creado exitosamente.
+2025-09-19 14:06:15.013 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:06:15.020 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:06:15.024 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1106.6193ms
+2025-09-19 14:06:15.027 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:06:15.028 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1120.7194ms
+2025-09-19 14:08:31.904 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:08:31.907 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:08:31.908 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 4.2061ms
+2025-09-19 14:08:31.911 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 90
+2025-09-19 14:08:31.913 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:08:31.916 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:08:31.917 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:08:32.772 -05:00 [INF] Executed DbCommand (225ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:08:32.887 -05:00 [INF] Usuario con ID 3 creado exitosamente.
+2025-09-19 14:08:33.112 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:08:33.115 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:08:33.118 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1199.0663ms
+2025-09-19 14:08:33.121 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:08:33.123 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1212.4381ms
+2025-09-19 14:08:56.313 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 128
+2025-09-19 14:08:56.354 -05:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '25/08/2025 8:25:26 p. m.', Current time (UTC): '19/09/2025 7:08:56 p. m.'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2025-09-19 14:08:56.370 -05:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '25/08/2025 8:25:26 p. m.', Current time (UTC): '19/09/2025 7:08:56 p. m.'.
+2025-09-19 14:08:56.372 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:08:56.373 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:08:57.354 -05:00 [INF] Executed DbCommand (232ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:08:57.470 -05:00 [INF] Usuario con ID 4 creado exitosamente.
+2025-09-19 14:08:57.694 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:08:57.697 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:08:57.698 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1322.4294ms
+2025-09-19 14:08:57.700 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:08:57.701 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1388.2317ms
+2025-09-19 14:10:09.146 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:10:09.149 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:10:09.150 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 4.2231ms
+2025-09-19 14:10:09.154 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 101
+2025-09-19 14:10:09.156 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:10:09.157 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:10:09.159 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:10:09.898 -05:00 [INF] Executed DbCommand (215ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:10:10.011 -05:00 [INF] Usuario con ID 5 creado exitosamente.
+2025-09-19 14:10:10.246 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:10:10.252 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:10:10.255 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1094.5859ms
+2025-09-19 14:10:10.257 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:10:10.260 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1106.2038ms
+2025-09-19 14:13:48.116 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:13:48.120 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:13:48.122 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 5.1476ms
+2025-09-19 14:13:48.125 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 104
+2025-09-19 14:13:48.127 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:13:48.128 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:13:48.130 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:13:48.993 -05:00 [INF] Executed DbCommand (223ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:13:49.112 -05:00 [INF] Usuario con ID 6 creado exitosamente.
+2025-09-19 14:13:49.333 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:13:49.339 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:13:49.342 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1209.2958ms
+2025-09-19 14:13:49.344 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:13:49.346 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1221.3585ms
+2025-09-19 14:20:57.794 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:20:57.797 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:20:57.798 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 3.5827ms
+2025-09-19 14:20:57.802 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 103
+2025-09-19 14:20:57.805 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:20:57.807 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:20:57.808 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:20:59.855 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:20:59.970 -05:00 [INF] Usuario con ID 7 creado exitosamente.
+2025-09-19 14:21:00.198 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:21:00.201 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:21:00.203 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 2392.1123ms
+2025-09-19 14:21:00.204 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:21:00.206 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 2404.1036ms
+2025-09-19 14:22:42.821 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:22:42.824 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:22:42.825 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 3.3533ms
+2025-09-19 14:22:42.827 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 94
+2025-09-19 14:22:42.830 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:22:42.832 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:22:42.833 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:22:43.491 -05:00 [ERR] Failed executing DbCommand (111ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:22:43.633 -05:00 [ERR] An exception occurred in the database while saving changes for context type 'Api_Mediconnet.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Duplicate entry '21332543254@gmail.com' for key 'TUsuario.CEmail'
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Duplicate entry '21332543254@gmail.com' for key 'TUsuario.CEmail'
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-09-19 14:22:43.650 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 814.6233ms
+2025-09-19 14:22:43.654 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:22:43.658 -05:00 [ERR] Se produjo un error no controlado.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Duplicate entry '21332543254@gmail.com' for key 'TUsuario.CEmail'
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Api_Mediconnet.Infrastructure.Repositories.TUsuarioRepository.SaveChangesAsync() in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Infrastructure\Repositories\TUsuariosRepository.cs:line 45
+   at Api_Mediconnet.Application.Services.TUsuarioService.CrearAsync(TUsuarioCreateDTO dTO) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\Application\Services\TUsuarioService.cs:line 78
+   at Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario(TUsuarioCreateDTO usuarioCreateDTO) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Controllers\UsuarioController.cs:line 39
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Api_Mediconnet.Api.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext httpContent) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Middleware\ErrorHandlingMiddleware.cs:line 21
+2025-09-19 14:22:43.724 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 500 null application/json 896.8096ms
+2025-09-19 14:22:48.181 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:22:48.184 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:22:48.185 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 4.3532ms
+2025-09-19 14:22:48.189 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 95
+2025-09-19 14:22:48.194 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:22:48.196 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:22:48.197 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:22:48.931 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:22:49.053 -05:00 [INF] Usuario con ID 9 creado exitosamente.
+2025-09-19 14:22:49.282 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:22:49.288 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:22:49.290 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1090.6026ms
+2025-09-19 14:22:49.292 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:22:49.293 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1104.3948ms
+2025-09-19 14:31:15.350 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:31:15.353 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:31:15.355 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 4.5751ms
+2025-09-19 14:31:15.358 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 88
+2025-09-19 14:31:15.362 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:31:15.364 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:31:15.365 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:31:19.258 -05:00 [INF] Executed DbCommand (431ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:31:19.595 -05:00 [INF] Usuario con ID 10 creado exitosamente.
+2025-09-19 14:31:20.386 -05:00 [INF] Executed DbCommand (338ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:31:20.390 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:31:20.393 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 5025.1049ms
+2025-09-19 14:31:20.394 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:31:20.396 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 5038.1559ms
+2025-09-19 14:31:47.170 -05:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/Api/EmailCode - null null
+2025-09-19 14:31:47.175 -05:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2025-09-19 14:31:47.176 -05:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2025-09-19 14:31:47.178 -05:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/Api/EmailCode - 405 0 null 7.7322ms
+2025-09-19 14:37:12.320 -05:00 [INF] Executed DbCommand (229ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE `Api_Mediconnet_Onion`;
+2025-09-19 14:37:14.433 -05:00 [INF] Executed DbCommand (132ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+2025-09-19 14:37:14.707 -05:00 [INF] Executed DbCommand (271ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TArea` (
+    `NAreaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(1000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NAreaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:14.820 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TDiaSemana` (
+    `NDiaSemanaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NDiaSemanaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:14.941 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEspecialidad` (
+    `NEspecialidadID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEspecialidadID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.064 -05:00 [INF] Executed DbCommand (121ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoCita` (
+    `NEstadoCitaID` int(6) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoCitaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.184 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoUsuario` (
+    `NEstadoUsuarioID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.302 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoVerificacion` (
+    `NEstadoVerificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoVerificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.420 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TGrupoSanguineo` (
+    `NGrupoSanguineoID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NGrupoSanguineoID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.539 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TRol` (
+    `NRolID` int(32) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NRolID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.658 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TTipoIdentificacion` (
+    `NTipoIdentificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NTipoIdentificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.795 -05:00 [INF] Executed DbCommand (134ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TUsuario` (
+    `nUsuarioID` int(32) NOT NULL AUTO_INCREMENT,
+    `NEstadoVerificacionFK` int(12) NOT NULL,
+    `NEstadoUsuarioFK` int(12) NOT NULL,
+    `NRolFK` int(12) NOT NULL,
+    `CNombre` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `CApellido` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    `CEmail` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `CPassword` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` DateTime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`nUsuarioID`),
+    CONSTRAINT `FK_Usuario_EstadoUsuario` FOREIGN KEY (`NEstadoUsuarioFK`) REFERENCES `TEstadoUsuario` (`NEstadoUsuarioID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_EstadoVerificacion` FOREIGN KEY (`NEstadoVerificacionFK`) REFERENCES `TEstadoVerificacion` (`NEstadoVerificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_Rol` FOREIGN KEY (`NRolFK`) REFERENCES `TRol` (`NRolID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:15.915 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCodigoVerificacion` (
+    `NCodigoVerificacionID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(6) NOT NULL,
+    `CCodigo` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `ETipoCodigo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaExpiracion` datetime NOT NULL,
+    `BUsado` tinyint(1) NOT NULL DEFAULT FALSE,
+    `NIntentos` int(11) NOT NULL,
+    `DFechaCreacion` datetime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCodigoVerificacionID`),
+    CONSTRAINT `FK_CodigoVerificacion_Usuario` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:16.036 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TLogins` (
+    `NLoginID` int(32) NOT NULL AUTO_INCREMENT,
+    `DFechaLogin` DateTime NOT NULL,
+    `NUsuarioFK` int(32) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NLoginID`),
+    CONSTRAINT `FK_Usuario_Logins` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:16.164 -05:00 [INF] Executed DbCommand (126ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPersona` (
+    `NPersonaID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(32) NOT NULL,
+    `NTipoIdentificacionFK` int(32) NOT NULL,
+    `CNroIdentificacion` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    `CNroConctacto` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDireccion` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaNacimiento` DateTime NOT NULL,
+    `ESexo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPersonaID`),
+    CONSTRAINT `FK_Personas_TipoIdentificacion` FOREIGN KEY (`NTipoIdentificacionFK`) REFERENCES `TTipoIdentificacion` (`NTipoIdentificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPersona_TUsuario_NUsuarioFK` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:16.304 -05:00 [INF] Executed DbCommand (137ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPaciente` (
+    `NPacienteID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NGrupoSanguineoFK` int(6) NOT NULL,
+    `CAlergiasGenerales` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPacienteID`),
+    CONSTRAINT `FK_Paciente_GrupoSanguineo` FOREIGN KEY (`NGrupoSanguineoFK`) REFERENCES `TGrupoSanguineo` (`NGrupoSanguineoID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPaciente_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:16.445 -05:00 [INF] Executed DbCommand (138ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TProfesional` (
+    `NProfesionalID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NEspecialidadFK` int(12) NOT NULL,
+    `NAreaFK` int(12) NOT NULL,
+    `CRegistroProfesional` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaContratacion` DateTime NOT NULL,
+    `ETipoProfesional` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `CBiografia` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NProfesionalID`),
+    CONSTRAINT `FK_Profesional_Area` FOREIGN KEY (`NAreaFK`) REFERENCES `TArea` (`NAreaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Profesional_Especialidad` FOREIGN KEY (`NEspecialidadFK`) REFERENCES `TEspecialidad` (`NEspecialidadID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TProfesional_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:16.583 -05:00 [INF] Executed DbCommand (135ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCita` (
+    `NCitaID` int(12) NOT NULL AUTO_INCREMENT,
+    `NEstadoCitaFK` int(12) NOT NULL,
+    `NProfesionalFK` int(12) NOT NULL,
+    `NPacienteFK` int(12) NOT NULL,
+    `NDiaSemanaFK` int(12) NOT NULL,
+    `DFecha` datetime NOT NULL,
+    `DHora` time NOT NULL,
+    `DDuracion` time NOT NULL,
+    `CObservacion` varchar(500) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` datetime NOT NULL,
+    `ProfesionalNProfesionalID` int(32) NOT NULL,
+    `PacienteNPacienteID` int(32) NOT NULL,
+    `EstadoNEstadoCitaID` int(6) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCitaID`),
+    CONSTRAINT `FK_Cita_DiaSemana` FOREIGN KEY (`NDiaSemanaFK`) REFERENCES `TDiaSemana` (`NDiaSemanaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TCita_TEstadoCita_EstadoNEstadoCitaID` FOREIGN KEY (`EstadoNEstadoCitaID`) REFERENCES `TEstadoCita` (`NEstadoCitaID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TPaciente_PacienteNPacienteID` FOREIGN KEY (`PacienteNPacienteID`) REFERENCES `TPaciente` (`NPacienteID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TProfesional_ProfesionalNProfesionalID` FOREIGN KEY (`ProfesionalNProfesionalID`) REFERENCES `TProfesional` (`NProfesionalID`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+2025-09-19 14:37:16.703 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TDiaSemana` (`NDiaSemanaID`, `CNombre`)
+VALUES (1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miércoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sábado'),
+(7, 'Domingo');
+2025-09-19 14:37:16.817 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoUsuario` (`NEstadoUsuarioID`, `CNombre`)
+VALUES (1, 'Activo'),
+(2, 'Inactivo');
+2025-09-19 14:37:16.949 -05:00 [INF] Executed DbCommand (129ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoVerificacion` (`NEstadoVerificacion`, `CNombre`)
+VALUES (1, 'No Verificado'),
+(2, 'Verificado');
+2025-09-19 14:37:17.074 -05:00 [INF] Executed DbCommand (121ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TGrupoSanguineo` (`NGrupoSanguineoID`, `CNombre`)
+VALUES (1, 'A+'),
+(2, 'A-'),
+(3, 'B+'),
+(4, 'B-'),
+(5, 'AB+'),
+(6, 'AB-'),
+(7, 'O+'),
+(8, 'O-');
+2025-09-19 14:37:17.196 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TRol` (`NRolID`, `CNombre`)
+VALUES (1, 'Administrador'),
+(2, 'Paciente'),
+(3, 'Medico');
+2025-09-19 14:37:17.311 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TTipoIdentificacion` (`NTipoIdentificacion`, `CNombre`)
+VALUES (1, 'Cédula de ciudadanía'),
+(2, 'Tarjeta de identidad'),
+(3, 'Registro civil de nacimiento'),
+(4, 'Cédula de extranjería'),
+(5, 'Pasaporte');
+2025-09-19 14:37:17.474 -05:00 [INF] Executed DbCommand (160ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre` ON `TArea` (`CNombre`);
+2025-09-19 14:37:17.607 -05:00 [INF] Executed DbCommand (130ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_EstadoNEstadoCitaID` ON `TCita` (`EstadoNEstadoCitaID`);
+2025-09-19 14:37:17.723 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_NDiaSemanaFK` ON `TCita` (`NDiaSemanaFK`);
+2025-09-19 14:37:17.900 -05:00 [INF] Executed DbCommand (174ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_PacienteNPacienteID` ON `TCita` (`PacienteNPacienteID`);
+2025-09-19 14:37:18.034 -05:00 [INF] Executed DbCommand (129ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_ProfesionalNProfesionalID` ON `TCita` (`ProfesionalNProfesionalID`);
+2025-09-19 14:37:18.157 -05:00 [INF] Executed DbCommand (120ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CCodigo` ON `TCodigoVerificacion` (`CCodigo`);
+2025-09-19 14:37:18.290 -05:00 [INF] Executed DbCommand (130ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCodigoVerificacion_NUsuarioFK` ON `TCodigoVerificacion` (`NUsuarioFK`);
+2025-09-19 14:37:18.428 -05:00 [INF] Executed DbCommand (134ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre1` ON `TDiaSemana` (`CNombre`);
+2025-09-19 14:37:18.558 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre2` ON `TEspecialidad` (`CNombre`);
+2025-09-19 14:37:18.690 -05:00 [INF] Executed DbCommand (129ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre3` ON `TEstadoCita` (`CNombre`);
+2025-09-19 14:37:18.822 -05:00 [INF] Executed DbCommand (130ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre4` ON `TEstadoUsuario` (`CNombre`);
+2025-09-19 14:37:18.957 -05:00 [INF] Executed DbCommand (132ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre5` ON `TEstadoVerificacion` (`CNombre`);
+2025-09-19 14:37:19.100 -05:00 [INF] Executed DbCommand (140ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre6` ON `TGrupoSanguineo` (`CNombre`);
+2025-09-19 14:37:19.229 -05:00 [INF] Executed DbCommand (126ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TLogins_NUsuarioFK` ON `TLogins` (`NUsuarioFK`);
+2025-09-19 14:37:19.377 -05:00 [INF] Executed DbCommand (144ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPaciente_NGrupoSanguineoFK` ON `TPaciente` (`NGrupoSanguineoFK`);
+2025-09-19 14:37:19.503 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPaciente_NPersonaFK` ON `TPaciente` (`NPersonaFK`);
+2025-09-19 14:37:19.628 -05:00 [INF] Executed DbCommand (122ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNroIdentificacion` ON `TPersona` (`CNroIdentificacion`);
+2025-09-19 14:37:19.757 -05:00 [INF] Executed DbCommand (127ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPersona_NTipoIdentificacionFK` ON `TPersona` (`NTipoIdentificacionFK`);
+2025-09-19 14:37:19.907 -05:00 [INF] Executed DbCommand (146ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPersona_NUsuarioFK` ON `TPersona` (`NUsuarioFK`);
+2025-09-19 14:37:20.044 -05:00 [INF] Executed DbCommand (134ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CRegistroProfesional` ON `TProfesional` (`CRegistroProfesional`);
+2025-09-19 14:37:20.439 -05:00 [INF] Executed DbCommand (391ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NAreaFK` ON `TProfesional` (`NAreaFK`);
+2025-09-19 14:37:20.557 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NEspecialidadFK` ON `TProfesional` (`NEspecialidadFK`);
+2025-09-19 14:37:20.685 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TProfesional_NPersonaFK` ON `TProfesional` (`NPersonaFK`);
+2025-09-19 14:37:20.813 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre7` ON `TRol` (`CNombre`);
+2025-09-19 14:37:20.938 -05:00 [INF] Executed DbCommand (122ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre8` ON `TTipoIdentificacion` (`CNombre`);
+2025-09-19 14:37:21.065 -05:00 [INF] Executed DbCommand (124ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CEmail` ON `TUsuario` (`CEmail`);
+2025-09-19 14:37:21.206 -05:00 [INF] Executed DbCommand (139ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoUsuarioFK` ON `TUsuario` (`NEstadoUsuarioFK`);
+2025-09-19 14:37:21.338 -05:00 [INF] Executed DbCommand (127ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoVerificacionFK` ON `TUsuario` (`NEstadoVerificacionFK`);
+2025-09-19 14:37:21.476 -05:00 [INF] Executed DbCommand (136ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NRolFK` ON `TUsuario` (`NRolFK`);
+2025-09-19 14:37:21.718 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-19 14:37:21.795 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-19 14:37:21.799 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-19 14:37:21.801 -05:00 [INF] Hosting environment: Production
+2025-09-19 14:37:21.802 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-19 14:39:55.717 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-19 14:39:55.742 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-09-19 14:39:55.747 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:39:55.756 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 39.9758ms
+2025-09-19 14:39:55.762 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 106
+2025-09-19 14:39:55.768 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:39:55.791 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:39:55.810 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-19 14:39:56.986 -05:00 [INF] Executed DbCommand (282ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-19 14:39:57.130 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-19 14:39:57.520 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t0`.`CNombre`
+FROM `TUsuario` AS `t`
+INNER JOIN `TRol` AS `t0` ON `t`.`NRolFK` = `t0`.`NRolID`
+WHERE `t`.`nUsuarioID` = @__id_0
+LIMIT 1
+2025-09-19 14:39:57.552 -05:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-19 14:39:57.575 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1758.7248ms
+2025-09-19 14:39:57.577 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-19 14:39:57.585 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 null application/json; charset=utf-8 1822.2804ms
+2025-09-19 14:39:57.589 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode - null null
+2025-09-19 14:39:57.594 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:39:57.596 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode - 204 null null 7.8268ms
+2025-09-19 14:39:57.601 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode - application/json 2
+2025-09-19 14:39:57.604 -05:00 [INF] CORS policy execution successful.
+2025-09-19 14:39:57.647 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode (Api_Mediconnet.Api)'
+2025-09-19 14:39:57.651 -05:00 [INF] Route matched with {action = "PostEmailCode", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostEmailCode() on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-19 14:39:58.046 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`nUsuarioID`, `t`.`CApellido`, `t`.`CEmail`, `t`.`CNombre`, `t`.`CPassword`, `t`.`DFechaRegistro`, `t`.`NEstadoUsuarioFK`, `t`.`NEstadoVerificacionFK`, `t`.`NRolFK`
+FROM `TUsuario` AS `t`
+WHERE `t`.`nUsuarioID` = @__p_0
+LIMIT 1
+2025-09-19 14:39:58.053 -05:00 [INF] Email del usuario con ID 1 recuperado correctamente.
+2025-09-19 14:39:58.530 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (DbType = DateTime), @p2='?' (DbType = DateTime), @p3='?' (Size = 25), @p4='?' (DbType = Int32), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TCodigoVerificacion` (`CCodigo`, `DFechaCreacion`, `DFechaExpiracion`, `ETipoCodigo`, `NIntentos`, `NUsuarioFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+SELECT `NCodigoVerificacionID`, `BUsado`
+FROM `TCodigoVerificacion`
+WHERE ROW_COUNT() = 1 AND `NCodigoVerificacionID` = LAST_INSERT_ID();
+2025-09-19 14:39:58.647 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-19 14:40:00.763 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-09-19 14:40:00.766 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode (Api_Mediconnet.Api) in 3112.9697ms
+2025-09-19 14:40:00.766 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode (Api_Mediconnet.Api)'
+2025-09-19 14:40:00.767 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode - 200 0 null 3166.3554ms

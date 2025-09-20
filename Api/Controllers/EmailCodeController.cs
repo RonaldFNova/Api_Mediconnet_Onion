@@ -33,13 +33,12 @@ public class EmailCodeController : ControllerBase
 
     [HttpPost("Verificar")]
     [Authorize]
-    public async Task<ActionResult> VerificarEmailCode([FromBody] VerificarCodigoRequestDTO request)
+    public async Task<ActionResult> PostVerificarEmailCode([FromBody] VerificarCodigoRequestDTO request)
     {     
-        Console.WriteLine("LOLLLLLLLL");
         var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-        bool isValid = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(int.Parse(userId), request.Codigo);
+        var reultado = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(int.Parse(userId), request.Codigo);
 
-        return Ok(isValid);
+        return StatusCode(reultado.StatusCode, new { mensaje = reultado.Mensaje });
     }
     
 }

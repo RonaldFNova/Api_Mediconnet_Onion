@@ -2,6 +2,7 @@ using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
 using Api_Mediconnet.Domain.Interfaces;
+using Api_Mediconnet.Domain.Enums;
 
 namespace Api_Mediconnet.Application.Services;
 
@@ -114,35 +115,50 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
         _appLogger.LogInformation("Código de Verificación con ID {id} eliminado correctamente.", id);
     }
 
-    public async Task<bool> ValidarCodigoVerificacionAsync(int id, string codigo)
+    public async Task<ValidarCodigoVerificacionResponseDTO> ValidarCodigoVerificacionAsync(int id, string codigo)
     {
         var codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserFkAsync(id);
 
         if (codigoVerificacion == null)
         {
             _appLogger.LogError("No se encontró un código de verificación con el ID {id} para validar.", id);
-            return false;
+            return new ValidarCodigoVerificacionResponseDTO
+            {
+                StatusCode = 404,
+                Mensaje = "El código no fue encontrado"
+            };
         }
 
         if (codigoVerificacion.BUsado)
         {
             _appLogger.LogWarning("El código de verificación con ID {id} ya ha sido usado.", id);
-            return false;
+            return new ValidarCodigoVerificacionResponseDTO
+            {
+                StatusCode = 409,
+                Mensaje = "El código ya ha sido usado"
+            };
         }
 
         if (DateTime.UtcNow > codigoVerificacion.DFechaExpiracion)
         {
             _appLogger.LogWarning("El código de verificación con ID {id} ha expirado.", id);
             codigoVerificacion.BUsado = true;
+
             _tCodigoVerificacionRepository.Update(codigoVerificacion);
             await _tCodigoVerificacionRepository.SaveChangesAsync();
-            return false;
+
+            return new ValidarCodigoVerificacionResponseDTO
+            {
+                StatusCode = 410,
+                Mensaje = "El código ya ha expirado"
+            };
         }
 
         if (codigoVerificacion.CCodigo == codigo)
         {
             codigoVerificacion.BUsado = true;
             _appLogger.LogWarning("El código de verificación con ID {id} es correcto. Intento {Intentos}.", id, codigoVerificacion.NIntentos);
+
             _tCodigoVerificacionRepository.Update(codigoVerificacion);
             await _tCodigoVerificacionRepository.SaveChangesAsync();
 
@@ -153,7 +169,11 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
             _tUsuarioRepository.Update(usuario);
             await _tUsuarioRepository.SaveChangesAsync();
 
-            return true;
+            return new ValidarCodigoVerificacionResponseDTO
+            {
+                StatusCode = 200,
+                Mensaje = "Código verificado correctamente"
+            };
         }
         else
         {
@@ -166,9 +186,15 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
             }
 
             _appLogger.LogWarning("El código de verificación con ID {id} es incorrecto.", id);
+
             _tCodigoVerificacionRepository.Update(codigoVerificacion);
             await _tCodigoVerificacionRepository.SaveChangesAsync();
-            return false;
+
+            return new ValidarCodigoVerificacionResponseDTO
+            {
+                StatusCode = 400,
+                Mensaje = "El código ingresado no es válido"
+            };
         }
     }
     

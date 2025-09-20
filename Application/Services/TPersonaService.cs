@@ -2,6 +2,7 @@ using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
 using Api_Mediconnet.Domain.Interfaces;
+using Api_Mediconnet.Domain.Enums;
 
 namespace Api_Mediconnet.Application.Services;
 
@@ -70,7 +71,7 @@ public class TPersonaService : ITPersonaService
             CNroConctacto = personaDTO.NroContacto,
             CDireccion = personaDTO.Direccion,
             DFechaNacimiento = personaDTO.FechaNacimiento,
-            ESexo = Enum.Parse<ESexo>(personaDTO.Sexo)
+            ESexo = Enum.Parse<Sexo>(personaDTO.Sexo)
         };
 
         await _tPersonaRepository.AddAsync(persona);
@@ -95,7 +96,7 @@ public class TPersonaService : ITPersonaService
         persona.CNroConctacto = personaDTO.NroContacto;
         persona.CDireccion = personaDTO.Direccion;
         persona.DFechaNacimiento = personaDTO.FechaNacimiento;
-        persona.ESexo = Enum.Parse<ESexo>(personaDTO.Sexo);
+        persona.ESexo = Enum.Parse<Sexo>(personaDTO.Sexo);
 
         _tPersonaRepository.Update(persona);
         await _tPersonaRepository.SaveChangeAsync();

@@ -1,11 +1,6 @@
-namespace Api_Mediconnet.Domain.Entities;
+using Api_Mediconnet.Domain.Enums;
 
-public enum TipoCodigoVerificacion
-{
-    Email = 1,
-    SMS = 2,
-    PasswordReset = 3
-}
+namespace Api_Mediconnet.Domain.Entities;
 
 public class TCodigoVerificacion
 {

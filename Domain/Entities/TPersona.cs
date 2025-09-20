@@ -1,10 +1,6 @@
-namespace Api_Mediconnet.Domain.Entities;
+using Api_Mediconnet.Domain.Enums;
 
-public enum ESexo
-{
-    Masculino = 1,
-    Femenino = 2
-}
+namespace Api_Mediconnet.Domain.Entities;
 
 public class TPersona
 {
@@ -15,7 +11,7 @@ public class TPersona
     public string CNroConctacto { get; set; } = null!;
     public string CDireccion { get; set; } = null!;
     public DateTime DFechaNacimiento { get; set; }
-    public ESexo ESexo { get; set; }
+    public Sexo ESexo { get; set; }
     public TUsuario Usuario { get; set; } = null!;
     public TPaciente? Paciente { get; set; }
     public TProfesional? Profesional { get; set; }

@@ -9,5 +9,5 @@ public interface ITCodigoVerificacionService
     Task CrearAsync(TCodigoVerificacionDTO codigoVerificacionDTO);
     Task ActualizarAsync(int id, TCodigoVerificacionDTO codigoVerificacionDTO);
     Task EliminarAsync(int id);
-    Task<bool> ValidarCodigoVerificacionAsync(int id, string codigo);
+    Task <ValidarCodigoVerificacionResponseDTO>ValidarCodigoVerificacionAsync(int id, string codigo);
 }

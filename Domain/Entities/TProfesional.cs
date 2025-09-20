@@ -1,10 +1,6 @@
-namespace Api_Mediconnet.Domain.Entities;
+using Api_Mediconnet.Domain.Enums;
 
-public enum Profesional
-{
-    Medico = 1,
-    Enfermero = 2
-}
+namespace Api_Mediconnet.Domain.Entities;
 
 public class TProfesional
 {
