@@ -51,3 +51,16 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving 
 2025-09-20 17:11:29.525 -05:00 [INF] Usuario con ID 1 creado exitosamente.
 2025-09-20 17:14:24.387 -05:00 [INF] Usuario con ID 2 creado exitosamente.
 2025-09-20 17:19:00.474 -05:00 [INF] Usuario con ID 3 creado exitosamente.
+2025-09-20 17:20:26.753 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-20 17:21:05.934 -05:00 [INF] Email del usuario con ID 1 recuperado correctamente.
+2025-09-20 17:21:06.670 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-20 17:21:27.408 -05:00 [WRN] El código de verificación con ID 1 es incorrecto.
+2025-09-20 17:23:13.488 -05:00 [INF] Usuario con ID 2 creado exitosamente.
+2025-09-20 17:23:14.320 -05:00 [INF] Email del usuario con ID 2 recuperado correctamente.
+2025-09-20 17:23:15.103 -05:00 [INF] Código de Verificación creado correctamente con ID 2.
+2025-09-20 17:23:56.135 -05:00 [INF] Email del usuario con ID 2 recuperado correctamente.
+2025-09-20 17:23:56.778 -05:00 [INF] Código de Verificación creado correctamente con ID 3.
+2025-09-20 17:34:51.415 -05:00 [INF] Email del usuario con ID 2 recuperado correctamente.
+2025-09-20 17:34:52.189 -05:00 [INF] Código de Verificación creado correctamente con ID 4.
+2025-09-20 17:37:32.397 -05:00 [WRN] El código de verificación con ID 2 es incorrecto.
+2025-09-20 17:37:58.175 -05:00 [WRN] El código de verificación con ID 2 es correcto. Intento 1.

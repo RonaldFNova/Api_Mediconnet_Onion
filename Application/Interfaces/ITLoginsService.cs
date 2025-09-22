@@ -8,7 +8,7 @@ public interface ITLoginsService
 
     Task<TloginsDTO?> GetLoginsIdDTOsAsync(int id);
 
-    Task<string> CrearAsync(LoginsRequestDTO LoginsRequest);
+    Task<LoginResponseDTO> CrearAsync(LoginsRequestDTO LoginsRequest);
 
     Task ActualizarAsync(int id, TloginsDTO tloginsDTO);
 

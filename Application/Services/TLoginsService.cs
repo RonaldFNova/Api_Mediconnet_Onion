@@ -52,21 +52,34 @@ public class TLoginsService : ITLoginsService
         };
     }
 
-    public async Task<string> CrearAsync(LoginsRequestDTO loginsRequest)
+    public async Task<LoginResponseDTO> CrearAsync(LoginsRequestDTO loginsRequest)
     {
-
         var user = await _tLoginsRepository.GetByEmailAsync(loginsRequest.Email);
+
         if (user == null)
         {
             _appLogger.LogError("No se encontró un usuario con el Email {Email}.", loginsRequest.Email);
-            throw new Exception("Usuario no encontrado");
-        } 
+
+            return new LoginResponseDTO
+            {
+                StatusCode = 404,
+                Token = null,
+                Mensaje = "Correo incorrecto"
+            };
+        }
 
         var result = _hashPasswordService.Verificar(loginsRequest.Password, user.CPassword);
+        
         if (!result)
         {
             _appLogger.LogError("Contraseña incorrecta para el usuario con Email {Email}.", loginsRequest.Email);
-            throw new Exception("Contraseña incorrecta");
+
+            return new LoginResponseDTO
+            {
+                StatusCode = 401,
+                Token = null,
+                Mensaje = "Contraseña incorrecta"
+            };
         }
 
         var NewLogins = new TLogins
@@ -74,15 +87,21 @@ public class TLoginsService : ITLoginsService
             DFechaLogin = DateTime.UtcNow,
             NUsuarioFK = user.NUsuarioID
         };
-        
+
         var token = _jwtTokenIdService.GenerarToken(user.NUsuarioID.ToString(), user.Rol.CNombre);
 
         await _tLoginsRepository.AddAsync(NewLogins);
         await _tLoginsRepository.SaveChangeAsync();
 
         _appLogger.LogInformation("Login con ID {LoginId} creado exitosamente.", NewLogins.NLoginID);
+        
+        return new LoginResponseDTO
+        {
+            StatusCode = 200,
+            Token = token,
+            Mensaje = "Login ingresado correctamente"
+        };
 
-        return token;        
     }
 
     public async Task ActualizarAsync(int id, TloginsDTO DTOs)
