@@ -35,3 +35,8 @@ System.Exception: Contraseña incorrecta
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Api_Mediconnet.Api.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext httpContent) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Middleware\ErrorHandlingMiddleware.cs:line 21
 2025-09-22 14:55:42.411 -05:00 [INF] Login con ID 1 creado exitosamente.
+2025-09-22 15:37:09.848 -05:00 [ERR] No se encontró un usuario con el Email ronald@gmail.com.
+2025-09-22 15:37:29.426 -05:00 [INF] Login con ID 2 creado exitosamente.
+2025-09-22 15:43:16.648 -05:00 [ERR] Contraseña incorrecta para el usuario con Email ronaldstevenrios@gmail.com.
+2025-09-22 15:44:08.374 -05:00 [INF] Login con ID 3 creado exitosamente.
+2025-09-22 15:53:33.407 -05:00 [INF] Login con ID 4 creado exitosamente.

@@ -11,4 +11,5 @@ public interface ITUsuarioRepository
     void Update(TUsuario Usuario);
     void Delete(TUsuario Usuario);
     Task<bool> SaveChangesAsync();
-}
+    Task<TUsuario?> GetUsuarioEmailAsync(string email);
+ }

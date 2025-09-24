@@ -61,7 +61,7 @@ public class TUsuarioService : ITUsuarioService
         };
     }
 
-    public async Task<string> CrearAsync(TUsuarioCreateDTO dTO)
+    public async Task CrearAsync(TUsuarioCreateDTO dTO)
     {
         var usuario = new TUsuario
         {
@@ -70,7 +70,7 @@ public class TUsuarioService : ITUsuarioService
             CEmail = dTO.Email,
             CPassword = _servicioHashPassword.Hash(dTO.Password),
             NRolFK = 2, // Asignar rol de Paciente por defecto
-            NEstadoUsuarioFK = 1, 
+            NEstadoUsuarioFK = 1,
             NEstadoVerificacionFK = 1, // Estado de verificación "No Verificado"
             DFechaRegistro = DateTime.UtcNow
         };
@@ -78,11 +78,6 @@ public class TUsuarioService : ITUsuarioService
         await _tUsuarioRepository.SaveChangesAsync();
 
         _appLogger.LogInformation("Usuario con ID {UsuarioId} creado exitosamente.", usuario.NUsuarioID);
-
-        var rol = await _tUsuarioRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
-        string token = _jwtTokenIdService.GenerarToken(Convert.ToString(usuario.NUsuarioID), Convert.ToString(rol)!);
-
-        return token;
     }
 
     public async Task ActualizarAsync(int id, TUsuarioCreateDTO dTO)
@@ -135,6 +130,26 @@ public class TUsuarioService : ITUsuarioService
         }
 
         _appLogger.LogInformation("Email del usuario con ID {UsuarioId} recuperado correctamente.", usuario.NUsuarioID);
+
+        return new UsuarioEmailDTO
+        {
+            NombreCompleto = $"{usuario.CNombre} {usuario.CApellido}",
+            Email = usuario.CEmail,
+            UsuarioID = usuario.NUsuarioID
+        };
+    }
+
+    public async Task<UsuarioEmailDTO?> GetUsuarioEmailAsync(string email)
+    {
+        var usuario = await _tUsuarioRepository.GetUsuarioEmailAsync(email);
+
+        if (usuario == null)
+        {
+            _appLogger.LogError("No se encontró un usuario con el Email {email}.", email);
+            return null;
+        }
+
+        _appLogger.LogInformation("ID del usuario con Email {Email} recuperado correctamente.", usuario.CEmail);
 
         return new UsuarioEmailDTO
         {

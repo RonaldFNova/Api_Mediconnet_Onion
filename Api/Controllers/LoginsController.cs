@@ -36,7 +36,7 @@ public class LoginsController : ControllerBase
     public async Task<IActionResult> PostLoginsAsync([FromBody] LoginsRequestDTO LoginsRequest)
     {
         var resultado = await _tLoginsService.CrearAsync(LoginsRequest);
-        return StatusCode(resultado.StatusCode, new{Mensaje = resultado.Mensaje, Token = resultado.Token});
+        return StatusCode(resultado.StatusCode, new{Mensaje = resultado.Mensaje, Token = resultado.Token, VerificacionEmail = resultado.VerificadoEmail});
     }
 
     [HttpPut]

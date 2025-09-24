@@ -31,6 +31,16 @@ public class EmailCodeController : ControllerBase
         return Ok();
     }
 
+    [AllowAnonymous]
+    [HttpPost("Email")]
+    public async Task<ActionResult> PostEmailCode2([FromBody] EmailRequestDTO request)
+    {
+        var usuarioEmail = await _tUsuarioService.GetUsuarioEmailAsync(request.Email);
+
+        await _emailService.SendEmailCodeAsync(usuarioEmail.Email, usuarioEmail.NombreCompleto, usuarioEmail.UsuarioID);
+        return Ok();
+    }
+
     [HttpPost("Verificar")]
     [Authorize]
     public async Task<ActionResult> PostVerificarEmailCode([FromBody] VerificarCodigoRequestDTO request)

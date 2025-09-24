@@ -69,7 +69,7 @@ public class TLoginsService : ITLoginsService
         }
 
         var result = _hashPasswordService.Verificar(loginsRequest.Password, user.CPassword);
-        
+
         if (!result)
         {
             _appLogger.LogError("Contraseña incorrecta para el usuario con Email {Email}.", loginsRequest.Email);
@@ -88,19 +88,34 @@ public class TLoginsService : ITLoginsService
             NUsuarioFK = user.NUsuarioID
         };
 
-        var token = _jwtTokenIdService.GenerarToken(user.NUsuarioID.ToString(), user.Rol.CNombre);
 
         await _tLoginsRepository.AddAsync(NewLogins);
         await _tLoginsRepository.SaveChangeAsync();
 
         _appLogger.LogInformation("Login con ID {LoginId} creado exitosamente.", NewLogins.NLoginID);
-        
-        return new LoginResponseDTO
+
+        if (user.NEstadoVerificacionFK == 1)
         {
-            StatusCode = 200,
-            Token = token,
-            Mensaje = "Login ingresado correctamente"
-        };
+            return new LoginResponseDTO
+            {
+                StatusCode = 200,
+                Token = null,
+                Mensaje = "Login ingresado correctamente",
+                VerificadoEmail = false
+            };
+        }
+        else
+        {
+            var token = _jwtTokenIdService.GenerarToken(user.NUsuarioID.ToString(), user.Rol.CNombre);
+
+            return new LoginResponseDTO
+            {
+                StatusCode = 200,
+                Token = token,
+                Mensaje = "Login ingresado correctamente",
+                VerificadoEmail = true
+            };
+        }
 
     }
 

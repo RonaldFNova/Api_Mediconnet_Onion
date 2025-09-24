@@ -45,4 +45,10 @@ public class TUsuarioRepository : ITUsuarioRepository
         return await _context.SaveChangesAsync() > 0;
     }
 
+    public async Task<TUsuario?> GetUsuarioEmailAsync(string email)
+    {
+        return await _context.TUsuario.Where(u => u.CEmail == email)
+            .FirstOrDefaultAsync();
+    }
+
 }
