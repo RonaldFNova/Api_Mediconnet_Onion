@@ -31,7 +31,6 @@ public class EmailCodeController : ControllerBase
         return Ok();
     }
 
-    [AllowAnonymous]
     [HttpPost("Email")]
     public async Task<ActionResult> PostEmailCode2([FromBody] EmailRequestDTO request)
     {
@@ -44,11 +43,18 @@ public class EmailCodeController : ControllerBase
     [HttpPost("Verificar")]
     [Authorize]
     public async Task<ActionResult> PostVerificarEmailCode([FromBody] VerificarCodigoRequestDTO request)
-    {     
+    {
         var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-        var reultado = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(int.Parse(userId), request.Codigo);
+        var reultado = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(request.Codigo,int.Parse(userId),null );
 
         return StatusCode(reultado.StatusCode, new { mensaje = reultado.Mensaje });
     }
-    
+
+    [HttpPost("Verificar/Email")]
+    public async Task<ActionResult> PostVerificarEmailCodeEmail([FromBody] VerificarCodigoEmailRequestDTO request)
+    {
+        var resultado = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(request.Codigo, null, request.Email);
+
+        return StatusCode(resultado.StatusCode, new { Mensaje = resultado.Mensaje, Token = resultado.Token });
+    }
 }

@@ -298,3 +298,10 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 2025-09-24 16:21:59.926 -05:00 [INF] Usuario con ID 14 creado exitosamente.
 2025-09-24 16:27:20.031 -05:00 [INF] ID del usuario con Email ronaldstevenrios@gmail.com recuperado correctamente.
 2025-09-24 16:27:20.668 -05:00 [INF] Código de Verificación creado correctamente con ID 2.
+2025-09-24 16:31:08.045 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-24 16:31:08.590 -05:00 [INF] ID del usuario con Email ronaldstevenrios@gmail.com recuperado correctamente.
+2025-09-24 16:31:09.198 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-24 16:35:04.783 -05:00 [INF] Login con ID 1 creado exitosamente.
+2025-09-24 16:36:00.127 -05:00 [INF] ID del usuario con Email ronaldstevenrios@gmail.com recuperado correctamente.
+2025-09-24 16:36:00.137 -05:00 [INF] Login con ID 2 creado exitosamente.
+2025-09-24 16:36:00.783 -05:00 [INF] Código de Verificación creado correctamente con ID 2.

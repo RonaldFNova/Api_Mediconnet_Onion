@@ -11,12 +11,14 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
     private readonly ITCodigoVerificacionRepository _tCodigoVerificacionRepository;
     private readonly ITUsuarioRepository _tUsuarioRepository;
     private readonly IAppLogger<TCodigoVerificacionService> _appLogger;
+    private readonly IJwtTokenIdService _jwtTokenIdService;
 
-    public TCodigoVerificacionService(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger<TCodigoVerificacionService> appLogger, ITUsuarioRepository tUsuarioRepository)
+    public TCodigoVerificacionService(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger<TCodigoVerificacionService> appLogger, ITUsuarioRepository tUsuarioRepository, IJwtTokenIdService jwtTokenIdService)
     {
         _tUsuarioRepository = tUsuarioRepository;
         _tCodigoVerificacionRepository = tCodigoVerificacionRepository;
         _appLogger = appLogger;
+        _jwtTokenIdService = jwtTokenIdService;
     }
 
     public async Task<IEnumerable<TCodigoVerificacionDTO>> GetCodigoVerificacionDTOsAsync()
@@ -115,9 +117,28 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
         _appLogger.LogInformation("Código de Verificación con ID {id} eliminado correctamente.", id);
     }
 
-    public async Task<ValidarCodigoVerificacionResponseDTO> ValidarCodigoVerificacionAsync(int id, string codigo)
+    public async Task<ValidarCodigoVerificacionResponseDTO> ValidarCodigoVerificacionAsync(string codigo, int? id = null, string? email = null)
     {
-        var codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserFkAsync(id);
+        Console.WriteLine(email);
+        if (id == null && string.IsNullOrEmpty(email))
+        {
+            return new ValidarCodigoVerificacionResponseDTO
+            {
+                StatusCode = 400,
+                Mensaje = "Minimo tienes que enviar el token o el correo para que funcione"
+            };
+        }
+
+        TCodigoVerificacion? codigoVerificacion = null;
+
+        if (id == null)
+        {
+            codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserEmailAsync(email);
+        }
+        if (string.IsNullOrEmpty(email))
+        {
+            codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserFkAsync(id.Value);
+        }
 
         if (codigoVerificacion == null)
         {
@@ -169,11 +190,17 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
             _tUsuarioRepository.Update(usuario);
             await _tUsuarioRepository.SaveChangesAsync();
 
+            var usuarioId = usuario.NUsuarioID.ToString();
+            string rolNombre = await _tUsuarioRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
+
+            string token = _jwtTokenIdService.GenerarToken(usuarioId, rolNombre);
+
             return new ValidarCodigoVerificacionResponseDTO
             {
                 StatusCode = 200,
-                Mensaje = "Código verificado correctamente"
-            };
+                Mensaje = "Código verificado correctamente",
+                Token = token
+            }; 
         }
         else
         {
@@ -196,6 +223,8 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
                 Mensaje = "El código ingresado no es válido"
             };
         }
+        
+        
     }
     
 }

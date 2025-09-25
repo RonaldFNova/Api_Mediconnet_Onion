@@ -44,12 +44,23 @@ public class TCodigoVerificacionRepository : ITCodigoVerificacionRepository
     {
         return await _context.SaveChangesAsync() > 0;
     }
+
     public async Task<TCodigoVerificacion?> GetCodigoUserFkAsync(int usuarioId)
     {
         return await _context.TCodigoVerificacion
-            .Where(c => c.NUsuarioFK == usuarioId 
+            .Where(c => c.NUsuarioFK == usuarioId
                     && c.ETipoCodigo == TipoCodigoVerificacion.Email
-                    && c.BUsado == false)  
+                    && c.BUsado == false)
+            .OrderByDescending(c => c.DFechaCreacion)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<TCodigoVerificacion?> GetCodigoUserEmailAsync(string email)
+    {
+        return await _context.TCodigoVerificacion
+            .Where(c => c.Usuario.CEmail == email
+                    && c.ETipoCodigo == TipoCodigoVerificacion.Email
+                    && c.BUsado == false)
             .OrderByDescending(c => c.DFechaCreacion)
             .FirstOrDefaultAsync();
     }

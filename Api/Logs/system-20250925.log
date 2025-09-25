@@ -1,0 +1,785 @@
+2025-09-25 11:49:09.570 -05:00 [INF] Executed DbCommand (100ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE `Api_Mediconnet_Onion`;
+2025-09-25 11:49:11.961 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+2025-09-25 11:49:12.238 -05:00 [INF] Executed DbCommand (274ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TArea` (
+    `NAreaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(1000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NAreaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:12.352 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TDiaSemana` (
+    `NDiaSemanaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NDiaSemanaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:12.467 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEspecialidad` (
+    `NEspecialidadID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEspecialidadID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:12.576 -05:00 [INF] Executed DbCommand (105ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoCita` (
+    `NEstadoCitaID` int(6) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoCitaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:12.685 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoUsuario` (
+    `NEstadoUsuarioID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:12.797 -05:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoVerificacion` (
+    `NEstadoVerificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoVerificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:12.908 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TGrupoSanguineo` (
+    `NGrupoSanguineoID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NGrupoSanguineoID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.015 -05:00 [INF] Executed DbCommand (104ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TRol` (
+    `NRolID` int(32) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NRolID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.127 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TTipoIdentificacion` (
+    `NTipoIdentificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NTipoIdentificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.256 -05:00 [INF] Executed DbCommand (128ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TUsuario` (
+    `nUsuarioID` int(32) NOT NULL AUTO_INCREMENT,
+    `NEstadoVerificacionFK` int(12) NOT NULL,
+    `NEstadoUsuarioFK` int(12) NOT NULL,
+    `NRolFK` int(12) NOT NULL,
+    `CNombre` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `CApellido` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    `CEmail` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `CPassword` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` DateTime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`nUsuarioID`),
+    CONSTRAINT `FK_Usuario_EstadoUsuario` FOREIGN KEY (`NEstadoUsuarioFK`) REFERENCES `TEstadoUsuario` (`NEstadoUsuarioID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_EstadoVerificacion` FOREIGN KEY (`NEstadoVerificacionFK`) REFERENCES `TEstadoVerificacion` (`NEstadoVerificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_Rol` FOREIGN KEY (`NRolFK`) REFERENCES `TRol` (`NRolID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.372 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCodigoVerificacion` (
+    `NCodigoVerificacionID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(6) NOT NULL,
+    `CCodigo` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `ETipoCodigo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaExpiracion` datetime NOT NULL,
+    `BUsado` tinyint(1) NOT NULL DEFAULT FALSE,
+    `NIntentos` int(11) NOT NULL,
+    `DFechaCreacion` datetime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCodigoVerificacionID`),
+    CONSTRAINT `FK_CodigoVerificacion_Usuario` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.483 -05:00 [INF] Executed DbCommand (106ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TLogins` (
+    `NLoginID` int(32) NOT NULL AUTO_INCREMENT,
+    `DFechaLogin` DateTime NOT NULL,
+    `NUsuarioFK` int(32) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NLoginID`),
+    CONSTRAINT `FK_Usuario_Logins` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.597 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPersona` (
+    `NPersonaID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(32) NOT NULL,
+    `NTipoIdentificacionFK` int(32) NOT NULL,
+    `CNroIdentificacion` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    `CNroConctacto` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDireccion` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaNacimiento` DateTime NOT NULL,
+    `ESexo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPersonaID`),
+    CONSTRAINT `FK_Personas_TipoIdentificacion` FOREIGN KEY (`NTipoIdentificacionFK`) REFERENCES `TTipoIdentificacion` (`NTipoIdentificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPersona_TUsuario_NUsuarioFK` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.719 -05:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPaciente` (
+    `NPacienteID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NGrupoSanguineoFK` int(6) NOT NULL,
+    `CAlergiasGenerales` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPacienteID`),
+    CONSTRAINT `FK_Paciente_GrupoSanguineo` FOREIGN KEY (`NGrupoSanguineoFK`) REFERENCES `TGrupoSanguineo` (`NGrupoSanguineoID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPaciente_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.846 -05:00 [INF] Executed DbCommand (123ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TProfesional` (
+    `NProfesionalID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NEspecialidadFK` int(12) NOT NULL,
+    `NAreaFK` int(12) NOT NULL,
+    `CRegistroProfesional` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaContratacion` DateTime NOT NULL,
+    `ETipoProfesional` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `CBiografia` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NProfesionalID`),
+    CONSTRAINT `FK_Profesional_Area` FOREIGN KEY (`NAreaFK`) REFERENCES `TArea` (`NAreaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Profesional_Especialidad` FOREIGN KEY (`NEspecialidadFK`) REFERENCES `TEspecialidad` (`NEspecialidadID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TProfesional_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:13.966 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCita` (
+    `NCitaID` int(12) NOT NULL AUTO_INCREMENT,
+    `NEstadoCitaFK` int(12) NOT NULL,
+    `NProfesionalFK` int(12) NOT NULL,
+    `NPacienteFK` int(12) NOT NULL,
+    `NDiaSemanaFK` int(12) NOT NULL,
+    `DFecha` datetime NOT NULL,
+    `DHora` time NOT NULL,
+    `DDuracion` time NOT NULL,
+    `CObservacion` varchar(500) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` datetime NOT NULL,
+    `ProfesionalNProfesionalID` int(32) NOT NULL,
+    `PacienteNPacienteID` int(32) NOT NULL,
+    `EstadoNEstadoCitaID` int(6) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCitaID`),
+    CONSTRAINT `FK_Cita_DiaSemana` FOREIGN KEY (`NDiaSemanaFK`) REFERENCES `TDiaSemana` (`NDiaSemanaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TCita_TEstadoCita_EstadoNEstadoCitaID` FOREIGN KEY (`EstadoNEstadoCitaID`) REFERENCES `TEstadoCita` (`NEstadoCitaID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TPaciente_PacienteNPacienteID` FOREIGN KEY (`PacienteNPacienteID`) REFERENCES `TPaciente` (`NPacienteID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TProfesional_ProfesionalNProfesionalID` FOREIGN KEY (`ProfesionalNProfesionalID`) REFERENCES `TProfesional` (`NProfesionalID`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+2025-09-25 11:49:14.091 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TDiaSemana` (`NDiaSemanaID`, `CNombre`)
+VALUES (1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miércoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sábado'),
+(7, 'Domingo');
+2025-09-25 11:49:14.192 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoUsuario` (`NEstadoUsuarioID`, `CNombre`)
+VALUES (1, 'Activo'),
+(2, 'Inactivo');
+2025-09-25 11:49:14.297 -05:00 [INF] Executed DbCommand (100ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoVerificacion` (`NEstadoVerificacion`, `CNombre`)
+VALUES (1, 'No Verificado'),
+(2, 'Verificado');
+2025-09-25 11:49:14.402 -05:00 [INF] Executed DbCommand (102ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TGrupoSanguineo` (`NGrupoSanguineoID`, `CNombre`)
+VALUES (1, 'A+'),
+(2, 'A-'),
+(3, 'B+'),
+(4, 'B-'),
+(5, 'AB+'),
+(6, 'AB-'),
+(7, 'O+'),
+(8, 'O-');
+2025-09-25 11:49:14.506 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TRol` (`NRolID`, `CNombre`)
+VALUES (1, 'Administrador'),
+(2, 'Paciente'),
+(3, 'Medico');
+2025-09-25 11:49:14.608 -05:00 [INF] Executed DbCommand (99ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TTipoIdentificacion` (`NTipoIdentificacion`, `CNombre`)
+VALUES (1, 'Cédula de ciudadanía'),
+(2, 'Tarjeta de identidad'),
+(3, 'Registro civil de nacimiento'),
+(4, 'Cédula de extranjería'),
+(5, 'Pasaporte');
+2025-09-25 11:49:14.738 -05:00 [INF] Executed DbCommand (128ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre` ON `TArea` (`CNombre`);
+2025-09-25 11:49:14.857 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_EstadoNEstadoCitaID` ON `TCita` (`EstadoNEstadoCitaID`);
+2025-09-25 11:49:14.971 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_NDiaSemanaFK` ON `TCita` (`NDiaSemanaFK`);
+2025-09-25 11:49:15.088 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_PacienteNPacienteID` ON `TCita` (`PacienteNPacienteID`);
+2025-09-25 11:49:15.205 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_ProfesionalNProfesionalID` ON `TCita` (`ProfesionalNProfesionalID`);
+2025-09-25 11:49:15.323 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CCodigo` ON `TCodigoVerificacion` (`CCodigo`);
+2025-09-25 11:49:15.439 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCodigoVerificacion_NUsuarioFK` ON `TCodigoVerificacion` (`NUsuarioFK`);
+2025-09-25 11:49:15.562 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre1` ON `TDiaSemana` (`CNombre`);
+2025-09-25 11:49:15.677 -05:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre2` ON `TEspecialidad` (`CNombre`);
+2025-09-25 11:49:15.789 -05:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre3` ON `TEstadoCita` (`CNombre`);
+2025-09-25 11:49:15.909 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre4` ON `TEstadoUsuario` (`CNombre`);
+2025-09-25 11:49:16.032 -05:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre5` ON `TEstadoVerificacion` (`CNombre`);
+2025-09-25 11:49:16.150 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre6` ON `TGrupoSanguineo` (`CNombre`);
+2025-09-25 11:49:16.261 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TLogins_NUsuarioFK` ON `TLogins` (`NUsuarioFK`);
+2025-09-25 11:49:16.376 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPaciente_NGrupoSanguineoFK` ON `TPaciente` (`NGrupoSanguineoFK`);
+2025-09-25 11:49:16.504 -05:00 [INF] Executed DbCommand (122ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPaciente_NPersonaFK` ON `TPaciente` (`NPersonaFK`);
+2025-09-25 11:49:16.616 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNroIdentificacion` ON `TPersona` (`CNroIdentificacion`);
+2025-09-25 11:49:16.732 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPersona_NTipoIdentificacionFK` ON `TPersona` (`NTipoIdentificacionFK`);
+2025-09-25 11:49:16.854 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPersona_NUsuarioFK` ON `TPersona` (`NUsuarioFK`);
+2025-09-25 11:49:16.972 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CRegistroProfesional` ON `TProfesional` (`CRegistroProfesional`);
+2025-09-25 11:49:17.086 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NAreaFK` ON `TProfesional` (`NAreaFK`);
+2025-09-25 11:49:17.200 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NEspecialidadFK` ON `TProfesional` (`NEspecialidadFK`);
+2025-09-25 11:49:17.316 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TProfesional_NPersonaFK` ON `TProfesional` (`NPersonaFK`);
+2025-09-25 11:49:17.434 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre7` ON `TRol` (`CNombre`);
+2025-09-25 11:49:17.551 -05:00 [INF] Executed DbCommand (115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre8` ON `TTipoIdentificacion` (`CNombre`);
+2025-09-25 11:49:17.672 -05:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CEmail` ON `TUsuario` (`CEmail`);
+2025-09-25 11:49:17.789 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoUsuarioFK` ON `TUsuario` (`NEstadoUsuarioFK`);
+2025-09-25 11:49:17.917 -05:00 [INF] Executed DbCommand (124ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoVerificacionFK` ON `TUsuario` (`NEstadoVerificacionFK`);
+2025-09-25 11:49:18.039 -05:00 [INF] Executed DbCommand (120ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NRolFK` ON `TUsuario` (`NRolFK`);
+2025-09-25 11:49:18.272 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-25 11:49:18.371 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-25 11:49:18.374 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-25 11:49:18.376 -05:00 [INF] Hosting environment: Production
+2025-09-25 11:49:18.377 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-25 11:49:43.818 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-25 11:49:43.818 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Email - null null
+2025-09-25 11:49:43.848 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-09-25 11:49:43.853 -05:00 [INF] CORS policy execution successful.
+2025-09-25 11:49:43.853 -05:00 [INF] CORS policy execution successful.
+2025-09-25 11:49:43.866 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Email - 204 null null 48.893ms
+2025-09-25 11:49:43.866 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 48.8983ms
+2025-09-25 11:49:43.873 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - application/json 38
+2025-09-25 11:49:43.873 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 114
+2025-09-25 11:49:43.880 -05:00 [INF] CORS policy execution successful.
+2025-09-25 11:49:43.880 -05:00 [INF] CORS policy execution successful.
+2025-09-25 11:49:43.921 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 11:49:43.921 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-25 11:49:43.947 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-25 11:49:43.947 -05:00 [INF] Route matched with {action = "PostEmailCode2", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostEmailCode2(Api_Mediconnet.Application.DTOs.EmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 11:49:45.131 -05:00 [INF] Executed DbCommand (258ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-25 11:49:45.267 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-25 11:49:45.286 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-09-25 11:49:45.293 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 1339.4965ms
+2025-09-25 11:49:45.296 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-25 11:49:45.304 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 0 null 1430.3052ms
+2025-09-25 11:49:46.026 -05:00 [INF] Executed DbCommand (100ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`nUsuarioID`, `t`.`CApellido`, `t`.`CEmail`, `t`.`CNombre`, `t`.`CPassword`, `t`.`DFechaRegistro`, `t`.`NEstadoUsuarioFK`, `t`.`NEstadoVerificacionFK`, `t`.`NRolFK`
+FROM `TUsuario` AS `t`
+WHERE `t`.`CEmail` = @__email_0
+LIMIT 1
+2025-09-25 11:49:46.034 -05:00 [INF] ID del usuario con Email ronaldstevenrios@gmail.com recuperado correctamente.
+2025-09-25 11:49:46.599 -05:00 [INF] Executed DbCommand (209ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (DbType = DateTime), @p2='?' (DbType = DateTime), @p3='?' (Size = 25), @p4='?' (DbType = Int32), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TCodigoVerificacion` (`CCodigo`, `DFechaCreacion`, `DFechaExpiracion`, `ETipoCodigo`, `NIntentos`, `NUsuarioFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+SELECT `NCodigoVerificacionID`, `BUsado`
+FROM `TCodigoVerificacion`
+WHERE ROW_COUNT() = 1 AND `NCodigoVerificacionID` = LAST_INSERT_ID();
+2025-09-25 11:49:46.708 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-25 11:49:49.043 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-09-25 11:49:49.046 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api) in 5092.517ms
+2025-09-25 11:49:49.049 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 11:49:49.053 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - 200 0 null 5179.9837ms
+2025-09-25 12:02:17.580 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Verificar - null null
+2025-09-25 12:02:17.582 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:02:17.583 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Verificar - 204 null null 3.1151ms
+2025-09-25 12:02:17.586 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar - application/json 22
+2025-09-25 12:02:17.589 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:02:17.599 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-09-25 12:02:17.602 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-09-25 12:02:17.604 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar - 401 0 null 18.417ms
+2025-09-25 12:06:25.231 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-25 12:06:25.234 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:06:25.235 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Email - null null
+2025-09-25 12:06:25.236 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 4.6093ms
+2025-09-25 12:06:25.239 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:06:25.242 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 111
+2025-09-25 12:06:25.243 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Email - 204 null null 7.1674ms
+2025-09-25 12:06:25.245 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:06:25.247 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - application/json 39
+2025-09-25 12:06:25.248 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-25 12:06:25.252 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:06:25.254 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-25 12:06:25.255 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 12:06:25.258 -05:00 [INF] Route matched with {action = "PostEmailCode2", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostEmailCode2(Api_Mediconnet.Application.DTOs.EmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 12:06:27.056 -05:00 [INF] Executed DbCommand (120ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`nUsuarioID`, `t`.`CApellido`, `t`.`CEmail`, `t`.`CNombre`, `t`.`CPassword`, `t`.`DFechaRegistro`, `t`.`NEstadoUsuarioFK`, `t`.`NEstadoVerificacionFK`, `t`.`NRolFK`
+FROM `TUsuario` AS `t`
+WHERE `t`.`CEmail` = @__email_0
+LIMIT 1
+2025-09-25 12:06:27.063 -05:00 [ERR] No se encontró un usuario con el Email rronaldstevenrios@gmail.com.
+2025-09-25 12:06:27.074 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api) in 1813.7969ms
+2025-09-25 12:06:27.079 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 12:06:27.082 -05:00 [ERR] Se produjo un error no controlado.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2(EmailRequestDTO request) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Controllers\EmailCodeController.cs:line 40
+   at lambda_method186(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Api_Mediconnet.Api.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext httpContent) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Middleware\ErrorHandlingMiddleware.cs:line 21
+2025-09-25 12:06:27.144 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - 500 null application/json 1897.1041ms
+2025-09-25 12:06:27.613 -05:00 [INF] Executed DbCommand (435ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-25 12:06:27.732 -05:00 [INF] Usuario con ID 2 creado exitosamente.
+2025-09-25 12:06:27.736 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-09-25 12:06:27.738 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 2481.5858ms
+2025-09-25 12:06:27.743 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-25 12:06:27.746 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 0 null 2503.6609ms
+2025-09-25 12:07:30.987 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE `Api_Mediconnet_Onion`;
+2025-09-25 12:07:33.016 -05:00 [INF] Executed DbCommand (101ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER DATABASE CHARACTER SET utf8mb4;
+2025-09-25 12:07:33.134 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TArea` (
+    `NAreaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(1000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NAreaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:33.239 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TDiaSemana` (
+    `NDiaSemanaID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NDiaSemanaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:33.351 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEspecialidad` (
+    `NEspecialidadID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDescripcion` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEspecialidadID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:33.460 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoCita` (
+    `NEstadoCitaID` int(6) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoCitaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:33.574 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoUsuario` (
+    `NEstadoUsuarioID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:33.684 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TEstadoVerificacion` (
+    `NEstadoVerificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NEstadoVerificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:33.794 -05:00 [INF] Executed DbCommand (105ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TGrupoSanguineo` (
+    `NGrupoSanguineoID` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(10) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NGrupoSanguineoID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:33.905 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TRol` (
+    `NRolID` int(32) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NRolID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.015 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TTipoIdentificacion` (
+    `NTipoIdentificacion` int(12) NOT NULL AUTO_INCREMENT,
+    `CNombre` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NTipoIdentificacion`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.131 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TUsuario` (
+    `nUsuarioID` int(32) NOT NULL AUTO_INCREMENT,
+    `NEstadoVerificacionFK` int(12) NOT NULL,
+    `NEstadoUsuarioFK` int(12) NOT NULL,
+    `NRolFK` int(12) NOT NULL,
+    `CNombre` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `CApellido` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
+    `CEmail` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `CPassword` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` DateTime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`nUsuarioID`),
+    CONSTRAINT `FK_Usuario_EstadoUsuario` FOREIGN KEY (`NEstadoUsuarioFK`) REFERENCES `TEstadoUsuario` (`NEstadoUsuarioID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_EstadoVerificacion` FOREIGN KEY (`NEstadoVerificacionFK`) REFERENCES `TEstadoVerificacion` (`NEstadoVerificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Usuario_Rol` FOREIGN KEY (`NRolFK`) REFERENCES `TRol` (`NRolID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.245 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCodigoVerificacion` (
+    `NCodigoVerificacionID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(6) NOT NULL,
+    `CCodigo` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `ETipoCodigo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaExpiracion` datetime NOT NULL,
+    `BUsado` tinyint(1) NOT NULL DEFAULT FALSE,
+    `NIntentos` int(11) NOT NULL,
+    `DFechaCreacion` datetime NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCodigoVerificacionID`),
+    CONSTRAINT `FK_CodigoVerificacion_Usuario` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.358 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TLogins` (
+    `NLoginID` int(32) NOT NULL AUTO_INCREMENT,
+    `DFechaLogin` DateTime NOT NULL,
+    `NUsuarioFK` int(32) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NLoginID`),
+    CONSTRAINT `FK_Usuario_Logins` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`) ON DELETE RESTRICT
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.475 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPersona` (
+    `NPersonaID` int(32) NOT NULL AUTO_INCREMENT,
+    `NUsuarioFK` int(32) NOT NULL,
+    `NTipoIdentificacionFK` int(32) NOT NULL,
+    `CNroIdentificacion` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+    `CNroConctacto` varchar(30) CHARACTER SET utf8mb4 NOT NULL,
+    `CDireccion` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaNacimiento` DateTime NOT NULL,
+    `ESexo` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPersonaID`),
+    CONSTRAINT `FK_Personas_TipoIdentificacion` FOREIGN KEY (`NTipoIdentificacionFK`) REFERENCES `TTipoIdentificacion` (`NTipoIdentificacion`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPersona_TUsuario_NUsuarioFK` FOREIGN KEY (`NUsuarioFK`) REFERENCES `TUsuario` (`nUsuarioID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.591 -05:00 [INF] Executed DbCommand (109ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TPaciente` (
+    `NPacienteID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NGrupoSanguineoFK` int(6) NOT NULL,
+    `CAlergiasGenerales` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NPacienteID`),
+    CONSTRAINT `FK_Paciente_GrupoSanguineo` FOREIGN KEY (`NGrupoSanguineoFK`) REFERENCES `TGrupoSanguineo` (`NGrupoSanguineoID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TPaciente_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.706 -05:00 [INF] Executed DbCommand (111ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TProfesional` (
+    `NProfesionalID` int(32) NOT NULL AUTO_INCREMENT,
+    `NPersonaFK` int(32) NOT NULL,
+    `NEspecialidadFK` int(12) NOT NULL,
+    `NAreaFK` int(12) NOT NULL,
+    `CRegistroProfesional` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaContratacion` DateTime NOT NULL,
+    `ETipoProfesional` varchar(25) CHARACTER SET utf8mb4 NOT NULL,
+    `CBiografia` varchar(2000) CHARACTER SET utf8mb4 NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NProfesionalID`),
+    CONSTRAINT `FK_Profesional_Area` FOREIGN KEY (`NAreaFK`) REFERENCES `TArea` (`NAreaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_Profesional_Especialidad` FOREIGN KEY (`NEspecialidadFK`) REFERENCES `TEspecialidad` (`NEspecialidadID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TProfesional_TPersona_NPersonaFK` FOREIGN KEY (`NPersonaFK`) REFERENCES `TPersona` (`NPersonaID`)
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:34.902 -05:00 [INF] Executed DbCommand (192ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE `TCita` (
+    `NCitaID` int(12) NOT NULL AUTO_INCREMENT,
+    `NEstadoCitaFK` int(12) NOT NULL,
+    `NProfesionalFK` int(12) NOT NULL,
+    `NPacienteFK` int(12) NOT NULL,
+    `NDiaSemanaFK` int(12) NOT NULL,
+    `DFecha` datetime NOT NULL,
+    `DHora` time NOT NULL,
+    `DDuracion` time NOT NULL,
+    `CObservacion` varchar(500) CHARACTER SET utf8mb4 NOT NULL,
+    `DFechaRegistro` datetime NOT NULL,
+    `ProfesionalNProfesionalID` int(32) NOT NULL,
+    `PacienteNPacienteID` int(32) NOT NULL,
+    `EstadoNEstadoCitaID` int(6) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (`NCitaID`),
+    CONSTRAINT `FK_Cita_DiaSemana` FOREIGN KEY (`NDiaSemanaFK`) REFERENCES `TDiaSemana` (`NDiaSemanaID`) ON DELETE RESTRICT,
+    CONSTRAINT `FK_TCita_TEstadoCita_EstadoNEstadoCitaID` FOREIGN KEY (`EstadoNEstadoCitaID`) REFERENCES `TEstadoCita` (`NEstadoCitaID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TPaciente_PacienteNPacienteID` FOREIGN KEY (`PacienteNPacienteID`) REFERENCES `TPaciente` (`NPacienteID`) ON DELETE CASCADE,
+    CONSTRAINT `FK_TCita_TProfesional_ProfesionalNProfesionalID` FOREIGN KEY (`ProfesionalNProfesionalID`) REFERENCES `TProfesional` (`NProfesionalID`) ON DELETE CASCADE
+) CHARACTER SET=utf8mb4;
+2025-09-25 12:07:35.011 -05:00 [INF] Executed DbCommand (105ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TDiaSemana` (`NDiaSemanaID`, `CNombre`)
+VALUES (1, 'Lunes'),
+(2, 'Martes'),
+(3, 'Miércoles'),
+(4, 'Jueves'),
+(5, 'Viernes'),
+(6, 'Sábado'),
+(7, 'Domingo');
+2025-09-25 12:07:35.117 -05:00 [INF] Executed DbCommand (101ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoUsuario` (`NEstadoUsuarioID`, `CNombre`)
+VALUES (1, 'Activo'),
+(2, 'Inactivo');
+2025-09-25 12:07:35.224 -05:00 [INF] Executed DbCommand (104ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TEstadoVerificacion` (`NEstadoVerificacion`, `CNombre`)
+VALUES (1, 'No Verificado'),
+(2, 'Verificado');
+2025-09-25 12:07:35.349 -05:00 [INF] Executed DbCommand (122ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TGrupoSanguineo` (`NGrupoSanguineoID`, `CNombre`)
+VALUES (1, 'A+'),
+(2, 'A-'),
+(3, 'B+'),
+(4, 'B-'),
+(5, 'AB+'),
+(6, 'AB-'),
+(7, 'O+'),
+(8, 'O-');
+2025-09-25 12:07:35.454 -05:00 [INF] Executed DbCommand (101ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TRol` (`NRolID`, `CNombre`)
+VALUES (1, 'Administrador'),
+(2, 'Paciente'),
+(3, 'Medico');
+2025-09-25 12:07:35.559 -05:00 [INF] Executed DbCommand (102ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TTipoIdentificacion` (`NTipoIdentificacion`, `CNombre`)
+VALUES (1, 'Cédula de ciudadanía'),
+(2, 'Tarjeta de identidad'),
+(3, 'Registro civil de nacimiento'),
+(4, 'Cédula de extranjería'),
+(5, 'Pasaporte');
+2025-09-25 12:07:35.683 -05:00 [INF] Executed DbCommand (119ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre` ON `TArea` (`CNombre`);
+2025-09-25 12:07:35.796 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_EstadoNEstadoCitaID` ON `TCita` (`EstadoNEstadoCitaID`);
+2025-09-25 12:07:35.912 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_NDiaSemanaFK` ON `TCita` (`NDiaSemanaFK`);
+2025-09-25 12:07:36.027 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_PacienteNPacienteID` ON `TCita` (`PacienteNPacienteID`);
+2025-09-25 12:07:36.142 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCita_ProfesionalNProfesionalID` ON `TCita` (`ProfesionalNProfesionalID`);
+2025-09-25 12:07:36.253 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CCodigo` ON `TCodigoVerificacion` (`CCodigo`);
+2025-09-25 12:07:36.370 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TCodigoVerificacion_NUsuarioFK` ON `TCodigoVerificacion` (`NUsuarioFK`);
+2025-09-25 12:07:36.491 -05:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre1` ON `TDiaSemana` (`CNombre`);
+2025-09-25 12:07:36.602 -05:00 [INF] Executed DbCommand (108ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre2` ON `TEspecialidad` (`CNombre`);
+2025-09-25 12:07:36.717 -05:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre3` ON `TEstadoCita` (`CNombre`);
+2025-09-25 12:07:36.836 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre4` ON `TEstadoUsuario` (`CNombre`);
+2025-09-25 12:07:36.956 -05:00 [INF] Executed DbCommand (116ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre5` ON `TEstadoVerificacion` (`CNombre`);
+2025-09-25 12:07:37.088 -05:00 [INF] Executed DbCommand (128ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre6` ON `TGrupoSanguineo` (`CNombre`);
+2025-09-25 12:07:37.198 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TLogins_NUsuarioFK` ON `TLogins` (`NUsuarioFK`);
+2025-09-25 12:07:37.307 -05:00 [INF] Executed DbCommand (107ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPaciente_NGrupoSanguineoFK` ON `TPaciente` (`NGrupoSanguineoFK`);
+2025-09-25 12:07:37.423 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPaciente_NPersonaFK` ON `TPaciente` (`NPersonaFK`);
+2025-09-25 12:07:37.540 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNroIdentificacion` ON `TPersona` (`CNroIdentificacion`);
+2025-09-25 12:07:37.655 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TPersona_NTipoIdentificacionFK` ON `TPersona` (`NTipoIdentificacionFK`);
+2025-09-25 12:07:37.772 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TPersona_NUsuarioFK` ON `TPersona` (`NUsuarioFK`);
+2025-09-25 12:07:37.888 -05:00 [INF] Executed DbCommand (112ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CRegistroProfesional` ON `TProfesional` (`CRegistroProfesional`);
+2025-09-25 12:07:38.009 -05:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NAreaFK` ON `TProfesional` (`NAreaFK`);
+2025-09-25 12:07:38.138 -05:00 [INF] Executed DbCommand (125ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TProfesional_NEspecialidadFK` ON `TProfesional` (`NEspecialidadFK`);
+2025-09-25 12:07:38.260 -05:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `IX_TProfesional_NPersonaFK` ON `TProfesional` (`NPersonaFK`);
+2025-09-25 12:07:38.376 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre7` ON `TRol` (`CNombre`);
+2025-09-25 12:07:38.496 -05:00 [INF] Executed DbCommand (117ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CNombre8` ON `TTipoIdentificacion` (`CNombre`);
+2025-09-25 12:07:38.620 -05:00 [INF] Executed DbCommand (120ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX `CEmail` ON `TUsuario` (`CEmail`);
+2025-09-25 12:07:38.737 -05:00 [INF] Executed DbCommand (113ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoUsuarioFK` ON `TUsuario` (`NEstadoUsuarioFK`);
+2025-09-25 12:07:38.853 -05:00 [INF] Executed DbCommand (114ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NEstadoVerificacionFK` ON `TUsuario` (`NEstadoVerificacionFK`);
+2025-09-25 12:07:38.979 -05:00 [INF] Executed DbCommand (121ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX `IX_TUsuario_NRolFK` ON `TUsuario` (`NRolFK`);
+2025-09-25 12:07:39.184 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-25 12:07:39.263 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-25 12:07:39.266 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-25 12:07:39.267 -05:00 [INF] Hosting environment: Production
+2025-09-25 12:07:39.268 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-25 12:09:16.551 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Email - null null
+2025-09-25 12:09:16.551 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - null null
+2025-09-25 12:09:16.577 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-09-25 12:09:16.581 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:09:16.581 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:09:16.585 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Email - 204 null null 35.8608ms
+2025-09-25 12:09:16.585 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/Usuario - 204 null null 35.8472ms
+2025-09-25 12:09:16.591 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/Usuario - application/json 111
+2025-09-25 12:09:16.591 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - application/json 39
+2025-09-25 12:09:16.596 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:09:16.596 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:09:16.615 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 12:09:16.615 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-25 12:09:16.632 -05:00 [INF] Route matched with {action = "PostUsuario", controller = "Usuario"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PostUsuario(Api_Mediconnet.Application.DTOs.TUsuarioCreateDTO) on controller Api_Mediconnet.Api.Controllers.UsuarioController (Api_Mediconnet.Api).
+2025-09-25 12:09:16.632 -05:00 [INF] Route matched with {action = "PostEmailCode2", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostEmailCode2(Api_Mediconnet.Application.DTOs.EmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 12:09:17.476 -05:00 [INF] Executed DbCommand (232ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (Size = 255), @p2='?' (Size = 50), @p3='?' (Size = 255), @p4='?' (DbType = DateTime), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TUsuario` (`CApellido`, `CEmail`, `CNombre`, `CPassword`, `DFechaRegistro`, `NEstadoUsuarioFK`, `NEstadoVerificacionFK`, `NRolFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT `nUsuarioID`
+FROM `TUsuario`
+WHERE ROW_COUNT() = 1 AND `nUsuarioID` = LAST_INSERT_ID();
+2025-09-25 12:09:17.600 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-25 12:09:17.609 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-09-25 12:09:17.611 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api) in 975.422ms
+2025-09-25 12:09:17.613 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.UsuarioController.PostUsuario (Api_Mediconnet.Api)'
+2025-09-25 12:09:17.618 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/Usuario - 200 0 null 1026.6756ms
+2025-09-25 12:09:18.394 -05:00 [INF] Executed DbCommand (105ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`nUsuarioID`, `t`.`CApellido`, `t`.`CEmail`, `t`.`CNombre`, `t`.`CPassword`, `t`.`DFechaRegistro`, `t`.`NEstadoUsuarioFK`, `t`.`NEstadoVerificacionFK`, `t`.`NRolFK`
+FROM `TUsuario` AS `t`
+WHERE `t`.`CEmail` = @__email_0
+LIMIT 1
+2025-09-25 12:09:18.401 -05:00 [INF] ID del usuario con Email rronaldstevenrios@gmail.com recuperado correctamente.
+2025-09-25 12:09:18.941 -05:00 [INF] Executed DbCommand (211ms) [Parameters=[@p0='?' (Size = 255), @p1='?' (DbType = DateTime), @p2='?' (DbType = DateTime), @p3='?' (Size = 25), @p4='?' (DbType = Int32), @p5='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `TCodigoVerificacion` (`CCodigo`, `DFechaCreacion`, `DFechaExpiracion`, `ETipoCodigo`, `NIntentos`, `NUsuarioFK`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+SELECT `NCodigoVerificacionID`, `BUsado`
+FROM `TCodigoVerificacion`
+WHERE ROW_COUNT() = 1 AND `NCodigoVerificacionID` = LAST_INSERT_ID();
+2025-09-25 12:09:19.045 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-25 12:09:21.457 -05:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2025-09-25 12:09:21.460 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api) in 4824.2476ms
+2025-09-25 12:09:21.461 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 12:09:21.462 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - 200 0 null 4870.7778ms
+2025-09-25 12:10:12.940 -05:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Verificar - null null
+2025-09-25 12:10:12.942 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:10:12.943 -05:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/Api/EmailCode/Verificar - 204 null null 2.9732ms
+2025-09-25 12:10:12.946 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar - application/json 19
+2025-09-25 12:10:12.949 -05:00 [INF] CORS policy execution successful.
+2025-09-25 12:10:12.957 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-09-25 12:10:12.961 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-09-25 12:10:12.963 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar - 401 0 null 17.1407ms
+2025-09-25 12:53:02.010 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar - application/json 70
+2025-09-25 12:53:02.019 -05:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-09-25 12:53:02.022 -05:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-09-25 12:53:02.024 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar - 401 0 null 13.5264ms
+2025-09-25 12:59:40.498 -05:00 [INF] Executed DbCommand (103ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-09-25 12:59:40.618 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-25 12:59:40.672 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-25 12:59:40.676 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-25 12:59:40.677 -05:00 [INF] Hosting environment: Production
+2025-09-25 12:59:40.678 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-25 15:06:36.842 -05:00 [INF] Executed DbCommand (173ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'Api_Mediconnet_Onion'
+2025-09-25 15:06:36.997 -05:00 [INF] User profile is available. Using 'C:\Users\ronal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-09-25 15:06:37.062 -05:00 [INF] Now listening on: http://[::]:5000
+2025-09-25 15:06:37.065 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-09-25 15:06:37.067 -05:00 [INF] Hosting environment: Production
+2025-09-25 15:06:37.068 -05:00 [INF] Content root path: C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api
+2025-09-25 15:09:16.272 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - application/json 72
+2025-09-25 15:09:16.303 -05:00 [WRN] Failed to determine the https port for redirect.
+2025-09-25 15:09:16.345 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:09:16.372 -05:00 [INF] Route matched with {action = "PostVerificarEmailCodeEmail", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostVerificarEmailCodeEmail(Api_Mediconnet.Application.DTOs.VerificarCodigoEmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 15:09:16.542 -05:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType3`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-25 15:09:16.573 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api) in 195.9842ms
+2025-09-25 15:09:16.576 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:09:16.581 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - 400 null application/json; charset=utf-8 310.9813ms
+2025-09-25 15:10:50.229 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - application/json 72
+2025-09-25 15:10:50.233 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:10:50.242 -05:00 [INF] Route matched with {action = "PostVerificarEmailCodeEmail", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostVerificarEmailCodeEmail(Api_Mediconnet.Application.DTOs.VerificarCodigoEmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 15:10:50.347 -05:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType3`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-25 15:10:50.349 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api) in 104.2368ms
+2025-09-25 15:10:50.352 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:10:50.354 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - 400 null application/json; charset=utf-8 124.6621ms
+2025-09-25 15:14:40.658 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - application/json 72
+2025-09-25 15:14:40.664 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:14:40.670 -05:00 [INF] Route matched with {action = "PostVerificarEmailCodeEmail", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostVerificarEmailCodeEmail(Api_Mediconnet.Application.DTOs.VerificarCodigoEmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 15:14:42.629 -05:00 [INF] Executed DbCommand (201ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`NCodigoVerificacionID`, `t`.`BUsado`, `t`.`CCodigo`, `t`.`DFechaCreacion`, `t`.`DFechaExpiracion`, `t`.`ETipoCodigo`, `t`.`NIntentos`, `t`.`NUsuarioFK`
+FROM `TCodigoVerificacion` AS `t`
+INNER JOIN `TUsuario` AS `t0` ON `t`.`NUsuarioFK` = `t0`.`nUsuarioID`
+WHERE ((`t0`.`CEmail` = @__email_0) AND (`t`.`ETipoCodigo` = 'Email')) AND NOT (`t`.`BUsado`)
+ORDER BY `t`.`DFechaCreacion` DESC
+LIMIT 1
+2025-09-25 15:14:42.643 -05:00 [ERR] No se encontró un código de verificación con el ID null para validar.
+2025-09-25 15:14:42.658 -05:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType3`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-25 15:14:42.667 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api) in 1995.0169ms
+2025-09-25 15:14:42.674 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:14:42.685 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - 404 null application/json; charset=utf-8 2026.5192ms
+2025-09-25 15:15:13.145 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - application/json 73
+2025-09-25 15:15:13.151 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:15:13.152 -05:00 [INF] Route matched with {action = "PostVerificarEmailCodeEmail", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostVerificarEmailCodeEmail(Api_Mediconnet.Application.DTOs.VerificarCodigoEmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 15:15:13.612 -05:00 [INF] Executed DbCommand (94ms) [Parameters=[@__email_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`NCodigoVerificacionID`, `t`.`BUsado`, `t`.`CCodigo`, `t`.`DFechaCreacion`, `t`.`DFechaExpiracion`, `t`.`ETipoCodigo`, `t`.`NIntentos`, `t`.`NUsuarioFK`
+FROM `TCodigoVerificacion` AS `t`
+INNER JOIN `TUsuario` AS `t0` ON `t`.`NUsuarioFK` = `t0`.`nUsuarioID`
+WHERE ((`t0`.`CEmail` = @__email_0) AND (`t`.`ETipoCodigo` = 'Email')) AND NOT (`t`.`BUsado`)
+ORDER BY `t`.`DFechaCreacion` DESC
+LIMIT 1
+2025-09-25 15:15:13.663 -05:00 [WRN] El código de verificación con ID null ha expirado.
+2025-09-25 15:15:14.039 -05:00 [INF] Executed DbCommand (198ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = Boolean), @p1='?' (Size = 255), @p2='?' (DbType = DateTime), @p3='?' (DbType = DateTime), @p4='?' (Size = 25), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET AUTOCOMMIT = 1;
+UPDATE `TCodigoVerificacion` SET `BUsado` = @p0, `CCodigo` = @p1, `DFechaCreacion` = @p2, `DFechaExpiracion` = @p3, `ETipoCodigo` = @p4, `NIntentos` = @p5, `NUsuarioFK` = @p6
+WHERE `NCodigoVerificacionID` = @p7;
+SELECT ROW_COUNT();
+2025-09-25 15:15:14.053 -05:00 [INF] Executing ObjectResult, writing value of type '<>f__AnonymousType3`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-09-25 15:15:14.055 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api) in 900.495ms
+2025-09-25 15:15:14.057 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostVerificarEmailCodeEmail (Api_Mediconnet.Api)'
+2025-09-25 15:15:14.059 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Verificar/Email - 410 null application/json; charset=utf-8 913.6886ms
+2025-09-25 15:43:33.194 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - application/json 48
+2025-09-25 15:43:33.246 -05:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '19/09/2025 3:01:17 a. m.', Current time (UTC): '25/09/2025 8:43:33 p. m.'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2025-09-25 15:43:33.261 -05:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '19/09/2025 3:01:17 a. m.', Current time (UTC): '25/09/2025 8:43:33 p. m.'.
+2025-09-25 15:43:33.263 -05:00 [INF] Executing endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 15:43:33.268 -05:00 [INF] Route matched with {action = "PostEmailCode2", controller = "EmailCode"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] PostEmailCode2(Api_Mediconnet.Application.DTOs.EmailRequestDTO) on controller Api_Mediconnet.Api.Controllers.EmailCodeController (Api_Mediconnet.Api).
+2025-09-25 15:43:34.116 -05:00 [INF] Executed action Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api) in 843.8687ms
+2025-09-25 15:43:34.119 -05:00 [INF] Executed endpoint 'Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2 (Api_Mediconnet.Api)'
+2025-09-25 15:43:34.121 -05:00 [ERR] Se produjo un error no controlado.
+System.MissingMethodException: Se intentó invocar una implementación de método eliminada. Esto puede ocurrir cuando se elimina un método o se cambia su nombre o firma mientras se ejecuta la aplicación.
+   at Api_Mediconnet.Application.Services.TCodigoVerificacionService..ctor(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger`1 appLogger, ITUsuarioRepository tUsuarioRepository)
+   at ResolveService(ILEmitResolverBuilderRuntimeContext, ServiceProviderEngineScope)
+   at ResolveService(ILEmitResolverBuilderRuntimeContext, ServiceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method245(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Api_Mediconnet.Api.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext httpContent)
+2025-09-25 15:43:34.147 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - 500 null application/json 953.5205ms
+2025-09-25 15:45:12.111 -05:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - application/json 48
+2025-09-25 15:45:12.117 -05:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '19/09/2025 3:01:17 a. m.', Current time (UTC): '25/09/2025 8:45:12 p. m.'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2025-09-25 15:45:12.120 -05:00 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '19/09/2025 3:01:17 a. m.', Current time (UTC): '25/09/2025 8:45:12 p. m.'.
+2025-09-25 15:45:12.121 -05:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/Api/EmailCode/Email - 404 0 null 10.2457ms
+2025-09-25 15:45:12.127 -05:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: POST http://localhost:5000/Api/EmailCode/Email, Response status code: 404

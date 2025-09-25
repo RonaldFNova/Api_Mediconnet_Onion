@@ -1,0 +1,45 @@
+2025-09-25 11:49:45.267 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-25 11:49:46.034 -05:00 [INF] ID del usuario con Email ronaldstevenrios@gmail.com recuperado correctamente.
+2025-09-25 11:49:46.708 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-25 12:06:27.063 -05:00 [ERR] No se encontró un usuario con el Email rronaldstevenrios@gmail.com.
+2025-09-25 12:06:27.082 -05:00 [ERR] Se produjo un error no controlado.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Api_Mediconnet.Api.Controllers.EmailCodeController.PostEmailCode2(EmailRequestDTO request) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Controllers\EmailCodeController.cs:line 40
+   at lambda_method186(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Api_Mediconnet.Api.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext httpContent) in C:\Users\ronal\Desktop\Archivos\Api_Mediconnet_Onion\api\Middleware\ErrorHandlingMiddleware.cs:line 21
+2025-09-25 12:06:27.732 -05:00 [INF] Usuario con ID 2 creado exitosamente.
+2025-09-25 12:09:17.600 -05:00 [INF] Usuario con ID 1 creado exitosamente.
+2025-09-25 12:09:18.401 -05:00 [INF] ID del usuario con Email rronaldstevenrios@gmail.com recuperado correctamente.
+2025-09-25 12:09:19.045 -05:00 [INF] Código de Verificación creado correctamente con ID 1.
+2025-09-25 15:14:42.643 -05:00 [ERR] No se encontró un código de verificación con el ID null para validar.
+2025-09-25 15:15:13.663 -05:00 [WRN] El código de verificación con ID null ha expirado.
+2025-09-25 15:43:34.121 -05:00 [ERR] Se produjo un error no controlado.
+System.MissingMethodException: Se intentó invocar una implementación de método eliminada. Esto puede ocurrir cuando se elimina un método o se cambia su nombre o firma mientras se ejecuta la aplicación.
+   at Api_Mediconnet.Application.Services.TCodigoVerificacionService..ctor(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger`1 appLogger, ITUsuarioRepository tUsuarioRepository)
+   at ResolveService(ILEmitResolverBuilderRuntimeContext, ServiceProviderEngineScope)
+   at ResolveService(ILEmitResolverBuilderRuntimeContext, ServiceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at lambda_method245(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Api_Mediconnet.Api.Middleware.ErrorHandlingMiddleware.Invoke(HttpContext httpContent)
