@@ -1,3 +1,5 @@
+//CAMBIAR: MANEJA MAS RESPONSABILIDADES DE LAS QUE DEBERIA...
+
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
@@ -119,7 +121,6 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
 
     public async Task<ValidarCodigoVerificacionResponseDTO> ValidarCodigoVerificacionAsync(string codigo, int? id = null, string? email = null)
     {
-        Console.WriteLine(email);
         if (id == null && string.IsNullOrEmpty(email))
         {
             return new ValidarCodigoVerificacionResponseDTO
@@ -128,6 +129,7 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
                 Mensaje = "Minimo tienes que enviar el token o el correo para que funcione"
             };
         }
+        Console.WriteLine(email, codigo);
 
         TCodigoVerificacion? codigoVerificacion = null;
 
@@ -178,7 +180,7 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
         if (codigoVerificacion.CCodigo == codigo)
         {
             codigoVerificacion.BUsado = true;
-            _appLogger.LogWarning("El código de verificación con ID {id} es correcto. Intento {Intentos}.", id, codigoVerificacion.NIntentos);
+            _appLogger.LogWarning("El código de verificación con ID {id} es correcto. Intento {Intentos}.", codigoVerificacion.NCodigoVerificacionID, codigoVerificacion.NIntentos);
 
             _tCodigoVerificacionRepository.Update(codigoVerificacion);
             await _tCodigoVerificacionRepository.SaveChangesAsync();

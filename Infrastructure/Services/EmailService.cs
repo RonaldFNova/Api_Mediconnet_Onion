@@ -3,48 +3,48 @@ using System.Net;
 using System.Net.Mail;
 using Api_Mediconnet.Application.DTOs;
 
-namespace Api_Mediconnet.Infrastructure.Services
+namespace Api_Mediconnet.Infrastructure.Services;
+
+public class EmailService : IEmailService
 {
-    public class EmailService : IEmailService
+  private readonly CodeEmailService _codeEmailService;
+  private readonly string _smtpUser;
+  private readonly string _smtpPass;
+  private readonly ITCodigoVerificacionService _tCodigoVerificacionService;
+
+  public EmailService(CodeEmailService codeEmailService, ITCodigoVerificacionService tCodigoVerificacionService)
+  {
+    _codeEmailService = codeEmailService;
+    _tCodigoVerificacionService = tCodigoVerificacionService;
+    _smtpUser = Environment.GetEnvironmentVariable("GMAIL_USER")
+                  ?? throw new Exception("GMAIL_USER not configured");
+    _smtpPass = Environment.GetEnvironmentVariable("GMAIL_PASS")
+                  ?? throw new Exception("GMAIL_PASS not configured");
+  }
+
+  public async Task SendEmailCodeAsync(string emailDestino, string nombreUsuario, int userId)
+  {
+
+    string codigo_verificacion = _codeEmailService.GenerateCode();
+
+    var codigoDTO = new TCodigoVerificacionDTO
     {
-        private readonly CodeEmailService _codeEmailService;
-        private readonly string _smtpUser;
-        private readonly string _smtpPass;
-        private readonly ITCodigoVerificacionService _tCodigoVerificacionService;
+      Codigo = codigo_verificacion,
+      UsuarioFK = userId,
+      FechaExpiracion = DateTime.UtcNow.AddMinutes(15),
+      FechaCreacion = DateTime.UtcNow,
+      TipoCodigo = "Email",
+      Usado = false,
+      Intentos = 0
+    };
 
-        public EmailService(CodeEmailService codeEmailService, ITCodigoVerificacionService tCodigoVerificacionService)
-        {
-            _codeEmailService = codeEmailService;
-            _tCodigoVerificacionService = tCodigoVerificacionService;
-            _smtpUser = Environment.GetEnvironmentVariable("GMAIL_USER") 
-                        ?? throw new Exception("GMAIL_USER not configured");
-            _smtpPass = Environment.GetEnvironmentVariable("GMAIL_PASS") 
-                        ?? throw new Exception("GMAIL_PASS not configured");
-        }
+    await _tCodigoVerificacionService.CrearAsync(codigoDTO);
 
-        public async Task SendEmailCodeAsync(string emailDestino, string nombreUsuario, int userId)
-        {
-            
-            string codigo_verificacion = _codeEmailService.GenerateCode();
+    var subject = "Verifica tu dirección de correo electrónico";
 
-            var codigoDTO = new TCodigoVerificacionDTO
-            {
-              Codigo = codigo_verificacion,
-              UsuarioFK = userId,
-              FechaExpiracion = DateTime.UtcNow.AddMinutes(15),
-              FechaCreacion = DateTime.UtcNow,
-              TipoCodigo = "Email",
-              Usado = false,
-              Intentos = 0
-            };
+    var plainTextContent = $"Hola {nombreUsuario}, tu código de verificación es: {codigo_verificacion}";
 
-            await _tCodigoVerificacionService.CrearAsync(codigoDTO);
-
-            var subject = "Verifica tu dirección de correo electrónico";
-
-            var plainTextContent = $"Hola {nombreUsuario}, tu código de verificación es: {codigo_verificacion}";
-
-            var htmlContent = $@"
+    var htmlContent = $@"
             <!DOCTYPE html>
             <html lang='es'>
             <head>
@@ -145,23 +145,27 @@ namespace Api_Mediconnet.Infrastructure.Services
             </body>
             </html>";
 
-            using (var smtpClient = new SmtpClient("smtp.gmail.com", 587))
-            {
-                smtpClient.Credentials = new NetworkCredential(_smtpUser, _smtpPass);
-                smtpClient.EnableSsl = true;
+    using (var smtpClient = new SmtpClient("smtp.gmail.com", 587))
+    {
+      smtpClient.Credentials = new NetworkCredential(_smtpUser, _smtpPass);
+      smtpClient.EnableSsl = true;
 
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress(_smtpUser, "MediConnet"),
-                    Subject = subject,
-                    Body = htmlContent,
-                    IsBodyHtml = true
-                };
+      var mailMessage = new MailMessage
+      {
+        From = new MailAddress(_smtpUser, "MediConnet"),
+        Subject = subject,
+        Body = htmlContent,
+        IsBodyHtml = true
+      };
 
-                mailMessage.To.Add(emailDestino);
+      mailMessage.To.Add(emailDestino);
 
-                await smtpClient.SendMailAsync(mailMessage);
-            }
-        }
+      await smtpClient.SendMailAsync(mailMessage);
     }
+  }
+  
+  
+        
+        
 }
+

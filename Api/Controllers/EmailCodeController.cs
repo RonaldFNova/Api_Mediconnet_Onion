@@ -11,13 +11,15 @@ public class EmailCodeController : ControllerBase
 {
     private readonly IEmailService _emailService;
     private readonly ITUsuarioService _tUsuarioService;
+    private readonly IPasswordResetService _passwordResetService;
     private readonly ITCodigoVerificacionService _codigoVerificacionService;
 
-    public EmailCodeController(IEmailService emailService, ITUsuarioService tUsuarioService, ITCodigoVerificacionService codigoVerificacionService)
+    public EmailCodeController(IEmailService emailService, ITUsuarioService tUsuarioService, ITCodigoVerificacionService codigoVerificacionService, IPasswordResetService passwordResetService)
     {
         _codigoVerificacionService = codigoVerificacionService;
         _emailService = emailService;
         _tUsuarioService = tUsuarioService;
+        _passwordResetService = passwordResetService;
     }
 
     [HttpPost]
@@ -45,7 +47,7 @@ public class EmailCodeController : ControllerBase
     public async Task<ActionResult> PostVerificarEmailCode([FromBody] VerificarCodigoRequestDTO request)
     {
         var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-        var reultado = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(request.Codigo,int.Parse(userId),null );
+        var reultado = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(request.Codigo, int.Parse(userId), null);
 
         return StatusCode(reultado.StatusCode, new { mensaje = reultado.Mensaje });
     }
@@ -56,5 +58,12 @@ public class EmailCodeController : ControllerBase
         var resultado = await _codigoVerificacionService.ValidarCodigoVerificacionAsync(request.Codigo, null, request.Email);
 
         return StatusCode(resultado.StatusCode, new { Mensaje = resultado.Mensaje, Token = resultado.Token });
+    }
+    [HttpPost("Forgot-Password")]
+    public async Task<ActionResult> PostSendCodePasswordEmail([FromBody] EmailRequestDTO request)
+    {
+        await _passwordResetService.GenerarTokenResetAsync(request.Email);
+        return Ok();
+        
     }
 }

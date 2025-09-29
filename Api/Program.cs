@@ -171,6 +171,11 @@ builder.Services.AddScoped<ITCodigoVerificacionRepository, TCodigoVerificacionRe
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<CodeEmailService>();
 
+builder.Services.AddScoped<IPasswordResetService, PasswordResetService>();
+builder.Services.AddScoped<IPasswordSendResetService, PasswordSendResetService>();
+
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(_secretConnectDb,ServerVersion.AutoDetect(_secretConnectDb),
     b => b.MigrationsAssembly("Api_Mediconnet.Infrastructure"))
