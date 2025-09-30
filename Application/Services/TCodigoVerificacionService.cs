@@ -1,5 +1,3 @@
-//CAMBIAR: MANEJA MAS RESPONSABILIDADES DE LAS QUE DEBERIA...
-
 using Api_Mediconnet.Application.DTOs;
 using Api_Mediconnet.Application.Interfaces;
 using Api_Mediconnet.Domain.Entities;
@@ -11,16 +9,12 @@ namespace Api_Mediconnet.Application.Services;
 public class TCodigoVerificacionService : ITCodigoVerificacionService
 {
     private readonly ITCodigoVerificacionRepository _tCodigoVerificacionRepository;
-    private readonly ITUsuarioRepository _tUsuarioRepository;
     private readonly IAppLogger<TCodigoVerificacionService> _appLogger;
-    private readonly IJwtTokenIdService _jwtTokenIdService;
 
-    public TCodigoVerificacionService(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger<TCodigoVerificacionService> appLogger, ITUsuarioRepository tUsuarioRepository, IJwtTokenIdService jwtTokenIdService)
+    public TCodigoVerificacionService(ITCodigoVerificacionRepository tCodigoVerificacionRepository, IAppLogger<TCodigoVerificacionService> appLogger)
     {
-        _tUsuarioRepository = tUsuarioRepository;
         _tCodigoVerificacionRepository = tCodigoVerificacionRepository;
         _appLogger = appLogger;
-        _jwtTokenIdService = jwtTokenIdService;
     }
 
     public async Task<IEnumerable<TCodigoVerificacionDTO>> GetCodigoVerificacionDTOsAsync()
@@ -117,116 +111,6 @@ public class TCodigoVerificacionService : ITCodigoVerificacionService
         await _tCodigoVerificacionRepository.SaveChangesAsync();
 
         _appLogger.LogInformation("Código de Verificación con ID {id} eliminado correctamente.", id);
-    }
-
-    public async Task<ValidarCodigoVerificacionResponseDTO> ValidarCodigoVerificacionAsync(string codigo, int? id = null, string? email = null)
-    {
-        if (id == null && string.IsNullOrEmpty(email))
-        {
-            return new ValidarCodigoVerificacionResponseDTO
-            {
-                StatusCode = 400,
-                Mensaje = "Minimo tienes que enviar el token o el correo para que funcione"
-            };
-        }
-        Console.WriteLine(email, codigo);
-
-        TCodigoVerificacion? codigoVerificacion = null;
-
-        if (id == null)
-        {
-            codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserEmailAsync(email);
-        }
-        if (string.IsNullOrEmpty(email))
-        {
-            codigoVerificacion = await _tCodigoVerificacionRepository.GetCodigoUserFkAsync(id.Value);
-        }
-
-        if (codigoVerificacion == null)
-        {
-            _appLogger.LogError("No se encontró un código de verificación con el ID {id} para validar.", id);
-            return new ValidarCodigoVerificacionResponseDTO
-            {
-                StatusCode = 404,
-                Mensaje = "El código no fue encontrado"
-            };
-        }
-
-        if (codigoVerificacion.BUsado)
-        {
-            _appLogger.LogWarning("El código de verificación con ID {id} ya ha sido usado.", id);
-            return new ValidarCodigoVerificacionResponseDTO
-            {
-                StatusCode = 409,
-                Mensaje = "El código ya ha sido usado"
-            };
-        }
-
-        if (DateTime.UtcNow > codigoVerificacion.DFechaExpiracion)
-        {
-            _appLogger.LogWarning("El código de verificación con ID {id} ha expirado.", id);
-            codigoVerificacion.BUsado = true;
-
-            _tCodigoVerificacionRepository.Update(codigoVerificacion);
-            await _tCodigoVerificacionRepository.SaveChangesAsync();
-
-            return new ValidarCodigoVerificacionResponseDTO
-            {
-                StatusCode = 410,
-                Mensaje = "El código ya ha expirado"
-            };
-        }
-
-        if (codigoVerificacion.CCodigo == codigo)
-        {
-            codigoVerificacion.BUsado = true;
-            _appLogger.LogWarning("El código de verificación con ID {id} es correcto. Intento {Intentos}.", codigoVerificacion.NCodigoVerificacionID, codigoVerificacion.NIntentos);
-
-            _tCodigoVerificacionRepository.Update(codigoVerificacion);
-            await _tCodigoVerificacionRepository.SaveChangesAsync();
-
-            var usuario = await _tUsuarioRepository.GetUsuarioIdAsync(codigoVerificacion.NUsuarioFK);
-
-            usuario.NEstadoVerificacionFK = 2;
-
-            _tUsuarioRepository.Update(usuario);
-            await _tUsuarioRepository.SaveChangesAsync();
-
-            var usuarioId = usuario.NUsuarioID.ToString();
-            string rolNombre = await _tUsuarioRepository.GetRolNombreByUsuarioIdAsync(usuario.NUsuarioID);
-
-            string token = _jwtTokenIdService.GenerarToken(usuarioId, rolNombre);
-
-            return new ValidarCodigoVerificacionResponseDTO
-            {
-                StatusCode = 200,
-                Mensaje = "Código verificado correctamente",
-                Token = token
-            }; 
-        }
-        else
-        {
-            codigoVerificacion.NIntentos += 1;
-
-            if (codigoVerificacion.NIntentos > 9)
-            {
-                codigoVerificacion.BUsado = true;
-                _appLogger.LogWarning("El código de verificación con ID {id} ha sido bloqueado por exceder el número de intentos.", id);
-            }
-
-            _appLogger.LogWarning("El código de verificación con ID {id} es incorrecto.", id);
-
-            _tCodigoVerificacionRepository.Update(codigoVerificacion);
-            await _tCodigoVerificacionRepository.SaveChangesAsync();
-
-            return new ValidarCodigoVerificacionResponseDTO
-            {
-                StatusCode = 400,
-                Mensaje = "El código ingresado no es válido"
-            };
-        }
-        
-        
     }
     
 }

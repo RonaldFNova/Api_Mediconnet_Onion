@@ -22,7 +22,7 @@ public class PasswordResetSender : IPasswordResetSender
     {
         var subject = "Restablece tu contraseña";
 
-        var resetLink = $"https://midominio.com/reset-password?token={token}";
+        var resetLink = $"http://localhost:4200/Auth/Reset-Password?token={token}";
 
         var htmlContent = $@"
         <!DOCTYPE html>

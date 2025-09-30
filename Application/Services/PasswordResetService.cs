@@ -1,25 +1,28 @@
 using Api_Mediconnet.Application.Interfaces;
-using Api_Mediconnet.Application.DTOs;
+using Api_Mediconnet.Domain.Interfaces;
+using Api_Mediconnet.Domain.Entities;
+using Api_Mediconnet.Domain.Enums;
 
 namespace Api_Mediconnet.Application.Services;
 
 public class PasswordResetService : IPasswordResetService
 {
-    private ITUsuarioService _tUsuarioService;
-    private ITCodigoVerificacionService _tCodigoVerificacionService;
+    private ITUsuarioRepository _tUsuarioRepository;
+    private ITCodigoVerificacionRepository _tCodigoVerificacionRepository;
     private IPasswordResetSender _passwordResetSender;
     private readonly IAppLogger<PasswordResetService> _appLogger;
 
-    public PasswordResetService(ITUsuarioService tUsuarioService, ITCodigoVerificacionService tCodigoVerificacionService, IPasswordResetSender passwordResetSender)
+    public PasswordResetService(ITUsuarioRepository tUsuarioRepository, ITCodigoVerificacionRepository tCodigoVerificacionRepository, IPasswordResetSender passwordResetSender, IAppLogger<PasswordResetService> appLogger)
     {
         _passwordResetSender = passwordResetSender;
-        _tCodigoVerificacionService = tCodigoVerificacionService;
-        _tUsuarioService = tUsuarioService;
+        _tCodigoVerificacionRepository = tCodigoVerificacionRepository;
+        _tUsuarioRepository = tUsuarioRepository;
+        _appLogger = appLogger;
     }
 
     public async Task GenerarTokenResetAsync(string email)
     {
-        var usuario = await _tUsuarioService.GetUsuarioEmailAsync(email);
+        var usuario = await _tUsuarioRepository.GetUsuarioEmailAsync(email);
    
         if (usuario == null)
         {
@@ -31,22 +34,23 @@ public class PasswordResetService : IPasswordResetService
 
         Console.WriteLine(token);
 
-        var codigoDTO = new TCodigoVerificacionDTO
+        var codigo = new TCodigoVerificacion
         {
-            Codigo = token,
-            UsuarioFK = usuario.UsuarioID,
-            FechaExpiracion = DateTime.UtcNow.AddMinutes(15),
-            FechaCreacion = DateTime.UtcNow,
-            TipoCodigo = "PasswordReset",
-            Usado = false,
-            Intentos = 0
+            CCodigo = token,
+            NUsuarioFK = usuario.NUsuarioID,
+            DFechaExpiracion = DateTime.UtcNow.AddMinutes(15),
+            BUsado = false,
+            DFechaCreacion = DateTime.UtcNow,
+            ETipoCodigo = Enum.Parse<TipoCodigoVerificacion>("PasswordReset"),
+            NIntentos = 0
         };
 
-        await _tCodigoVerificacionService.CrearAsync(codigoDTO);
+        await _tCodigoVerificacionRepository.AddAsync(codigo);
+        await _tCodigoVerificacionRepository.SaveChangesAsync();
 
-        _appLogger.LogInformation("Usuario con el ID {id} se envia codigo para cambiar contraseña", usuario.UsuarioID);
+        _appLogger.LogInformation("Usuario con el ID {id} se envia codigo para cambiar contraseña", usuario.NUsuarioID);
 
-        await _passwordResetSender.SendEmailResetPasswordAsync(usuario.Email, usuario.NombreCompleto, token);
+        await _passwordResetSender.SendEmailResetPasswordAsync(usuario.CEmail, usuario.CNombre, token);
 
     }
 }
