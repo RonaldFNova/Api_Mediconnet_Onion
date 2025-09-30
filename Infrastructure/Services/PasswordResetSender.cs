@@ -4,14 +4,15 @@ using Api_Mediconnet.Application.Interfaces;
 
 namespace Api_Mediconnet.Infrastructure.Services;
 
-public class PasswordSendResetService : IPasswordSendResetService
+public class PasswordResetSender : IPasswordResetSender
 {
     private readonly string _smtpUser;
     private readonly string _smtpPass;
 
-    public PasswordSendResetService()
+    public PasswordResetSender()
     {
         _smtpUser = Environment.GetEnvironmentVariable("GMAIL_USER")
+
                   ?? throw new Exception("GMAIL_USER not configured");
          _smtpPass = Environment.GetEnvironmentVariable("GMAIL_PASS")
                   ?? throw new Exception("GMAIL_PASS not configured");

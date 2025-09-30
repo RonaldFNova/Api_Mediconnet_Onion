@@ -168,12 +168,11 @@ builder.Services.AddScoped<ITCitaRepository, TCitaRepository>();
 builder.Services.AddScoped<ITCodigoVerificacionService, TCodigoVerificacionService>();
 builder.Services.AddScoped<ITCodigoVerificacionRepository, TCodigoVerificacionRepository>();
 
-builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<CodeEmailService>();
+builder.Services.AddScoped<IEmailVerificacionService, EmailVerificacionService>();
+builder.Services.AddScoped<IEmailVerificacionSender, EmailVerificacionSender>();
 
 builder.Services.AddScoped<IPasswordResetService, PasswordResetService>();
-builder.Services.AddScoped<IPasswordSendResetService, PasswordSendResetService>();
-
+builder.Services.AddScoped<IPasswordResetSender, PasswordResetSender>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

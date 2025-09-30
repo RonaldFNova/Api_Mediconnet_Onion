@@ -9,36 +9,24 @@ namespace Api_Mediconnet.Api.Controllers;
 [ApiController]
 public class EmailCodeController : ControllerBase
 {
-    private readonly IEmailService _emailService;
+    private readonly IEmailVerificacionService _emailVerificacionService;
     private readonly ITUsuarioService _tUsuarioService;
     private readonly IPasswordResetService _passwordResetService;
     private readonly ITCodigoVerificacionService _codigoVerificacionService;
 
-    public EmailCodeController(IEmailService emailService, ITUsuarioService tUsuarioService, ITCodigoVerificacionService codigoVerificacionService, IPasswordResetService passwordResetService)
+    public EmailCodeController(IEmailVerificacionService emailVerificacionService, ITUsuarioService tUsuarioService, ITCodigoVerificacionService codigoVerificacionService, IPasswordResetService passwordResetService)
     {
         _codigoVerificacionService = codigoVerificacionService;
-        _emailService = emailService;
+        _emailVerificacionService = emailVerificacionService;
         _tUsuarioService = tUsuarioService;
         _passwordResetService = passwordResetService;
     }
 
-    [HttpPost]
-    [Authorize]
-    public async Task<ActionResult> PostEmailCode()
-    {
-        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-        var usuarioEmail = await _tUsuarioService.GetEmailAsync(int.Parse(userId));
-
-        await _emailService.SendEmailCodeAsync(usuarioEmail.Email, usuarioEmail.NombreCompleto, usuarioEmail.UsuarioID);
-        return Ok();
-    }
 
     [HttpPost("Email")]
-    public async Task<ActionResult> PostEmailCode2([FromBody] EmailRequestDTO request)
+    public async Task<ActionResult> PostEmailCode([FromBody] EmailRequestDTO request)
     {
-        var usuarioEmail = await _tUsuarioService.GetUsuarioEmailAsync(request.Email);
-
-        await _emailService.SendEmailCodeAsync(usuarioEmail.Email, usuarioEmail.NombreCompleto, usuarioEmail.UsuarioID);
+        await _emailVerificacionService.GenerarCodeVerificationAsync(request.Email);
         return Ok();
     }
 

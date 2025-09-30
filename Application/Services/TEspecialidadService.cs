@@ -8,7 +8,7 @@ namespace Api_Mediconnet.Application.Services;
 public class TEspecialidadService : ITEspecialidadService
 {
     private readonly ITEspecialidadRepository _tEspecialidadRepository;
-     private readonly IAppLogger<TEspecialidadService> _appLogger;
+    private readonly IAppLogger<TEspecialidadService> _appLogger;
 
 
     public TEspecialidadService(ITEspecialidadRepository tEspecialidadRepository, IAppLogger<TEspecialidadService> appLogger)
