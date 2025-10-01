@@ -12,4 +12,5 @@ public interface ITCodigoVerificacionRepository
     Task<bool> SaveChangesAsync();
     Task<TCodigoVerificacion?> GetCodigoUserFkAsync(int id);
     Task<TCodigoVerificacion?> GetCodigoUserEmailAsync(string email);
+    Task<TCodigoVerificacion?> GetCodigoVerificacionIdAsync(string Codigo);
 }

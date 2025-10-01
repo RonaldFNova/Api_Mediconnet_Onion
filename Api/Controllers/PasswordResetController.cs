@@ -22,4 +22,12 @@ public class PasswordResetController : ControllerBase
         await _passwordResetService.GenerarTokenResetAsync(request.Email);
         return Ok();
     }
+
+    [HttpPost("Verificar")]
+    public async Task<ActionResult> VerifyToken([FromBody] PasswordResetDTO request)
+    {
+        await _passwordResetService.ResetPasswordAsync(request);
+        return Ok();
+    }
+
 }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Api_Mediconnet.Application.Interfaces;
-using Api_Mediconnet.Domain.Entities;
 
 namespace Api_Mediconnet.Infrastructure.Services;
 

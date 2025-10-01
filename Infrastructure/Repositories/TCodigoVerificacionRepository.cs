@@ -65,4 +65,15 @@ public class TCodigoVerificacionRepository : ITCodigoVerificacionRepository
             .FirstOrDefaultAsync();
     }
 
+    public async Task<TCodigoVerificacion?> GetCodigoVerificacionIdAsync(string codigo)
+    {
+        return await _context.TCodigoVerificacion
+            .Where(e => e.CCodigo == codigo
+                    && e.ETipoCodigo == TipoCodigoVerificacion.PasswordReset
+                    && e.BUsado == false)
+            .OrderByDescending(e => e.DFechaCreacion)
+            .FirstOrDefaultAsync();
+    }
+
+
 }
