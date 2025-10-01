@@ -23,19 +23,22 @@ public class PasswordResetService : IPasswordResetService
         _hashPasswordService = hashPasswordService;
     }
 
-    public async Task GenerarTokenResetAsync(string email)
+    public async Task<StatusCodeDTO> GenerarTokenResetAsync(string email)
     {
         var usuario = await _tUsuarioRepository.GetUsuarioEmailAsync(email);
 
         if (usuario == null)
         {
             _appLogger.LogError("No se encontro usuario con el Email {email}", email);
+            return new StatusCodeDTO
+            {
+                Mensaje = "No existe usuario con ese email",
+                StatusCode = 404
+            };
             throw new Exception("Usuario no encontrado");
         }
 
         var token = Guid.NewGuid().ToString("N");
-
-        Console.WriteLine(token);
 
         var codigo = new TCodigoVerificacion
         {
@@ -55,16 +58,28 @@ public class PasswordResetService : IPasswordResetService
 
         await _passwordResetSender.SendEmailResetPasswordAsync(usuario.CEmail, usuario.CNombre, token);
 
+        return new StatusCodeDTO
+        {
+            Mensaje = "Email enviado correctamente",
+            StatusCode = 200
+        };
+
     }
 
-    public async Task ResetPasswordAsync(PasswordResetDTO passwordResetDTO)
+    public async Task<StatusCodeDTO> ResetPasswordAsync(PasswordResetDTO passwordResetDTO)
     {
         var codigo = await _tCodigoVerificacionRepository.GetCodigoVerificacionIdAsync(passwordResetDTO.Token);
 
         if (codigo == null)
         {
             _appLogger.LogError("No se encontro este Token {token} ", passwordResetDTO.Token);
-            return;
+            return new StatusCodeDTO
+            {
+                Mensaje = "Token invalido",
+                StatusCode = 404
+            };
+
+            throw new Exception("Error de codigo no valido");
         }
 
         codigo.BUsado = true;
@@ -75,13 +90,19 @@ public class PasswordResetService : IPasswordResetService
         if (usuario == null)
         {
             _appLogger.LogError("No se encontro un usuario con un token password referenciado {token}", passwordResetDTO.Token);
-            return;
+            throw new Exception("Error no se encontro usuario");
         }
 
         usuario.CPassword = _hashPasswordService.Hash(passwordResetDTO.Password);
 
         _tUsuarioRepository.Update(usuario);
         await _tUsuarioRepository.SaveChangesAsync();
+
+        return new StatusCodeDTO
+        {
+            StatusCode = 200,
+            Mensaje = "Contraseña cambiada correctamente"
+        };     
 
     }
 }

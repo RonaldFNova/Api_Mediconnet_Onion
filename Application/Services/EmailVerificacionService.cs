@@ -22,7 +22,7 @@ public class EmailVerificacionService : IEmailVerificacionService
         _jwtTokenIdService = jwtTokenIdService;
     }
 
-    public async Task GenerarCodigoVerificacionAsync(string email)
+    public async Task<StatusCodeDTO> GenerarCodigoVerificacionAsync(string email)
     {
 
         var usuario = await _tUsuarioRepository.GetUsuarioEmailAsync(email);
@@ -30,6 +30,11 @@ public class EmailVerificacionService : IEmailVerificacionService
         if (usuario == null)
         {
             _appLogger.LogInformation("Usuario con el Email {email} no existe", email);
+            return new StatusCodeDTO
+            {
+                Mensaje = "No existe usuario con ese email",
+                StatusCode = 404
+            };
             throw new Exception("Usuario no encontrado");
         }
 
@@ -54,14 +59,20 @@ public class EmailVerificacionService : IEmailVerificacionService
 
         await _emailVerificacionSender.SendVerificationCodeAsync(usuario.CEmail, usuario.CNombre, codigo.CCodigo);
 
+        return new StatusCodeDTO
+        {
+            Mensaje = "Email enviado correctamente",
+            StatusCode = 200
+        };
+
     }
 
 
-    public async Task<ValidarCodigoVerificacionResponseDTO> ValidarCodigoVerificacionAsync(string email, string codigo)
+    public async Task<StatusCodeDTO> ValidarCodigoVerificacionAsync(string email, string codigo)
     {
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(codigo))
         {
-            return new ValidarCodigoVerificacionResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 400,
                 Mensaje = "Minimo tienes que enviar el codigo y el correo para que funcione"
@@ -73,7 +84,7 @@ public class EmailVerificacionService : IEmailVerificacionService
         if (codigoVerificacion == null)
         {
             _appLogger.LogError("No se encontró un código de verificación con el Email {email} para validar.", email);
-            return new ValidarCodigoVerificacionResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 404,
                 Mensaje = "El código no fue encontrado"
@@ -83,7 +94,7 @@ public class EmailVerificacionService : IEmailVerificacionService
         if (codigoVerificacion.BUsado)
         {
             _appLogger.LogWarning("El código de verificación con Email {email} ya ha sido usado.", email);
-            return new ValidarCodigoVerificacionResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 409,
                 Mensaje = "El código ya ha sido usado"
@@ -98,7 +109,7 @@ public class EmailVerificacionService : IEmailVerificacionService
             _tCodigoVerificacionRepository.Update(codigoVerificacion);
             await _tCodigoVerificacionRepository.SaveChangesAsync();
 
-            return new ValidarCodigoVerificacionResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 410,
                 Mensaje = "El código ya ha expirado"
@@ -124,7 +135,7 @@ public class EmailVerificacionService : IEmailVerificacionService
 
             string token = _jwtTokenIdService.GenerarToken(usuarioId, rolNombre);
 
-            return new ValidarCodigoVerificacionResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 200,
                 Mensaje = "Código verificado correctamente",
@@ -146,7 +157,7 @@ public class EmailVerificacionService : IEmailVerificacionService
             _tCodigoVerificacionRepository.Update(codigoVerificacion);
             await _tCodigoVerificacionRepository.SaveChangesAsync();
 
-            return new ValidarCodigoVerificacionResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 400,
                 Mensaje = "El código ingresado no es válido"

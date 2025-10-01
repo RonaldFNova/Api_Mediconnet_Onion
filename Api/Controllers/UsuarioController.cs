@@ -36,8 +36,9 @@ public class UsuarioController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PostUsuario([FromBody] TUsuarioCreateDTO usuarioCreateDTO)
     {
-        await _UsuarioService.CrearAsync(usuarioCreateDTO);
-        return Ok();
+        var resultado = await _UsuarioService.CrearAsync(usuarioCreateDTO);
+        return StatusCode(resultado.StatusCode, new{Mensaje = resultado.Mensaje, Code = resultado.StatusCode });
+
     }
 
     [Authorize(Roles = "Administrador")]

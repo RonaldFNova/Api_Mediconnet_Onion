@@ -52,7 +52,7 @@ public class TLoginsService : ITLoginsService
         };
     }
 
-    public async Task<LoginResponseDTO> CrearAsync(LoginsRequestDTO loginsRequest)
+    public async Task<StatusCodeDTO> CrearAsync(LoginsRequestDTO loginsRequest)
     {
         var user = await _tLoginsRepository.GetByEmailAsync(loginsRequest.Email);
 
@@ -60,11 +60,11 @@ public class TLoginsService : ITLoginsService
         {
             _appLogger.LogError("No se encontró un usuario con el Email {Email}.", loginsRequest.Email);
 
-            return new LoginResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 404,
                 Token = null,
-                Mensaje = "Correo incorrecto"
+                Mensaje = "Correo incorrecto",
             };
         }
 
@@ -74,7 +74,7 @@ public class TLoginsService : ITLoginsService
         {
             _appLogger.LogError("Contraseña incorrecta para el usuario con Email {Email}.", loginsRequest.Email);
 
-            return new LoginResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 401,
                 Token = null,
@@ -96,7 +96,7 @@ public class TLoginsService : ITLoginsService
 
         if (user.NEstadoVerificacionFK == 1)
         {
-            return new LoginResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 200,
                 Token = null,
@@ -108,7 +108,7 @@ public class TLoginsService : ITLoginsService
         {
             var token = _jwtTokenIdService.GenerarToken(user.NUsuarioID.ToString(), user.Rol.CNombre);
 
-            return new LoginResponseDTO
+            return new StatusCodeDTO
             {
                 StatusCode = 200,
                 Token = token,

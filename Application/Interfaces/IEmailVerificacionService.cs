@@ -4,6 +4,6 @@ namespace Api_Mediconnet.Application.Interfaces;
 
 public interface IEmailVerificacionService
 {
-    Task GenerarCodigoVerificacionAsync(string email);
-    Task<ValidarCodigoVerificacionResponseDTO> ValidarCodigoVerificacionAsync(string email, string codigo);
+    Task<StatusCodeDTO> GenerarCodigoVerificacionAsync(string email);
+    Task<StatusCodeDTO> ValidarCodigoVerificacionAsync(string email, string codigo);
 }

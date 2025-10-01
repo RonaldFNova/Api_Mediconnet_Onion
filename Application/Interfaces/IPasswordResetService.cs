@@ -4,6 +4,6 @@ namespace Api_Mediconnet.Application.Interfaces;
 
 public interface IPasswordResetService
 {
-    Task GenerarTokenResetAsync(string email);
-    Task ResetPasswordAsync(PasswordResetDTO passwordResetDTO);
+    Task<StatusCodeDTO> GenerarTokenResetAsync(string email);
+    Task<StatusCodeDTO> ResetPasswordAsync(PasswordResetDTO passwordResetDTO);
 }

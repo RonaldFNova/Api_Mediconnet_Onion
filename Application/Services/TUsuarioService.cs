@@ -61,8 +61,21 @@ public class TUsuarioService : ITUsuarioService
         };
     }
 
-    public async Task CrearAsync(TUsuarioCreateDTO dTO)
+    public async Task<StatusCodeDTO> CrearAsync(TUsuarioCreateDTO dTO)
     {
+        var email = await _tUsuarioRepository.GetUsuarioEmailAsync(dTO.Email);
+
+        if (email != null)
+        {
+            _appLogger.LogError("El Email {email} ya esta registrado", dTO.Email);
+            return new StatusCodeDTO
+            {
+                StatusCode = 409,
+                Mensaje = "El correo ya está registrado",
+                Token = ""
+            }; 
+        }
+
         var usuario = new TUsuario
         {
             CNombre = dTO.Nombre,
@@ -74,10 +87,19 @@ public class TUsuarioService : ITUsuarioService
             NEstadoVerificacionFK = 1, // Estado de verificación "No Verificado"
             DFechaRegistro = DateTime.UtcNow
         };
+
         await _tUsuarioRepository.AddAsync(usuario);
         await _tUsuarioRepository.SaveChangesAsync();
 
         _appLogger.LogInformation("Usuario con ID {UsuarioId} creado exitosamente.", usuario.NUsuarioID);
+
+        return new StatusCodeDTO
+        {
+            StatusCode = 200,
+            Mensaje = "Usuario creado correctamente",
+            Token = ""
+        }; 
+
     }
 
     public async Task ActualizarAsync(int id, TUsuarioCreateDTO dTO)
