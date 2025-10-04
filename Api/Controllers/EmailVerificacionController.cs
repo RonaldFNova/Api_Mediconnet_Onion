@@ -18,8 +18,8 @@ public class EmailVerificacionController : ControllerBase
     [HttpPost("Enviar")]
     public async Task<ActionResult> RequestCode([FromBody] EmailRequestDTO request)
     {
-        await _emailVerificacionService.GenerarCodigoVerificacionAsync(request.Email);
-        return Ok();
+        var resultado = await _emailVerificacionService.GenerarCodigoVerificacionAsync(request.Email);
+        return StatusCode(resultado.StatusCode, new { Mensaje = resultado.Mensaje });
     }
 
     [HttpPost("Verificar")]

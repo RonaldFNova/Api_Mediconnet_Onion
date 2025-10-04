@@ -38,6 +38,16 @@ public class EmailVerificacionService : IEmailVerificacionService
             throw new Exception("Usuario no encontrado");
         }
 
+        if (usuario.NEstadoVerificacionFK == 2)
+        {
+            _appLogger.LogInformation("Usuario con el Email {email} ya esta verificado", email);
+            return new StatusCodeDTO
+            {
+                Mensaje = "El usuario ya está verificado",
+                StatusCode = 409
+            };
+        }
+
         var random = new Random();
         string codigo_verificacion = random.Next(100000, 999999).ToString();
 
